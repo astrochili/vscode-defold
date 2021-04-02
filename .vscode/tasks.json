@@ -1,0 +1,32 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "bob: clean",
+            "type": "shell",
+            "group": { "kind": "build", "isDefault": true },
+            "problemMatcher": [],
+            "command": "sh",
+            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "clean"],
+            "windows": { "args": [".vscode\\bob.sh", "${config:defold.bob_path}", "clean"] },
+        },
+        {
+            "label": "bob: resolve",
+            "type": "shell",
+            "group": { "kind": "build", "isDefault": true },
+            "problemMatcher": [],
+            "command": "sh",
+            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "resolve"],
+            "windows": { "args": [".vscode\\bob.sh", "${config:defold.bob_path}", "resolve"] },
+        },
+        {
+            "label": "bob: build",
+            "type": "shell",
+            "group": { "kind": "build", "isDefault": true },
+            "problemMatcher": [],
+            "command": "sh",
+            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "build"],
+            "windows": { "args": [".vscode\\bob.sh", "${config:defold.bob_path}", "build"] },
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Build & Run",
+            "type": "lua-local",
+            "request": "launch",
+            "stopOnEntry": false,
+            "verbose": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "program": { "command": "sh" },
+            "osx": { "args": [".vscode/dmengine.sh", "macos", "${config:defold.dmengine_path}" ] },
+            "linux": { "args": [ ".vscode/dmengine.sh", "linux", "${config:defold.dmengine_path}" ] },
+            "windows": { "args": [ ".vscode\\dmengine.sh", "windows", "${config:defold.dmengine_path}" ] },
+            "preLaunchTask": "bob: build",
+        },
+        {
+            "name": "Just Run",
+            "type": "lua-local",
+            "request": "launch",
+            "stopOnEntry": false,
+            "verbose": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "program": { "command": "sh" },
+            "osx": { "args": [".vscode/dmengine.sh", "macos", "${config:defold.dmengine_path}" ] },
+            "linux": { "args": [ ".vscode/dmengine.sh", "linux", "${config:defold.dmengine_path}" ] },
+            "windows": { "args": [ ".vscode\\dmengine.sh", "windows", "${config:defold.dmengine_path}" ] },
+        }
+    ]
+}

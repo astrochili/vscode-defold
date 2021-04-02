@@ -1,0 +1,4 @@
+function init(self)
+  local debugger = require('modules.lldebugger')
+  debugger.start()
+end
