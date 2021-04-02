@@ -27,6 +27,31 @@
             "command": "sh",
             "args": [".vscode/bob.sh", "${config:defold.bob_path}", "build"],
             "windows": { "args": [".vscode\\bob.sh", "${config:defold.bob_path}", "build"] },
+        },
+        {
+            "label": "bob: bundle",
+            "type": "shell",
+            "group": { "kind": "build", "isDefault": true },
+            "problemMatcher": [],
+            "command": "sh",
+            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "bundle", "${input:platform}"],
+            "windows": { "args": [".vscode\\bob.sh", "${config:defold.bob_path}", "bundle", "${input:platform}"] },
+        }
+    ],
+    "inputs": [
+        {
+            "id": "platform",
+            "description": "Platform to build",
+            "type": "pickString",
+            "options": [
+                "x86_64-darwin",
+                "x86_64-win32",
+                "x86_64-linux",
+                "arm64-darwin",
+                "armv7-android",
+                "js-web"
+            ]
+            
         }
     ]
 }

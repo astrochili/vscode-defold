@@ -1,4 +1,96 @@
 {   
+    // Defold
     "defold.bob_path": "/Applications/Defold.app/bob.jar",
-    "defold.dmengine_path": "/Applications/Defold.app/dmengine"
+    "defold.dmengine_path": "/Applications/Defold.app/dmengine",
+
+    // Editor
+    "editor.suggest.localityBonus": true,
+    "editor.suggestSelection": "recentlyUsedByPrefix",
+    "editor.suggest.shareSuggestSelections": true,
+    "editor.suggest.showWords": false,
+
+    // Files
+    "files.associations": {
+        "*.script": "lua",
+        "*.gui_script": "lua",
+        "*.render_script": "lua",
+        "*.editor_script": "lua",
+        "*.fp": "glsl",
+        "*.vp": "glsl",
+        "*.go": "pbtxt",
+        "*.animationset": "pbtxt",
+        "*.atlas": "pbtxt",
+        "*.buffer": "json",
+        "*.camera": "pbtxt",
+        "*.collection": "pbtxt",
+        "*.collectionfactory": "pbtxt",
+        "*.collectionproxy": "pbtxt",
+        "*.collisionobject": "pbtxt",
+        "*.display_profiles": "pbtxt",
+        "*.factory": "pbtxt",
+        "*.gamepads": "pbtxt",
+        "*.gui": "pbtxt",
+        "*.input_binding": "pbtxt",
+        "*.label": "pbtxt",
+        "*.material": "pbtxt",
+        "*.mesh": "pbtxt",
+        "*.model": "pbtxt",
+        "*.particlefx": "pbtxt",
+        "*.render": "pbtxt",
+        "*.sound": "pbtxt",
+        "*.spinemodel": "pbtxt",
+        "*.spinescene": "pbtxt",
+        "*.sprite": "pbtxt",
+        "*.texture_profiles": "pbtxt",
+        "*.tilemap": "pbtxt",
+        "*.tilesource": "pbtxt",
+        "*.manifest": "pbtxt"
+    },
+    "glsllint.additionalStageAssociations": {
+        ".fp": "frag",
+        ".vp": "vert"
+    },
+
+    // Lua Language Server
+    "Lua.runtime.version": "Lua 5.1",
+    "Lua.intelliSense.searchDepth": 10,
+    "Lua.color.mode": "Grammar",
+    "Lua.completion.callSnippet": "Replace",
+    "Lua.completion.displayContext": 0,
+    "Lua.completion.workspaceWord": false,
+    "Lua.completion.keywordSnippet": "Both",
+    "Lua.diagnostics.globals": [
+        "msg",
+        "sound",
+        "hash",
+        "vmath",
+        "gui",
+        "socket",
+        "sys",
+        "render",
+        "go",
+        "factory",
+        "resource",
+        "pprint",
+        "timer",
+        "particlefx",
+        "spine",
+        "sprite",
+        "json",
+        "window"
+    ],
+    "Lua.diagnostics.disable": [
+        "lowercase-global",
+        "trailing-space",
+        "redefined-local"
+    ],
+    "Lua.workspace.ignoreDir": [
+        ".vscode",
+        ".internal",
+        ".defold-api"
+    ],
+    "Lua.workspace.library": [
+        ".internal",
+        ".defold-api"
+    ],
 }

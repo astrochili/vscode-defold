@@ -1,4 +1,14 @@
+local debugger = require('modules.lldebugger')
+debugger.start()
+
+-- This is an example script to debug
+
+local function sum(a, b)
+  return a + b
+end
+
 function init(self)
-  local debugger = require('modules.lldebugger')
-  debugger.start()
+  local a = 1
+  local b = 2
+  local c = sum(a, b)
 end
