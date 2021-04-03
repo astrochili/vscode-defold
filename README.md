@@ -14,7 +14,8 @@ This guide will help you to configure VSCode for developing games with Defold.
 2. Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform.
 3. Configure paths to `bob.jar` and `dmengine` in `.vscode/settings.json`.
 4. Install recommended by `.vscode/extensions.json` VSCode extensions.
-5. Press **Ctrl/Cmd+B** for tasks or **Ctrl/Cmd+R** to launch and debug.
+5. *Only for Windows.* Install bash by following [this instruction](https://stackoverflow.com/a/50527994/6352765).
+6. Press **Ctrl/Cmd+B** for tasks or **Ctrl/Cmd+R** to launch and debug.
 
 ## Extensions
 
