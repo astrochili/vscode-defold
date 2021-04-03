@@ -54,6 +54,8 @@ Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold
 
 Lua headers with Defold API are generated with [IntelliJ-Defold-Api](https://github.com/d954mas/IntelliJ-Defold-Api) by [d954mas](https://github.com/d954mas). Download `defold_api.zip` from the [releases](https://github.com/d954mas/IntelliJ-Defold-Api/releases) page and unarchive it to the `.defold-api` folder in your workspace.
 
+![intellisense](https://user-images.githubusercontent.com/4752473/113480000-ca02fd00-949a-11eb-9194-f4e546faef93.gif)
+
 ### Libraries
 
 To help the language server to find external libraries and parse their headers you need to unarchive the `*.zip` files in the `.internal/lib/` folder. Don't delete the archives themselves of course.
@@ -70,6 +72,8 @@ Some of settings are required for IntelliSense to work properly, but most of the
 
 VSCode tasks are available with the default shortcut **Ctrl/Cmd+B**.
 
+![tasks](https://user-images.githubusercontent.com/4752473/113480040-fcacf580-949a-11eb-8b8b-da39591373cb.gif)
+
 - `bob: clean` to clean the build folder. Runs bob with `distclean`.
 - `bob: resolve` to fetch dependencies. Runs bob with `resolve`.
 - `bob: build` to make a build for debugging. Runs bob with `--variant debug build`.
@@ -78,6 +82,8 @@ VSCode tasks are available with the default shortcut **Ctrl/Cmd+B**.
 ## Debugger
 
 Debugging is provided with [local-lua-debugger-vscode](https://marketplace.visualstudio.com/items?itemName=tomblind.local-lua-debugger-vscode) by [tomblind](https://github.com/tomblind). The VSCode extension runs `dmengine` locally and interacts with it via `stdio`.
+
+![debugger](https://user-images.githubusercontent.com/4752473/113479667-0897b800-9499-11eb-91c3-00eee42e83f2.gif)
 
 To debug you also need to start the debugger on the game side:
 
@@ -99,6 +105,6 @@ You can launch the selected configuration by the default shortcut **Ctrl/Cmd+R**
 
 At this moment you must use a modified `modules/lldebugger.lua` from this repository. But after resolving [tomblind/local-lua-debugger-vscode/#33](https://github.com/tomblind/local-lua-debugger-vscode/issues/33) and [defold/defold#5703](https://github.com/defold/defold/issues/5703) it will be possible to use `lldebugger.lua` from the installed VSCode extension folder.
 
-There is no way to change breakpoints at runtime, only on pauses. Bind some key to call `debugger.requestBreak()` can be a great trick if you want to edit breakpoints at runtime but you don't have any breakpoints in the code at this moment. Watch [tomblind/local-lua-debugger-vscode/#32](https://github.com/tomblind/local-lua-debugger-vscode/issues/32) for updates.
+There is no way to change breakpoints at runtime, only on pauses. Bind some key to call `debugger.requestBreak()` can be a great trick if you want to edit breakpoints at runtime but you don't have any breakpoints in the code at the moment. Watch [tomblind/local-lua-debugger-vscode/#32](https://github.com/tomblind/local-lua-debugger-vscode/issues/32) for updates.
 
 Local Lua Debugger is a *local* debugger. So you can't debug the game on the device by this way.
