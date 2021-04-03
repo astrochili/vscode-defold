@@ -83,7 +83,7 @@ VSCode tasks are available with the default shortcut **Ctrl/Cmd+B**.
 - `bob: clean` to clean the build folder. Runs bob with `distclean`.
 - `bob: resolve` to fetch dependencies. Runs bob with `resolve`.
 - `bob: build` to make a build for debugging. Runs bob with `--variant debug build`.
-- `bob: bundle` to select a platform and make a bundle. *Please configure your preferred arguments in `.vscode/bob.sh`.*
+- `bob: bundle` to select the architecture platform and make a bundle. You can configure your [additional arguments](https://defold.com/manuals/bob/) in `.vscode/bob.sh`.
 
 ## Debugger
 

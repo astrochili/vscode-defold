@@ -1,5 +1,6 @@
 /.internal
 /build
+/bundle
 .externalToolBuilders
 .DS_Store
 Thumbs.db

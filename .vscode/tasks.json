@@ -31,23 +31,35 @@
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
             "command": "bash",
-            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "bundle", "${input:platform}"]
+            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "bundle", "${input:architecture}", "${input:texture_compression}"]
         }
     ],
     "inputs": [
         {
-            "id": "platform",
-            "description": "Platform to build",
+            "id": "architecture",
+            "description": "Architecture to build",
             "type": "pickString",
             "options": [
-                "x86_64-darwin",
-                "x86_64-win32",
-                "x86_64-linux",
-                "arm64-darwin",
-                "armv7-android",
-                "js-web"
+                { "label": "iOS 64-bit", "value": "arm64-darwin" },
+                { "label": "iOS 32-bit", "value": "armv7-darwin" },
+                { "label": "iOS Simulator", "value": "x86_64-ios" },
+                { "label": "Android 64-bit", "value": "arm64-android" },
+                { "label": "Android 32-bit", "value": "armv7-android" },
+                { "label": "macOS 64-bit", "value": "x86_64-darwin" },
+                { "label": "Windows 64-bit", "value": "x86_64-win32" },
+                { "label": "Windows 32-bit", "value": "x86-win32" },
+                { "label": "Linux 64-bit", "value": "x86_64-linux" },
+                { "label": "HTML5", "value": "js-web" }
             ]
-            
-        }
+        },
+        {
+            "id": "texture_compression",
+            "description": "Compress the textures?",
+            "type": "pickString",
+            "options": [
+                { "label": "Texture compression", "value": "true" },
+                { "label": "Texture compression", "value": "false" }
+            ]
+        }        
     ]
 }
