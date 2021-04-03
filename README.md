@@ -1,21 +1,20 @@
-# How to get VSCode to be Defold IDE
+# How to turn VSCode into Defold IDE
 
 This guide will help you to configure VSCode for developing games with Defold.
 
 - Use syntax highlighting and linting.
 - Use powerful IntelliSense (standard lua, Defold API, libraries, project code).
-- Build and bundle the game with VSCode tasks.
-- Launch the game with VSCode debugger.
-- Debug with common features (call stacks, breakpoints, stepping, inspecting, evaluating).
+- Build and launch the game from VSCode.
+- Debug the game with breakpoints, call stacks, stepping, inspecting and evaluating.
 
 ## Quick start
 
-1. Download this ready to use project.
+1. Download this ready to use project or adapt your own.
 2. Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform.
 3. Configure paths to `bob.jar` and `dmengine` in `.vscode/settings.json`.
 4. Install recommended by `.vscode/extensions.json` VSCode extensions.
-5. *Only for Windows.* Install bash by following [this instruction](https://stackoverflow.com/a/50527994/6352765).
-6. Press **Ctrl/Cmd+B** for tasks or **Ctrl/Cmd+R** to launch and debug.
+5. *Only for Windows.* Install bash following [this instruction](https://stackoverflow.com/a/50527994/6352765).
+6. Start tasks (**Ctrl/Cmd+B** by default) or launch the game to debug (**Ctrl/Cmd+R** by default).
 
 ## Extensions
 
@@ -26,6 +25,12 @@ These extentions are listed in workspace recommendations so it shouldn't be a pr
 - [thesofakillers.vscode-pbtxt](https://marketplace.visualstudio.com/items?itemName=thesofakillers.vscode-pbtxt) - Textual Protobuf syntax highlighting.
 - [slevesque.shader](https://marketplace.visualstudio.com/items?itemName=slevesque.shader) - Shader languages support.
 - [cadenas.vscode-glsllint](https://marketplace.visualstudio.com/items?itemName=cadenas.vscode-glsllint) - Linting of OpenGL Shading Language.
+
+#### Why not [EmmyLua](https://github.com/EmmyLua/VSCode-EmmyLua)?
+In fact, this is also a great option. The key difference is that `sunmeko.lua` in addition can generate autocomplete *without* annotations.
+
+#### Why not the built-in [mobdebug](https://github.com/pkulchenko/MobDebug)?
+Unfortunately there is no the mobdebug extension for VSCode at this moment.
 
 ## Configuration
 
@@ -81,7 +86,9 @@ local debugger = require('modules.lldebugger')
 debugger.start()
 ```
 
-There are two launch configurations: `Build & Run` and `Just Run`. The only difference between them is launching of the building pre-task `bob: build`. You can launch the selected configuration by the default shortcut **Ctrl/Cmd+R**.
+There are two launch configurations: `Build & Run` and `Just Run`. The only difference between them is launching of the building pre-task `bob: build`.
+
+You can launch the selected configuration by the default shortcut **Ctrl/Cmd+R**.
 
 ## Logs
 
@@ -92,4 +99,6 @@ There are two launch configurations: `Build & Run` and `Just Run`. The only diff
 
 At this moment you must use a modified `modules/lldebugger.lua` from this repository. But after resolving [tomblind/local-lua-debugger-vscode/#33](https://github.com/tomblind/local-lua-debugger-vscode/issues/33) and [defold/defold#5703](https://github.com/defold/defold/issues/5703) it will be possible to use `lldebugger.lua` from the installed VSCode extension folder.
 
-There is no way to change breakpoints at runtime, only on pauses. Watch [tomblind/local-lua-debugger-vscode/#32](https://github.com/tomblind/local-lua-debugger-vscode/issues/32).
+There is no way to change breakpoints at runtime, only on pauses. Bind some key to call `debugger.requestBreak()` can be a great trick if you want to edit breakpoints at runtime but you don't have any breakpoints in the code at this moment. Watch [tomblind/local-lua-debugger-vscode/#32](https://github.com/tomblind/local-lua-debugger-vscode/issues/32) for updates.
+
+Local Lua Debugger is a *local* debugger. So you can't debug the game on the device by this way.
