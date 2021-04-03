@@ -68,6 +68,10 @@ Use `.vscode/settings.json` as your VSCode settings. If you work with many Defol
 
 Some of settings are required for IntelliSense to work properly, but most of them just make your development with Lua and Defold much more comfortable.
 
+### Git
+
+There are `.gitignore` and `.gitattributes` files that should help your git to work more correctly with your Defold project.
+
 ## Tasks
 
 VSCode tasks are available with the default shortcut **Ctrl/Cmd+B**.
