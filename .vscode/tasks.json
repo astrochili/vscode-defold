@@ -6,36 +6,32 @@
             "type": "shell",
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
-            "command": "sh",
-            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "clean"],
-            "windows": { "args": [".vscode\\bob.sh", "${config:defold.bob_path}", "clean"] },
+            "command": "bash",
+            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "clean"]
         },
         {
             "label": "bob: resolve",
             "type": "shell",
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
-            "command": "sh",
-            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "resolve"],
-            "windows": { "args": [".vscode\\bob.sh", "${config:defold.bob_path}", "resolve"] },
+            "command": "bash",
+            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "resolve"]
         },
         {
             "label": "bob: build",
             "type": "shell",
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
-            "command": "sh",
-            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "build"],
-            "windows": { "args": [".vscode\\bob.sh", "${config:defold.bob_path}", "build"] },
+            "command": "bash",
+            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "build"]
         },
         {
             "label": "bob: bundle",
             "type": "shell",
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
-            "command": "sh",
-            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "bundle", "${input:platform}"],
-            "windows": { "args": [".vscode\\bob.sh", "${config:defold.bob_path}", "bundle", "${input:platform}"] },
+            "command": "bash",
+            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "bundle", "${input:platform}"]
         }
     ],
     "inputs": [

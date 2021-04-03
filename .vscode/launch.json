@@ -8,10 +8,10 @@
             "stopOnEntry": false,
             "verbose": false,
             "internalConsoleOptions": "openOnSessionStart",
-            "program": { "command": "sh" },
-            "osx": { "args": [".vscode/dmengine.sh", "macos", "${config:defold.dmengine_path}" ] },
-            "linux": { "args": [ ".vscode/dmengine.sh", "linux", "${config:defold.dmengine_path}" ] },
-            "windows": { "args": [ ".vscode\\dmengine.sh", "windows", "${config:defold.dmengine_path}" ] },
+            "program": { "command": "bash" },
+            "osx": { "args": [".vscode/dmengine.sh", "x86_64-osx", "${config:defold.dmengine_path}" ] },
+            "linux": { "args": [ ".vscode/dmengine.sh", "x86_64-linux", "${config:defold.dmengine_path}" ] },
+            "windows": { "args": [ ".vscode/dmengine.sh", "x86_64-win32", "${config:defold.dmengine_path}" ] },
             "preLaunchTask": "bob: build",
         },
         {
@@ -21,10 +21,10 @@
             "stopOnEntry": false,
             "verbose": false,
             "internalConsoleOptions": "openOnSessionStart",
-            "program": { "command": "sh" },
-            "osx": { "args": [".vscode/dmengine.sh", "macos", "${config:defold.dmengine_path}" ] },
-            "linux": { "args": [ ".vscode/dmengine.sh", "linux", "${config:defold.dmengine_path}" ] },
-            "windows": { "args": [ ".vscode\\dmengine.sh", "windows", "${config:defold.dmengine_path}" ] },
+            "program": { "command": "bash" },
+            "osx": { "args": [".vscode/dmengine.sh", "x86_64-osx", "${config:defold.dmengine_path}" ] },
+            "linux": { "args": [ ".vscode/dmengine.sh", "x86_64-linux", "${config:defold.dmengine_path}" ] },
+            "windows": { "args": [ ".vscode/dmengine.sh", "x86_64-win32", "${config:defold.dmengine_path}" ] },
         }
     ]
 }

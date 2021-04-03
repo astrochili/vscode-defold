@@ -3,21 +3,8 @@
 platform=$1
 dummy_engine_path=$2
 
-case $platform in
-    "macos")
-        build_engine_path="./build/x86_64-osx/dmengine"
-        projectc_path="./build/default/game.projectc"
-        ;;
-    "linux")
-        build_engine_path="./build/x86_64-linux/dmengine"
-        projectc_path="./build/default/game.projectc"
-        ;;
-    "windows")
-        build_engine_path=".\build\x86_64-win32\dmengine.exe"
-        projectc_path=".\build\default\game.projectc"
-        ;;
-    *)  ;;
-esac
+build_engine_path="./build/$platform/dmengine"
+projectc_path="./build/default/game.projectc"
 
 if [ -e $build_engine_path ]
 then
