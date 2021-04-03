@@ -2,10 +2,12 @@
 
 This guide will help you to configure VSCode for developing games with Defold.
 
-- Use syntax highlighting and linting.
-- Use powerful IntelliSense (standard lua, Defold API, libraries, project code).
-- Build and launch the game from VSCode.
-- Debug the game with breakpoints, call stacks, stepping, inspecting and evaluating.
+- Syntax highlighting and linting.
+- Powerful IntelliSense (standard lua, Defold API, libraries, project code).
+- Building and launching the game from VSCode.
+- Debugging with breakpoints, call stacks, stepping, inspecting and evaluating.
+
+This allows you not to use Defold Editor all the time if you are working only with the code at the moment.
 
 ## Quick start
 
