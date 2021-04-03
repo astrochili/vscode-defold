@@ -90,6 +90,6 @@ There are two launch configurations: `Build & Run` and `Just Run`. The only diff
 
 ## Limitations
 
-At this moment you must use a modified `modules/lldebugger.lua` from this repository. But after resolving [#33](https://github.com/tomblind/local-lua-debugger-vscode/issues/33) and [#5703](https://github.com/defold/defold/issues/5703) it will be possible to use `lldebugger.lua` from the installed VSCode extension folder.
+At this moment you must use a modified `modules/lldebugger.lua` from this repository. But after resolving [tomblind/local-lua-debugger-vscode/#33](https://github.com/tomblind/local-lua-debugger-vscode/issues/33) and [defold/defold#5703](https://github.com/defold/defold/issues/5703) it will be possible to use `lldebugger.lua` from the installed VSCode extension folder.
 
-There is no way to change breakpoints at runtime, only on pauses. See [#32](https://github.com/tomblind/local-lua-debugger-vscode/issues/32).
+There is no way to change breakpoints at runtime, only on pauses. Watch [tomblind/local-lua-debugger-vscode/#32](https://github.com/tomblind/local-lua-debugger-vscode/issues/32).
