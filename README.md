@@ -16,7 +16,7 @@ This allows you not to use Defold Editor all the time if you are working only wi
 3. Configure paths to `bob.jar` and `dmengine` in `.vscode/defold.sh`.
 4. Install recommended by `.vscode/extensions.json` VSCode extensions.
 5. *Only for Windows.* Install bash following [this instruction](https://stackoverflow.com/a/50527994/6352765).
-6. Start tasks (**Ctrl/Cmd+B** by default) or launch the game to debug (**Ctrl/Cmd+R** by default).
+6. Open tasks list (**[Ctrl/Cmd]-Shift-B** by default) or launch the game to debug (**F5** by default).
 
 ## Extensions
 
@@ -74,7 +74,7 @@ There are `.gitignore` and `.gitattributes` files that should help your git to w
 
 ## Tasks
 
-VSCode tasks are available with the default shortcut **Ctrl/Cmd+B**.
+VSCode tasks are available with shortcut **[Ctrl/Cmd]-Shift-B** by default.
 
 ![tasks](https://user-images.githubusercontent.com/4752473/113480040-fcacf580-949a-11eb-8b8b-da39591373cb.gif)
 
@@ -135,7 +135,7 @@ debugger.start()
 
 There are two launch configurations: `Build & Run` and `Just Run`. The only difference between them is launching of the building pre-task `bob: build`.
 
-You can launch the selected configuration by the default shortcut **Ctrl/Cmd+R**.
+You can launch the selected configuration by shortcut **F5** by default.
 
 ## Logs
 
