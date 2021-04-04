@@ -16,7 +16,7 @@ This allows you not to use Defold Editor all the time if you are working only wi
 3. Configure paths to `bob.jar` and `dmengine` in `.vscode/defold.sh`.
 4. Install recommended by `.vscode/extensions.json` VSCode extensions.
 5. *Only for Windows.* Install bash following [this instruction](https://stackoverflow.com/a/50527994/6352765).
-6. Open tasks list (**[Ctrl/Cmd]-Shift-B** by default) or launch the game to debug (**F5** by default).
+6. Open tasks list with **[Ctrl/Cmd]-Shift-B** (by default) or launch the game to debug with **F5** (by default).
 
 ## Extensions
 
@@ -38,7 +38,7 @@ Unfortunately there is no the mobdebug extension for VSCode at this moment.
 
 ### Bob and Engine
 
-Bob is required for resolving dependencies, building and bundling. The engine is required to run your game.
+Bob is required to resolve dependencies, build and bundle. The engine is required to run your game.
 
 Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform and configure paths to them in `.vscode/defold.sh`:
 
@@ -78,16 +78,16 @@ VSCode tasks are available with shortcut **[Ctrl/Cmd]-Shift-B** by default.
 
 ![tasks](https://user-images.githubusercontent.com/4752473/113480040-fcacf580-949a-11eb-8b8b-da39591373cb.gif)
 
-- `bob: clean` to clean the build folder. Runs bob with `distclean`.
-- `bob: resolve` to fetch dependencies. Runs bob with `resolve`.
-- `bob: build` to make a build for debugging. Runs bob with `--variant debug build`.
-- `bob: bundle` to select the platform and make a bundle.
+- `Clean` the build folder. Runs bob with `distclean`.
+- `Resolve` the dependencies by fetching them. Runs bob with `resolve`.
+- `Build` for debugging. Runs bob with `--variant debug build`.
+- `Bundle` for the selected platform.
 
 You can configure additional arguments for dependencies resolution and bundling on the top of `.vscode/defold.sh`.
 
 ## Debugger
 
-Debugging is provided with [local-lua-debugger-vscode](https://marketplace.visualstudio.com/items?itemName=tomblind.local-lua-debugger-vscode) by [tomblind](https://github.com/tomblind). The VSCode extension runs `dmengine` locally and interacts with it via `stdio`.
+Debugging is provided with [local-lua-debugger-vscode](https://marketplace.visualstudio.com/items?itemName=tomblind.local-lua-debugger-vscode) by [tomblind](https://github.com/tomblind). The extension runs `dmengine` locally and interacts with it via `stdio`.
 
 ![debugger](https://user-images.githubusercontent.com/4752473/113479667-0897b800-9499-11eb-91c3-00eee42e83f2.gif)
 
@@ -109,7 +109,7 @@ You can launch the selected configuration by shortcut **F5** by default.
 
 ## Limitations
 
-At this moment you must use a modified `modules/lldebugger.lua` from this repository. But after resolving [tomblind/local-lua-debugger-vscode/#33](https://github.com/tomblind/local-lua-debugger-vscode/issues/33) and [defold/defold#5703](https://github.com/defold/defold/issues/5703) it will be possible to use `lldebugger.lua` from the installed VSCode extension folder.
+At this moment you must use a modified `modules/lldebugger.lua` from this repository. But after fixing [tomblind/local-lua-debugger-vscode/#33](https://github.com/tomblind/local-lua-debugger-vscode/issues/33) and [defold/defold#5703](https://github.com/defold/defold/issues/5703) it will be possible to use `lldebugger.lua` from the installed VSCode extension folder.
 
 There is no way to change breakpoints at runtime, only on pauses. Bind some key to call `debugger.requestBreak()` can be a great trick if you want to edit breakpoints at runtime but you don't have any breakpoints in the code at the moment. Watch [tomblind/local-lua-debugger-vscode/#32](https://github.com/tomblind/local-lua-debugger-vscode/issues/32) for updates.
 
