@@ -3,3 +3,6 @@ main_collection = /main/main.collectionc
 
 [input]
 game_binding = /builtins/input/all.input_bindingc
+
+[project]
+title = Your Game

@@ -2,64 +2,51 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "bob: clean",
+            "label": "Clean",
             "type": "shell",
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
             "command": "bash",
-            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "clean"]
+            "args": [".vscode/defold.sh", "clean"]
         },
         {
-            "label": "bob: resolve",
+            "label": "Resolve",
             "type": "shell",
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
             "command": "bash",
-            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "resolve"]
+            "args": [".vscode/defold.sh", "resolve"]
         },
         {
-            "label": "bob: build",
+            "label": "Build",
             "type": "shell",
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
             "command": "bash",
-            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "build"]
+            "args": [".vscode/defold.sh", "build"]
         },
         {
-            "label": "bob: bundle",
+            "label": "Bundle",
             "type": "shell",
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
             "command": "bash",
-            "args": [".vscode/bob.sh", "${config:defold.bob_path}", "bundle", "${input:architecture}", "${input:texture_compression}"]
+            "args": [".vscode/defold.sh", "bundle", "${input:platform}"]
         }
     ],
     "inputs": [
         {
-            "id": "architecture",
-            "description": "Architecture to build",
+            "id": "platform",
+            "description": "Select the platform to build",
             "type": "pickString",
             "options": [
-                { "label": "iOS 64-bit", "value": "arm64-darwin" },
-                { "label": "iOS 32-bit", "value": "armv7-darwin" },
-                { "label": "iOS Simulator", "value": "x86_64-ios" },
-                { "label": "Android 64-bit", "value": "arm64-android" },
-                { "label": "Android 32-bit", "value": "armv7-android" },
-                { "label": "macOS 64-bit", "value": "x86_64-darwin" },
-                { "label": "Windows 64-bit", "value": "x86_64-win32" },
-                { "label": "Windows 32-bit", "value": "x86-win32" },
-                { "label": "Linux 64-bit", "value": "x86_64-linux" },
-                { "label": "HTML5", "value": "js-web" }
+                { "value": "iOS" },
+                { "value": "Android" },
+                { "value": "macOS" },
+                { "value": "Windows" },
+                { "value": "Linux" },
+                { "value": "HTML5" }
             ]
-        },
-        {
-            "id": "texture_compression",
-            "description": "Compress the textures?",
-            "type": "pickString",
-            "options": [
-                { "label": "Texture compression", "value": "true" },
-                { "label": "Texture compression", "value": "false" }
-            ]
-        }        
+        }      
     ]
 }
