@@ -113,4 +113,4 @@ There is no way to change breakpoints at runtime, only on pauses. Bind some key 
 
 Local Lua Debugger is a *local* debugger. So you can't debug the game on the device by this way.
 
-**Hot reloading** is also avaivale from Defold Editor. Just select a runned localhost target in the *Project / Target* menu when the game is running.
+**Hot reloading** is also available from the Defold Editor. Just select a runned localhost target in the *Project / Target* menu when the game is running.
