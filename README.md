@@ -149,3 +149,5 @@ At this moment you must use a modified `modules/lldebugger.lua` from this reposi
 There is no way to change breakpoints at runtime, only on pauses. Bind some key to call `debugger.requestBreak()` can be a great trick if you want to edit breakpoints at runtime but you don't have any breakpoints in the code at the moment. Watch [tomblind/local-lua-debugger-vscode/#32](https://github.com/tomblind/local-lua-debugger-vscode/issues/32) for updates.
 
 Local Lua Debugger is a *local* debugger. So you can't debug the game on the device by this way.
+
+**Hot reloading** is also avaivale from Defold Editor. Just select a runned localhost target in the *Project / Target* menu when the game is running.
