@@ -1,6 +1,6 @@
 # How to turn VSCode into Defold IDE
 
-This guide will help you to configure VSCode for developing games with Defold.
+This guide will help you to configure VSCode for developing games with [Defold](https://defold.com/).
 
 - Syntax highlighting and linting.
 - Powerful IntelliSense (standard lua, Defold API, libraries, project code).
