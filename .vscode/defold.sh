@@ -1,27 +1,43 @@
 #!/bin/bash
 
-## Required Paths
+# The path to your bob.jar for building
 bob_path="/Applications/Defold.app/bob.jar"
+
+# The path to your dmengine for running without NE
 dummy_engine_path="/Applications/Defold.app/dmengine"
 
-## Resolving Settings
-email="" ## User email for resolving dependencies.
-auth="" ## Authentication token for resolving dependencies.
+# User email to resolve dependencies
+email=""
 
-## Bundle Settings
+# Authentication token to resolve dependencies
+auth=""
+
+# Use texture compression as specified in texture profiles
 texture_compression=true
-with_symbols=true ## Generate the symbol file (if applicable)
-liveupdate=false ## true if liveupdate content should be published.
 
-## iOS Bundle
-mobileprovisioning="" ## Path to mobileprovisioning profile (iOS).
-identity="" ## The name of your code signing identity from Keychain
+# Generate the symbol file (if applicable)
+with_symbols=true
 
-## Android Bundle
-keystore="" ## Which keystore file to use when signing the Android bundle.
-keystore_pass="" ## Path to file with keystore password used to when bundling for Android.
-keystore_alias="" ## Name of alias from provided keystore to use when bundling for Android.
-bundle_format="" ## "apk" or "aab"
+# Liveupdate content should be published
+liveupdate=false
+
+# (iOS) Path to mobileprovisioning profile
+mobileprovisioning=""
+
+# (iOS) The name of your code signing identity from Keychain
+identity=""
+
+# (Android) Which keystore file to use when signing the bundle
+keystore=""
+
+# (Android) Path to file with keystore password used to when bundling
+keystore_pass=""
+
+# (Android) Name of alias from provided keystore to use when bundling
+keystore_alias=""
+
+# (Android) Which format to generate bundle in: "apk" or "aab"
+bundle_format="" 
 
 ##
 cmd=$1
@@ -186,7 +202,7 @@ function launch {
     # echo "# Launching $engine_path"
     $engine_path $projectc_path
 
-    if ! [ $temp_folder = "" ]
+    if [ $temp_folder ]
     then
         rm -rf $temp_folder
     fi

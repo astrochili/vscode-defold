@@ -13,7 +13,7 @@ This allows you not to use Defold Editor all the time if you are working only wi
 
 1. Download this ready to use project or adapt your own.
 2. Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform.
-3. Configure paths to `bob.jar` and `dmengine` in `.vscode/settings.json`.
+3. Configure paths to `bob.jar` and `dmengine` in `.vscode/defold.sh`.
 4. Install recommended by `.vscode/extensions.json` VSCode extensions.
 5. *Only for Windows.* Install bash following [this instruction](https://stackoverflow.com/a/50527994/6352765).
 6. Start tasks (**Ctrl/Cmd+B** by default) or launch the game to debug (**Ctrl/Cmd+R** by default).
@@ -40,16 +40,14 @@ Unfortunately there is no the mobdebug extension for VSCode at this moment.
 
 Bob is required for resolving dependencies, building and bundling. The engine is required to run your game.
 
-Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform and configure paths to them in `.vscode/settings.json`:
+Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform and configure paths to them in `.vscode/defold.sh`:
 
-```js
-{
-    // The path to your bob.jar for building.
-    "defold.bob_path": "/Applications/Defold.app/bob.jar",
+```bash
+# The path to your bob.jar for building
+bob_path="/Applications/Defold.app/bob.jar"
 
-    // The path to your dmengine for running. 
-    "defold.dmengine_path": "/Applications/Defold.app/dmengine",
-}
+# The path to your dmengine for running without NE
+dummy_engine_path="/Applications/Defold.app/dmengine"
 ```
 
 ### Defold API
@@ -83,7 +81,44 @@ VSCode tasks are available with the default shortcut **Ctrl/Cmd+B**.
 - `bob: clean` to clean the build folder. Runs bob with `distclean`.
 - `bob: resolve` to fetch dependencies. Runs bob with `resolve`.
 - `bob: build` to make a build for debugging. Runs bob with `--variant debug build`.
-- `bob: bundle` to select the architecture platform and make a bundle. You can configure your [additional arguments](https://defold.com/manuals/bob/) in `.vscode/bob.sh`.
+- `bob: bundle` to select the architecture platform and make a bundle.
+  
+You can configure additional arguments in `.vscode/defold.sh`:
+
+```bash
+# User email to resolve dependencies
+email=""
+
+# Authentication token to resolve dependencies
+auth=""
+
+# Use texture compression as specified in texture profiles
+texture_compression=true
+
+# Generate the symbol file (if applicable)
+with_symbols=true
+
+# Liveupdate content should be published
+liveupdate=false
+
+# (iOS) Path to mobileprovisioning profile
+mobileprovisioning=""
+
+# (iOS) The name of your code signing identity from Keychain
+identity=""
+
+# (Android) Which keystore file to use when signing the bundle
+keystore=""
+
+# (Android) Path to file with keystore password used to when bundling
+keystore_pass=""
+
+# (Android) Name of alias from provided keystore to use when bundling
+keystore_alias=""
+
+# (Android) Which format to generate bundle in: "apk" or "aab"
+bundle_format="" 
+```
 
 ## Debugger
 
