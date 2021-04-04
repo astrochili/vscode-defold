@@ -81,7 +81,9 @@ VSCode tasks are available with shortcut **[Ctrl/Cmd]-Shift-B** by default.
 - `bob: clean` to clean the build folder. Runs bob with `distclean`.
 - `bob: resolve` to fetch dependencies. Runs bob with `resolve`.
 - `bob: build` to make a build for debugging. Runs bob with `--variant debug build`.
-- `bob: bundle` to select the platform and make a bundle. You can configure additional arguments such as `texture_compression` or `mobileprovisioning` in `.vscode/defold.sh`.
+- `bob: bundle` to select the platform and make a bundle.
+
+You can configure additional arguments for dependencies resolution and bundling on the top of `.vscode/defold.sh`.
 
 ## Debugger
 
