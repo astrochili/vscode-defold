@@ -81,44 +81,7 @@ VSCode tasks are available with shortcut **[Ctrl/Cmd]-Shift-B** by default.
 - `bob: clean` to clean the build folder. Runs bob with `distclean`.
 - `bob: resolve` to fetch dependencies. Runs bob with `resolve`.
 - `bob: build` to make a build for debugging. Runs bob with `--variant debug build`.
-- `bob: bundle` to select the architecture platform and make a bundle.
-  
-You can configure additional arguments in `.vscode/defold.sh`:
-
-```bash
-# User email to resolve dependencies
-email=""
-
-# Authentication token to resolve dependencies
-auth=""
-
-# Use texture compression as specified in texture profiles
-texture_compression=true
-
-# Generate the symbol file (if applicable)
-with_symbols=true
-
-# Liveupdate content should be published
-liveupdate=false
-
-# (iOS) Path to mobileprovisioning profile
-mobileprovisioning=""
-
-# (iOS) The name of your code signing identity from Keychain
-identity=""
-
-# (Android) Which keystore file to use when signing the bundle
-keystore=""
-
-# (Android) Path to file with keystore password used to when bundling
-keystore_pass=""
-
-# (Android) Name of alias from provided keystore to use when bundling
-keystore_alias=""
-
-# (Android) Which format to generate bundle in: "apk" or "aab"
-bundle_format="" 
-```
+- `bob: bundle` to select the platform and make a bundle. You can configure additional arguments such as `texture_compression` or `mobileprovisioning` in `.vscode/defold.sh`.
 
 ## Debugger
 
@@ -150,4 +113,4 @@ There is no way to change breakpoints at runtime, only on pauses. Bind some key 
 
 Local Lua Debugger is a *local* debugger. So you can't debug the game on the device by this way.
 
-**Hot reloading** is also avaivale from Defold Editor. Just select a runned localhost target in the *Project / Target* menu when the game is running.
+**Hot reloading** is also available from the Defold Editor. Just select a runned localhost target in the *Project / Target* menu when the game is running.
