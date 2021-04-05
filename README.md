@@ -11,12 +11,19 @@ This allows you not to use Defold Editor all the time if you are working only wi
 
 ## Quick start
 
+#### MacOS / Linux / Windows
+
 1. Download this ready to use project or adapt your own.
 2. Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform.
 3. Configure paths to `bob.jar` and `dmengine` in `.vscode/defold.sh`.
 4. Install recommended by `.vscode/extensions.json` VSCode extensions.
-5. *Only for Windows.* Install bash following [this instruction](https://stackoverflow.com/a/50527994/6352765).
-6. Open tasks list with **[Ctrl/Cmd]-Shift-B** (by default) or launch the game to debug with **F5** (by default).
+
+#### Windows (additional steps)
+
+6. Download [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/) and configure paths to `OpenAL32.dll` and `wrap_oal.dll` in `.vscode/defold.sh`.
+7. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
+
+Then you can open tasks list with **[Ctrl/Cmd]-Shift-B** (by default) or launch the game to debug with **F5** (by default).
 
 ## Extensions
 
@@ -40,14 +47,22 @@ Unfortunately there is no the mobdebug extension for VSCode at this moment.
 
 Bob is required to resolve dependencies, build and bundle. The engine is required to run your game.
 
-Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform and configure paths to them in `.vscode/defold.sh`:
+Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform and configure paths to them in `.vscode/defold.sh`.
+
+For Windows you also need for `OpenAL32.dll` and `wrap_oal.dll` from [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/).
 
 ```bash
-# The path to your bob.jar for building
+# The path to bob.jar for building
 bob_path="/Applications/Defold.app/bob.jar"
 
-# The path to your dmengine for running without NE
+# The path to dmengine for running without NE
 dummy_engine_path="/Applications/Defold.app/dmengine"
+
+# (Windows) The path to OpenAL32.dll from defoldsdk/ext/lib/x86_64-win32/OpenAL32.dll
+windows_openal32_path=""
+
+# (Windows) The path to wrap_oal.dll from defoldsdk/ext/lib/x86_64-win32/wrap_oal.dll
+windows_wrapoal_path=""
 ```
 
 ### Defold API

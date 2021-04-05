@@ -1,10 +1,24 @@
 #!/bin/bash
 
+##
+## The next required files can be downloaded from https://d.defold.com/stable/
+##
+
 # The path to your bob.jar for building
 bob_path="/Applications/Defold.app/bob.jar"
 
 # The path to your dmengine for running without NE
 dummy_engine_path="/Applications/Defold.app/dmengine"
+
+# (Windows) the path to OpenAL32.dll from defoldsdk/ext/lib/x86_64-win32/OpenAL32.dll
+windows_openal32_path=""
+
+# (Windows) the path to wrap_oal.dll from defoldsdk/ext/lib/x86_64-win32/wrap_oal.dll
+windows_wrapoal_path=""
+
+##
+## Additional bob settings
+##
 
 # User email to resolve dependencies
 email=""
@@ -169,7 +183,8 @@ function launch {
         *)  ;;
     esac
 
-    build_engine_path="./build/$platform_build_folder/dmengine"
+    build_path="./build/$platform_build_folder"
+    build_engine_path="$build_path/dmengine"
     projectc_path="./build/default/game.projectc"
 
     if [ -e $build_engine_path ]
@@ -179,6 +194,21 @@ function launch {
     else
         # There are no native extensions so the engine path is default
         engine_path=$dummy_engine_path
+    fi
+
+    if [ $target = "Windows" ]
+    then
+        build_openal32_path="$build_path/OpenAL32.dll"
+        if ! [ -e $build_openal32_path ]
+        then
+            cp $windows_openal32_path $build_openal32_path
+        fi
+
+        build_wrapoal_path="$build_path/wrap_oal.dll"
+        if ! [ -e $build_wrapoal_path ]
+        then
+            cp $windows_wrapoal_path $build_wrapoal_path
+        fi
     fi
 
     if [ $target = "macOS" ] && [ $engine_path = $build_engine_path ]
