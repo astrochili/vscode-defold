@@ -11,7 +11,10 @@
             "program": { "command": "bash" },
             "osx": { "args": [".vscode/defold.sh", "launch", "macOS"] },
             "linux": { "args": [".vscode/defold.sh", "launch", "Linux"] },
-            "windows": { "args": [".vscode/defold.sh", "launch", "Windows"] },
+            "windows": {
+                "args": [".vscode/defold.sh", "launch", "Windows"],
+                "program": { "command": "C:/Program Files/Git/bin/bash" }
+            },
             "preLaunchTask": "Build",
         },
         {
@@ -24,7 +27,10 @@
             "program": { "command": "bash" },
             "osx": { "args": [".vscode/defold.sh", "launch", "macOS"] },
             "linux": { "args": [".vscode/defold.sh", "launch", "Linux"] },
-            "windows": { "args": [".vscode/defold.sh", "launch", "Windows"] },
+            "windows": {
+                "args": [".vscode/defold.sh", "launch", "Windows"],
+                "program": { "command": "C:/Program Files/Git/bin/bash" }
+            },
         }
     ]
 }
