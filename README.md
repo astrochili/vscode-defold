@@ -20,10 +20,12 @@ This allows you not to use Defold Editor all the time if you are working only wi
 
 #### Windows (additional steps)
 
+5. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
 6. Download [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/) and configure paths to `OpenAL32.dll` and `wrap_oal.dll` in `.vscode/defold.sh`.
-7. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
 
-Then you can open tasks list with **[Ctrl/Cmd]-Shift-B** (by default) or launch the game to debug with **F5** (by default).
+#### What's next
+
+Now you can open tasks list with **[Ctrl/Cmd]-Shift-B** (by default) or launch the game to debug with **F5** (by default).
 
 ## Extensions
 
