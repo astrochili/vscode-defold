@@ -9,6 +9,8 @@ This guide will help you to configure [VSCode](https://code.visualstudio.com/) f
 
 This allows you not to use Defold Editor all the time if you are working only with the code at the moment.
 
+[Discuss on the Defold forum](https://forum.defold.com/t/guide-how-to-turn-vscode-into-defold-ide-with-debugger/68002).
+
 ## Quick start
 
 #### MacOS / Linux / Windows
