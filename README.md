@@ -53,7 +53,7 @@ Bob is required to resolve dependencies, build and bundle. The engine is require
 
 Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform and configure paths to them in `.vscode/defold.sh`.
 
-For Windows you also need for `OpenAL32.dll` and `wrap_oal.dll` from [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/).
+For building and running on Windows (not bundling) you also need for `OpenAL32.dll` and `wrap_oal.dll` from [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/).
 
 ```bash
 # The path to bob.jar for building
