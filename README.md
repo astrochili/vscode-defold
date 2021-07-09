@@ -9,6 +9,8 @@ This guide will help you to configure [VSCode](https://code.visualstudio.com/) f
 
 This allows you not to use Defold Editor all the time if you are working only with the code at the moment.
 
+[Discuss on the Defold forum](https://forum.defold.com/t/guide-how-to-turn-vscode-into-defold-ide-with-debugger/68002).
+
 ## Quick start
 
 #### MacOS / Linux / Windows
@@ -51,7 +53,7 @@ Bob is required to resolve dependencies, build and bundle. The engine is require
 
 Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform and configure paths to them in `.vscode/defold.sh`.
 
-For Windows you also need for `OpenAL32.dll` and `wrap_oal.dll` from [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/).
+To build and run on Windows you also need for `OpenAL32.dll` and `wrap_oal.dll` from [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/).
 
 ```bash
 # The path to bob.jar for building
@@ -77,7 +79,7 @@ Lua headers with Defold API are generated with [IntelliJ-Defold-Api](https://git
 
 To help the language server to find external libraries and parse their headers you need to unarchive the `*.zip` files in the `.internal/lib/` folder. Don't delete the archives themselves of course.
 
-Unarchive only libraries without native extensions. If you want to unarchive a mixed library with a navive extension and Lua modules, you will need to remove the native extension part after unarchiving, otherwise the build will fail.
+Unarchive only libraries without native extensions. If you want to unarchive a mixed library with a native extension and Lua modules, you will need to remove the native extension part after unarchiving, otherwise the build will fail.
 
 ### Settings
 
