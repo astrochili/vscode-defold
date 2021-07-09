@@ -103,6 +103,11 @@ function resource.set(path, buffer) end
 ---@param buffer buffer The resource buffer
 function resource.set_buffer(path, buffer) end
 
+---Update internal sound resource (wavc/oggc) with new data
+---@param path hash|string The path to the resource
+---@param buffer string A lua string containing the binary sound data
+function resource.set_sound(path, buffer) end
+
 ---Sets the pixel data for a specific texture.
 ---@param path hash|string The path to the resource
 ---@param table table A table containing info about the texture. Supported entries:

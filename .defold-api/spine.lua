@@ -1,6 +1,5 @@
 ---Spine model API documentation
----Functions and messages for interacting with the 'Spine' 2D bone
----animation system.
+---Spine model API documentation
 ---@class spine
 spine = {}
 ---Cancels all running animations on a specified spine model component.

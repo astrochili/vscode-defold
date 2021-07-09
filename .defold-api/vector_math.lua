@@ -201,7 +201,7 @@ function vmath.matrix4_rotation_z(angle) end
 
 ---The resulting matrix describes a translation of a point
 ---in euclidean space.
----@param position vector3|type:vector4 position vector to create matrix from
+---@param position vector3|vector4 position vector to create matrix from
 ---@return matrix4 matrix from the supplied position vector
 function vmath.matrix4_translation(position) end
 
@@ -349,6 +349,10 @@ function vmath.slerp(t, q1, q2) end
 ---@return vector new vector
 function vmath.vector(t) end
 
+---Creates a new zero vector with all components set to 0.
+---@return vector3 new zero vector
+function vmath.vector3() end
+
 ---Creates a new vector with all components set to the
 ---supplied scalar value.
 ---@param n number scalar value to splat
@@ -369,11 +373,6 @@ function vmath.vector3(v1) end
 ---@param z number z coordinate
 ---@return vector3 new vector
 function vmath.vector3(x, y, z) end
-
-
----Creates a new zero vector with all components set to 0.
----@return vector3 new zero vector
-function vmath.vector3() end
 
 ---Creates a new zero vector with all components set to 0.
 ---@return vector4 new zero vector
@@ -400,6 +399,8 @@ function vmath.vector4(v1) end
 ---@param w number w coordinate
 ---@return vector4 new vector
 function vmath.vector4(x, y, z, w) end
+
+
 
 
 return vmath

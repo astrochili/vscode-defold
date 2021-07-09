@@ -1,5 +1,5 @@
 ---Label API documentation
----Functions to manipulate a label component.
+---Label API documentation
 ---@class label
 label = {}
 ---Gets the text from a label component

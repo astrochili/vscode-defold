@@ -15,7 +15,7 @@ tilemap = {}
 function tilemap.get_bounds(url) end
 
 ---Get the tile set at the specified position in the tilemap.
----The position is identified by the tile index starting at origo
+---The position is identified by the tile index starting at origin
 ---with index 1, 1. (see tilemap.set_tile() <>)
 ---Which tile map and layer to query is identified by the URL and the
 ---layer name parameters.
@@ -28,8 +28,8 @@ function tilemap.get_tile(url, layer, x, y) end
 
 ---Replace a tile in a tile map with a new tile.
 ---The coordinates of the tiles are indexed so that the "first" tile just
----above and to the right of origo has coordinates 1,1.
----Tiles to the left of and below origo are indexed 0, -1, -2 and so forth.
+---above and to the right of origin has coordinates 1,1.
+---Tiles to the left of and below origin are indexed 0, -1, -2 and so forth.
 ---
 ---+-------+-------+------+------+
 ---|  0,3  |  1,3  | 2,3  | 3,3  |
@@ -49,7 +49,7 @@ function tilemap.get_tile(url, layer, x, y) end
 ---@param layer string|hash name of the layer for the tile
 ---@param x number x-coordinate of the tile
 ---@param y number y-coordinate of the tile
----@param tile number index of new tile to set
+---@param tile number index of new tile to set. 0 resets the cell
 ---@param h_flipped boolean optional if the tile should be horizontally flipped
 ---@param v_flipped boolean optional i the tile should be vertically flipped
 function tilemap.set_tile(url, layer, x, y, tile, h_flipped, v_flipped) end

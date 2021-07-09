@@ -128,7 +128,7 @@ function sys.set_error_handler(error_handler) end
 ---be clamped to a swap interval that matches any detected main monitor refresh rate. If Vsync is
 ---unchecked the engine will try to respect the rate in software using timers. There is no
 ---guarantee that the frame cap will be achieved depending on platform specifics and hardware settings.
----@param frequency  target frequency. 60 for 60 fps
+---@param frequency number target frequency. 60 for 60 fps
 function sys.set_update_frequency(frequency) end
 
 ---Set the vsync swap interval. The interval with which to swap the front and back buffers
@@ -140,7 +140,7 @@ function sys.set_update_frequency(frequency) end
 ---"game.project", the engine will try to respect the set frame cap value from
 ---"game.project" in software instead.
 ---This setting may be overridden by driver settings.
----@param swap_interval  target swap interval.
+---@param swap_interval number target swap interval.
 function sys.set_vsync_swap_interval(swap_interval) end
 
 

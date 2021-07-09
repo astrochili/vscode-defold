@@ -9,8 +9,8 @@ timer = {}
 timer.INVALID_TIMER_HANDLE = nil
 ---You may cancel a timer from inside a timer callback.
 ---Cancelling a timer that is already executed or cancelled is safe.
----@param handle  the timer handle returned by timer.delay()
----@return  if the timer was active, false if the timer is already cancelled / complete
+---@param handle hash the timer handle returned by timer.delay()
+---@return boolean if the timer was active, false if the timer is already cancelled / complete
 function timer.cancel(handle) end
 
 ---Adds a timer and returns a unique handle
@@ -19,10 +19,10 @@ function timer.cancel(handle) end
 ---script update functions.
 ---If you want a timer that triggers on each frame, set delay to 0.0f and repeat to true.
 ---Timers created within a script will automatically die when the script is deleted.
----@param delay  time interval in seconds
----@param _repeat  true = repeat timer until cancel, false = one-shot timer
+---@param delay number time interval in seconds
+---@param _repeat boolean true = repeat timer until cancel, false = one-shot timer
 ---@param callback function(self, handle, time_elapsed) timer callback function
----@return  identifier for the create timer, returns timer.INVALID_TIMER_HANDLE if the timer can not be created
+---@return hash handle identifier for the create timer, returns timer.INVALID_TIMER_HANDLE if the timer can not be created
 function timer.delay(delay, _repeat, callback) end
 
 

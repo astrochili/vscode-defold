@@ -1,6 +1,5 @@
 ---Sound API documentation
----Functions and messages for controlling sound components and
----mixer groups.
+---Sound API documentation
 ---@class sound
 sound = {}
 ---Get mixer group gain

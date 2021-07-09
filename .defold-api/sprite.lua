@@ -1,5 +1,5 @@
 ---Sprite API documentation
----Functions, messages and properties used to manipulate sprite components.
+---Sprite API documentation
 ---@class sprite
 sprite = {}
 ---Play an animation on a sprite component from its tile set

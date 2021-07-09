@@ -1,5 +1,5 @@
 ---Model API documentation
----Functions and messages for interacting with model components.
+---Model API documentation
 ---@class model
 model = {}
 ---Cancels all animation on a model component.

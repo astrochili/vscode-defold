@@ -1,7 +1,5 @@
 ---Collision object physics API documentation
----Functions and messages for collision object physics interaction
----with other objects (collisions and ray-casting) and control of
----physical behaviors.
+---Collision object physics API documentation
 ---@class physics
 physics = {}
 ---fixed joint type
@@ -12,6 +10,8 @@ physics.JOINT_TYPE_HINGE = nil
 physics.JOINT_TYPE_SLIDER = nil
 ---spring joint type
 physics.JOINT_TYPE_SPRING = nil
+---weld joint type
+physics.JOINT_TYPE_WELD = nil
 ---Create a physics joint between two collision object components.
 ---Note: Currently only supported in 2D physics.
 ---@param joint_type number the joint type
@@ -112,6 +112,11 @@ function physics.set_joint_properties(collisionobject, joint_id, properties) end
 ---@param url string|hash|url the collision object that should flip its shapes
 ---@param flip boolean true if the collision object should flip its shapes, false if not
 function physics.set_vflip(url, flip) end
+
+---Collision objects tend to fall asleep when inactive for a small period of time for
+---efficiency reasons. This function wakes them up.
+---@param url string|hash|url the collision object to wake. function on_input(self, action_id, action)     if action_id == hash("test") and action.pressed then         physics.wakeup("#collisionobject")     end end
+function physics.wakeup(url) end
 
 
 
