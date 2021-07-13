@@ -15,15 +15,16 @@ This allows you not to use Defold Editor all the time if you are working only wi
 
 #### MacOS / Linux / Windows
 
-1. Download this ready to use project or adapt your own.
-2. Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform.
-3. Configure paths to `bob.jar` and `dmengine` in `.vscode/defold.sh`.
-4. Install recommended by `.vscode/extensions.json` VSCode extensions.
+1. Make sure you have Java Runtime on your computer.
+2. Download this ready to use project or adapt your own.
+3. Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform.
+4. Configure paths to `bob.jar` and `dmengine` in `.vscode/defold.sh`.
+5. Install recommended by `.vscode/extensions.json` VSCode extensions.
 
 #### Windows (additional steps)
 
-5. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
-6. Download [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/) and configure paths to `OpenAL32.dll` and `wrap_oal.dll` in `.vscode/defold.sh`.
+6. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
+7. Download [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/) and configure paths to `OpenAL32.dll` and `wrap_oal.dll` in `.vscode/defold.sh`.
 
 #### What's next
 
