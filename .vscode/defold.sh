@@ -59,6 +59,8 @@ target=$2
 
 function clean {
     echo "# Clean"
+    echo "$ java -jar $bob_path distclean"
+    echo ""
     java -jar $bob_path distclean
 }
 
@@ -71,11 +73,15 @@ function resolve {
     fi
 
     echo "# Resolve Dependencies"
+    echo "$ java -jar $bob_path$arguments resolve"
+    echo ""
     java -jar $bob_path$arguments resolve
 }
 
 function build {
     echo "# Build"
+    echo "$ java -jar $bob_path --variant debug build"
+    echo ""
     java -jar $bob_path --variant debug build
 }
 
@@ -164,8 +170,9 @@ function bundle {
         fi
     fi
 
-    # echo $arguments
     echo "# Bundle for $target with architectures: $architectures"
+    echo "$ java -jar $bob_path $arguments resolve distclean build bundle"
+    echo ""
     java -jar $bob_path $arguments resolve distclean build bundle
 }
 
@@ -229,7 +236,9 @@ function launch {
         chmod +x $engine_path
     fi
 
-    # echo "# Launching $engine_path"
+    echo "# Launching"
+    echo "$ $engine_path $projectc_path"
+    echo ""
     $engine_path $projectc_path
 
     if [ $temp_folder ]
