@@ -1,13 +1,14 @@
+
 local ____modules = {}
 local ____moduleCache = {}
 local ____originalRequire = require
 local function include(file)
     if ____moduleCache[file] then
-        return ____moduleCache[file]
+        return ____moduleCache[file].value
     end
     if ____modules[file] then
-        ____moduleCache[file] = ____modules[file]()
-        return ____moduleCache[file]
+        ____moduleCache[file] = { value = ____modules[file]() }
+        return ____moduleCache[file].value
     else
         if ____originalRequire then
             return ____originalRequire(file)
@@ -18,11 +19,15 @@ local function include(file)
 end
 ____modules = {
 ["luafuncs"] = function() local ____exports = {}
+if _G.unpack == nil then
+    _G.unpack = table.unpack
+end
 ____exports.luaAssert = _G.assert
 ____exports.luaError = _G.error
 ____exports.luaCoroutineWrap = coroutine.wrap
 ____exports.luaDebugTraceback = debug.traceback
 ____exports.luaCoroutineCreate = coroutine.create
+____exports.luaCoroutineResume = coroutine.resume
 ____exports.luaRawLen = rawlen or (function(v)
     local mt = getmetatable(v)
     if (not mt) or (not rawget(mt, "__len")) then
@@ -36,31 +41,35 @@ ____exports.luaRawLen = rawlen or (function(v)
     end
 end)
 function ____exports.loadLuaString(str, env)
-    if setfenv then
+    if setfenv ~= nil then
         local f, e = loadstring(str, str)
         if f and env then
             setfenv(f, env)
         end
-        return unpack({f, e})
+        return f, e
     else
         return load(str, str, "t", env)
     end
 end
 function ____exports.loadLuaFile(filename, env)
-    if setfenv then
+    if setfenv ~= nil then
         local f, e = loadfile(filename)
         if f and env then
             setfenv(f, env)
         end
-        return unpack({f, e})
+        return f, e
     else
         return loadfile(filename, "t", env)
     end
 end
 function ____exports.luaGetEnv(level, thread)
-    local info = (thread and debug.getinfo(thread, level + 1, "f")) or debug.getinfo(level + 1, "f")
-    local func = assert(info.func)
-    if getfenv then
+    local info = (thread and ____exports.luaAssert(
+        debug.getinfo(thread, level, "f")
+    )) or ____exports.luaAssert(
+        debug.getinfo(level + 1, "f")
+    )
+    local func = ____exports.luaAssert(info.func)
+    if getfenv ~= nil then
         return getfenv(func)
     else
         local i = 1
@@ -77,7 +86,7 @@ function ____exports.luaGetEnv(level, thread)
     end
 end
 return ____exports
-end,
+ end,
 ["path"] = function() local ____exports = {}
 local ____luafuncs = include("luafuncs")
 local luaAssert = ____luafuncs.luaAssert
@@ -99,27 +108,25 @@ do
         if not cwd then
             local p = io.popen(((Path.separator == "\\") and "cd") or "pwd")
             if p then
-                cwd = p:read("*a"):match("^%s*(.-)%s*$")
+                local output = p:read("*a")
+                if output then
+                    cwd = output:match("^%s*(.-)%s*$")
+                end
             end
             cwd = cwd or ""
         end
         return cwd
     end
     function Path.dirName(path)
-        local dir = path:match(
-            ((("^(.-)" .. tostring(Path.separator)) .. "+[^") .. tostring(Path.separator)) .. "]+$"
-        )
+        local dir = path:match(((("^(.-)" .. Path.separator) .. "+[^") .. Path.separator) .. "]+$")
         return dir or "."
     end
     function Path.splitDrive(path)
         local drive, pathPart = path:match("^[@=]?([a-zA-Z]:)[\\/](.*)")
         if drive then
-            drive = tostring(
-                drive:upper()
-            ) .. tostring(Path.separator)
+            drive = drive:upper() .. Path.separator
         else
-            drive = ''
-            pathPart = path:match("^[@=]?[\\/]*(.*)")
+            drive, pathPart = path:match("^[@=]?([\\/]*)(.*)")
         end
         return luaAssert(drive), luaAssert(pathPart)
     end
@@ -138,9 +145,7 @@ do
                     end
                 end
             end
-            formattedPath = tostring(drive) .. tostring(
-                table.concat(pathParts, Path.separator)
-            )
+            formattedPath = drive .. table.concat(pathParts, Path.separator)
             formattedPathCache[path] = formattedPath
         end
         return formattedPath
@@ -154,14 +159,12 @@ do
             return Path.format(path)
         end
         return Path.format(
-            (tostring(
-                Path.getCwd()
-            ) .. tostring(Path.separator)) .. tostring(path)
+            (Path.getCwd() .. Path.separator) .. path
         )
     end
 end
 return ____exports
-end,
+ end,
 ["breakpoint"] = function() local ____exports = {}
 local ____path = include("path")
 local Path = ____path.Path
@@ -206,7 +209,7 @@ do
     end
 end
 return ____exports
-end,
+ end,
 ["sourcemap"] = function() local ____exports = {}
 local ____luafuncs = include("luafuncs")
 local luaAssert = ____luafuncs.luaAssert
@@ -282,11 +285,18 @@ do
             sourceRoot = "."
         end
         for source in sources:gmatch("\"([^\"]+)\"") do
-            local sourcePath = (((tostring(mapDir) .. tostring(Path.separator)) .. tostring(sourceRoot)) .. tostring(Path.separator)) .. tostring(source)
-            table.insert(
-                sourceMap.sources,
-                Path.getAbsolute(sourcePath)
-            )
+            if Path.isAbsolute(source) then
+                table.insert(
+                    sourceMap.sources,
+                    Path.format(source)
+                )
+            else
+                local sourcePath = (((mapDir .. Path.separator) .. sourceRoot) .. Path.separator) .. source
+                table.insert(
+                    sourceMap.sources,
+                    Path.getAbsolute(sourcePath)
+                )
+            end
         end
         local names = data:match("\"names\"%s*:%s*(%b[])")
         local nameList
@@ -314,7 +324,7 @@ do
                 sourceColumn = sourceColumn + (sourceColOffset or 0)
                 if nameList and nameOffset then
                     nameIndex = nameIndex + nameOffset
-                    local sourceName = nameList[nameIndex + 1]
+                    local sourceName = luaAssert(nameList[nameIndex + 1])
                     if not luaLines then
                         luaLines = {}
                         for luaLineStr in luaScript:gmatch("([^\r\n]*)\r?\n") do
@@ -351,9 +361,7 @@ do
             local scriptRootsStr = os.getenv(scriptRootsEnv)
             if scriptRootsStr then
                 for path in scriptRootsStr:gmatch("[^;]+") do
-                    path = tostring(
-                        Path.format(path)
-                    ) .. tostring(Path.separator)
+                    path = Path.format(path) .. Path.separator
                     table.insert(scriptRoots, path)
                 end
             end
@@ -363,18 +371,22 @@ do
     local function getMap(filePath, file)
         local data = file:read("*a")
         file:close()
+        if not data then
+            return
+        end
         local encodedMap = data:match("--# sourceMappingURL=data:application/json;base64,([A-Za-z0-9+/=]+)%s*$")
         if encodedMap then
             local map = base64Decode(encodedMap)
             local fileDir = Path.dirName(filePath)
             return build(map, fileDir, data)
         end
-        local mapFile = io.open(
-            tostring(filePath) .. ".map"
-        )
+        local mapFile = io.open(filePath .. ".map")
         if mapFile then
             local map = mapFile:read("*a")
             mapFile:close()
+            if not map then
+                return
+            end
             local fileDir = Path.dirName(filePath)
             return build(map, fileDir, data)
         end
@@ -382,15 +394,21 @@ do
     local function findMap(fileName)
         local file = io.open(fileName)
         if file then
-            return getMap(fileName, file)
+            local map = getMap(fileName, file)
+            if map then
+                return map
+            end
         end
         for ____, path in ipairs(
             getScriptRoots()
         ) do
-            local filePath = tostring(path) .. tostring(fileName)
+            local filePath = path .. fileName
             file = io.open(filePath)
             if file then
-                return getMap(filePath, file)
+                local map = getMap(filePath, file)
+                if map then
+                    return map
+                end
             end
         end
     end
@@ -403,11 +421,13 @@ do
             sourceMap = findMap(fileName) or false
             cache[fileName] = sourceMap
         end
-        return sourceMap or nil
+        if sourceMap ~= false then
+            return sourceMap
+        end
     end
 end
 return ____exports
-end,
+ end,
 ["format"] = function() local ____exports = {}
 local ____luafuncs = include("luafuncs")
 local luaRawLen = ____luafuncs.luaRawLen
@@ -427,7 +447,9 @@ do
     local escapes = {["\n"] = "\\n", ["\r"] = "\\r", ["\""] = "\\\"", ["\\"] = "\\\\", ["\b"] = "\\b", ["\f"] = "\\f", ["\t"] = "\\t"}
     local escapesPattern = "[\n\r\"\\\b\f\t%z-]"
     local function replaceEscape(char)
-        local byte = string.byte(char)
+        local byte = luaAssert(
+            string.byte(char)
+        )
         if (byte >= 0) and (byte < 32) then
             return string.format("\\u%.4X", byte)
         end
@@ -466,50 +488,34 @@ do
                     local valStr = Format.asJson(arrayVal, indent + 1, tables)
                     table.insert(
                         arrayVals,
-                        ("\n" .. tostring(
-                            indentStr:rep(indent + 1)
-                        )) .. tostring(valStr)
+                        ("\n" .. indentStr:rep(indent + 1)) .. valStr
                     )
                 end
-                return ((("[" .. tostring(
-                    table.concat(arrayVals, ",")
-                )) .. "\n") .. tostring(
-                    indentStr:rep(indent)
-                )) .. "]"
+                return ((("[" .. table.concat(arrayVals, ",")) .. "\n") .. indentStr:rep(indent)) .. "]"
             else
                 local kvps = {}
                 for k, v in pairs(val) do
                     local valStr = Format.asJson(v, indent + 1, tables)
                     table.insert(
                         kvps,
-                        (((("\n" .. tostring(
-                            indentStr:rep(indent + 1)
-                        )) .. "\"") .. tostring(
-                            escape(
-                                tostring(k)
-                            )
-                        )) .. "\": ") .. tostring(valStr)
+                        (((("\n" .. indentStr:rep(indent + 1)) .. "\"") .. escape(
+                            tostring(k)
+                        )) .. "\": ") .. valStr
                     )
                 end
-                return ((#kvps > 0) and (((("{" .. tostring(
-                    table.concat(kvps, ",")
-                )) .. "\n") .. tostring(
-                    indentStr:rep(indent)
-                )) .. "}")) or "{}"
+                return ((#kvps > 0) and (((("{" .. table.concat(kvps, ",")) .. "\n") .. indentStr:rep(indent)) .. "}")) or "{}"
             end
         elseif (valType == "number") or (valType == "boolean") then
             return tostring(val)
         else
-            return ("\"" .. tostring(
-                escape(
-                    tostring(val)
-                )
+            return ("\"" .. escape(
+                tostring(val)
             )) .. "\""
         end
     end
 end
 return ____exports
-end,
+ end,
 ["thread"] = function() local ____exports = {}
 ____exports.mainThreadName = "main thread"
 function ____exports.isThread(val)
@@ -521,7 +527,7 @@ ____exports.mainThread = (function()
     return (____exports.isThread(registryMainThread) and registryMainThread) or ____exports.mainThreadName
 end)()
 return ____exports
-end,
+ end,
 ["send"] = function() local ____exports = {}
 local ____luafuncs = include("luafuncs")
 local luaRawLen = ____luafuncs.luaRawLen
@@ -533,6 +539,8 @@ local mainThreadName = ____thread.mainThreadName
 ____exports.Send = {}
 local Send = ____exports.Send
 do
+    local startToken = "@lldbg|"
+    local endToken = "|lldbg@"
     local function getPrintableValue(value)
         local valueType = type(value)
         if valueType == "string" then
@@ -540,7 +548,8 @@ do
         elseif ((valueType == "number") or (valueType == "boolean")) or (valueType == "nil") then
             return tostring(value)
         else
-            return ("[" .. tostring(value)) .. "]"
+            local _, str = pcall(tostring, value)
+            return ("[" .. str) .. "]"
         end
     end
     local function isElementKey(tbl, tblLen, key)
@@ -559,7 +568,7 @@ do
     end
     local function send(message)
         io.write(
-            Format.asJson(message)
+            (startToken .. Format.asJson(message)) .. endToken
         )
     end
     function Send.error(err)
@@ -615,7 +624,9 @@ do
             properties = Format.makeExplicitArray()
         }
         if kind == "indexed" then
-            first = first or 1
+            if first == nil then
+                first = 1
+            end
             local last = (count and ((first + count) - 1)) or ((first + luaRawLen(tbl)) - 1)
             for i = first, last do
                 local val = tbl[i]
@@ -664,26 +675,23 @@ do
             local name, desc = unpack(nameAndDesc)
             table.insert(
                 builtStrs,
-                ((tostring(name) .. tostring(
-                    string.rep(" ", (nameLength - #name) + 1)
-                )) .. ": ") .. tostring(desc)
+                ((name .. string.rep(" ", (nameLength - #name) + 1)) .. ": ") .. desc
             )
         end
         io.write(
-            tostring(
-                table.concat(builtStrs, "\n")
-            ) .. "\n"
+            table.concat(builtStrs, "\n") .. "\n"
         )
     end
 end
 return ____exports
-end,
+ end,
 ["debugger"] = function() local ____exports = {}
 local ____luafuncs = include("luafuncs")
 local luaAssert = ____luafuncs.luaAssert
 local luaError = ____luafuncs.luaError
 local luaCoroutineCreate = ____luafuncs.luaCoroutineCreate
 local luaCoroutineWrap = ____luafuncs.luaCoroutineWrap
+local luaCoroutineResume = ____luafuncs.luaCoroutineResume
 local luaDebugTraceback = ____luafuncs.luaDebugTraceback
 local loadLuaString = ____luafuncs.loadLuaString
 local luaGetEnv = ____luafuncs.luaGetEnv
@@ -705,19 +713,23 @@ do
     local prompt = ""
     local debuggerName = "lldebugger.lua"
     local builtinFunctionPrefix = "[builtin:"
-    local skipBreakInNextTraceback = false
+    local skipNextBreak = false
     local hookStack = {}
     local threadIds = setmetatable({}, {__mode = "k"})
+    local threadStackOffsets = setmetatable({}, {__mode = "k"})
     local mainThreadId = 1
     threadIds[mainThread] = mainThreadId
     local nextThreadId = mainThreadId + 1
     local function getThreadId(thread)
         return luaAssert(threadIds[thread])
     end
+    local function getActiveThread()
+        return coroutine.running() or mainThread
+    end
     local function backtrace(stack, frameIndex)
         local frames = {}
         for i = 0, #stack - 1 do
-            local info = stack[i + 1]
+            local info = luaAssert(stack[i + 1])
             local frame = {
                 source = (info.source and Path.format(info.source)) or "?",
                 line = (info.currentline and luaAssert(
@@ -749,24 +761,26 @@ do
     end
     local function getLocals(level, thread)
         local locs = {}
-        if isThread(thread) then
+        if thread == mainThreadName then
+            return locs
+        end
+        if thread then
             if not debug.getinfo(thread, level, "l") then
                 return locs
             end
-        elseif not debug.getinfo(level, "l") then
-            return locs
-        end
-        if (coroutine.running() ~= nil) and (not isThread(thread)) then
-            return locs
+        else
+            if not debug.getinfo(level + 1, "l") then
+                return locs
+            end
         end
         local name
         local val
         local index = 1
         while true do
-            if isThread(thread) then
+            if thread then
                 name, val = debug.getlocal(thread, level, index)
             else
-                name, val = debug.getlocal(level, index)
+                name, val = debug.getlocal(level + 1, index)
             end
             if not name then
                 break
@@ -783,18 +797,18 @@ do
         end
         index = -1
         while true do
-            if isThread(thread) then
+            if thread then
                 name, val = debug.getlocal(thread, level, index)
             else
-                name, val = debug.getlocal(level, index)
+                name, val = debug.getlocal(level + 1, index)
             end
             if not name then
                 break
             end
             name = name:gsub("[^a-zA-Z0-9_]+", "_")
-            local key = (tostring(name) .. "_") .. tostring(-index)
+            local key = (name .. "_") .. tostring(-index)
             while locs[key] do
-                key = tostring(key) .. "_"
+                key = key .. "_"
             end
             locs[key] = {
                 val = val,
@@ -835,11 +849,14 @@ do
         end
     end
     local function getGlobals(level, thread)
+        if thread == mainThreadName then
+            thread = nil
+        end
+        if not thread then
+            level = level + 1
+        end
         local globs = {}
-        local fenv = luaGetEnv(
-            level,
-            (isThread(thread) and thread) or nil
-        ) or _G
+        local fenv = luaGetEnv(level, thread) or _G
         local metaStack = {}
         populateGlobals(globs, fenv, metaStack)
         return globs
@@ -872,9 +889,9 @@ do
             if isProperty then
                 local illegalChar = sourceName:match("[^A-Za-z0-9_]")
                 if illegalChar then
-                    return ("[\"" .. tostring(sourceName)) .. "\"]"
+                    return ("[\"" .. sourceName) .. "\"]"
                 else
-                    return "." .. tostring(sourceName)
+                    return "." .. sourceName
                 end
             else
                 return luaAssert(sourceMap).luaNames[sourceName] or sourceName
@@ -903,9 +920,7 @@ do
                 if nameStart then
                     if not nameChar then
                         local sourceName = expression:sub(nameStart, i - 1)
-                        mappedExpression = tostring(mappedExpression) .. tostring(
-                            mapName(sourceName, nameIsProperty)
-                        )
+                        mappedExpression = mappedExpression .. mapName(sourceName, nameIsProperty)
                         nameStart = nil
                         nonNameStart = i
                     end
@@ -913,36 +928,28 @@ do
                     local lastChar = expression:sub(i - 1, i - 1)
                     nameIsProperty = lastChar == "."
                     nameStart = i
-                    mappedExpression = tostring(mappedExpression) .. tostring(
-                        expression:sub(nonNameStart, nameStart - ((nameIsProperty and 2) or 1))
-                    )
+                    mappedExpression = mappedExpression .. expression:sub(nonNameStart, nameStart - ((nameIsProperty and 2) or 1))
                 end
             end
         end
         if nameStart then
             local sourceName = expression:sub(nameStart)
-            mappedExpression = tostring(mappedExpression) .. tostring(
-                mapName(sourceName, nameIsProperty)
-            )
+            mappedExpression = mappedExpression .. mapName(sourceName, nameIsProperty)
         else
-            mappedExpression = tostring(mappedExpression) .. tostring(
-                expression:sub(nonNameStart)
-            )
+            mappedExpression = mappedExpression .. expression:sub(nonNameStart)
         end
         return mappedExpression
     end
-    local function execute(statement, thread, frame, frameOffset, info)
-        local activeThread = coroutine.running()
-        if activeThread and (not isThread(thread)) then
+    local function execute(statement, level, info, thread)
+        if thread == mainThreadName then
             return false, "unable to access main thread while running in a coroutine"
         end
-        local level = ((thread == (activeThread or mainThread)) and ((frame + frameOffset) + 1)) or frame
-        local locs = getLocals(level + 1, thread)
+        if not thread then
+            level = level + 1
+        end
+        local locs = getLocals(level, thread)
         local ups = getUpvalues(info)
-        local fenv = luaGetEnv(
-            level,
-            (isThread(thread) and thread) or nil
-        ) or _G
+        local fenv = luaGetEnv(level, thread) or _G
         local env = setmetatable(
             {},
             {
@@ -972,7 +979,7 @@ do
         local success, result = pcall(func)
         if success then
             for _, loc in pairs(locs) do
-                if isThread(thread) then
+                if thread then
                     debug.setlocal(thread, level, loc.index, loc.val)
                 else
                     debug.setlocal(level, loc.index, loc.val)
@@ -1000,6 +1007,10 @@ do
         local i = 1
         if isThread(threadOrOffset) then
             thread = threadOrOffset
+            local offset = threadStackOffsets[thread]
+            if offset then
+                i = i + offset
+            end
         else
             i = i + threadOrOffset
         end
@@ -1025,7 +1036,6 @@ do
         stackOffset = stackOffset + 1
         local activeStack = getStack(stackOffset)
         local activeThreadFrameOffset = stackOffset
-        local inactiveThreadFrameOffset = 0
         breakAtDepth = -1
         breakInThread = nil
         local frameOffset = activeThreadFrameOffset
@@ -1075,7 +1085,7 @@ do
                         end
                         currentThread = newThread
                         frame = 0
-                        frameOffset = ((currentThread == activeThread) and activeThreadFrameOffset) or inactiveThreadFrameOffset
+                        frameOffset = ((currentThread == activeThread) and activeThreadFrameOffset) or (1 + (threadStackOffsets[currentThread] or 0))
                         info = luaAssert(currentStack[frame + 1])
                         source = Path.format(
                             luaAssert(info.source)
@@ -1108,7 +1118,7 @@ do
                     local newFrame = luaAssert(
                         tonumber(newFrameStr)
                     )
-                    if ((newFrame ~= nil) and (newFrame > 0)) and (newFrame <= #currentStack) then
+                    if (newFrame > 0) and (newFrame <= #currentStack) then
                         frame = newFrame - 1
                         info = luaAssert(currentStack[frame + 1])
                         source = Path.format(
@@ -1123,7 +1133,7 @@ do
                     Send.error("Bad frame")
                 end
             elseif inp == "locals" then
-                local locs = getLocals((frame + frameOffset) + 1, currentThread)
+                local locs = getLocals(frame + frameOffset, ((currentThread ~= activeThread) and currentThread) or nil)
                 mapVarNames(locs, sourceMap)
                 Send.vars(locs)
             elseif inp == "ups" then
@@ -1131,7 +1141,7 @@ do
                 mapVarNames(ups, sourceMap)
                 Send.vars(ups)
             elseif inp == "globals" then
-                local globs = getGlobals((frame + frameOffset) + 1, currentThread)
+                local globs = getGlobals(frame + frameOffset, ((currentThread ~= activeThread) and currentThread) or nil)
                 mapVarNames(globs, sourceMap)
                 Send.vars(globs)
             elseif inp:sub(1, 5) == "break" then
@@ -1199,13 +1209,7 @@ do
                     Send.error("Bad expression")
                 else
                     local mappedExpression = mapExpressionNames(expression, sourceMap)
-                    local s, r = execute(
-                        "return " .. tostring(mappedExpression),
-                        currentThread,
-                        frame,
-                        frameOffset,
-                        info
-                    )
+                    local s, r = execute("return " .. mappedExpression, frame + frameOffset, info, ((currentThread ~= activeThread) and currentThread) or nil)
                     if s then
                         Send.result(r)
                     else
@@ -1222,13 +1226,7 @@ do
                     )
                 else
                     local mappedExpression = mapExpressionNames(expression, sourceMap)
-                    local s, r = execute(
-                        "return " .. tostring(mappedExpression),
-                        currentThread,
-                        frame,
-                        frameOffset,
-                        info
-                    )
+                    local s, r = execute("return " .. mappedExpression, frame + frameOffset, info, ((currentThread ~= activeThread) and currentThread) or nil)
                     if s then
                         if type(r) == "table" then
                             Send.props(
@@ -1238,9 +1236,7 @@ do
                                 tonumber(count)
                             )
                         else
-                            Send.error(
-                                ("Expression \"" .. tostring(mappedExpression)) .. "\" is not a table"
-                            )
+                            Send.error(("Expression \"" .. mappedExpression) .. "\" is not a table")
                         end
                     else
                         Send.error(r)
@@ -1251,7 +1247,7 @@ do
                 if not statement then
                     Send.error("Bad statement")
                 else
-                    local s, r = execute(statement, currentThread, frame, frameOffset, info)
+                    local s, r = execute(statement, frame + frameOffset, info, ((currentThread ~= activeThread) and currentThread) or nil)
                     if s then
                         Send.result(r)
                     else
@@ -1270,9 +1266,9 @@ do
         if aLen == bLen then
             return a == b
         elseif aLen < bLen then
-            return (tostring(Path.separator) .. tostring(a)) == b:sub(-(aLen + 1))
+            return (Path.separator .. a) == b:sub(-(aLen + 1))
         else
-            return (tostring(Path.separator) .. tostring(b)) == a:sub(-(bLen + 1))
+            return (Path.separator .. b) == a:sub(-(bLen + 1))
         end
     end
     local function checkBreakpoint(breakpoint, file, line, sourceMap)
@@ -1299,10 +1295,10 @@ do
         if topFrame.short_src and (topFrame.short_src:sub(1, #builtinFunctionPrefix) == builtinFunctionPrefix) then
             return
         end
-        local activeThread = coroutine.running() or mainThread
+        local activeThread = getActiveThread()
         if breakAtDepth >= 0 then
             local stepBreak
-            if not breakInThread then
+            if breakInThread == nil then
                 stepBreak = true
             elseif activeThread == breakInThread then
                 stepBreak = #getStack(stackOffset) <= breakAtDepth
@@ -1332,12 +1328,12 @@ do
             if breakpoint.enabled and checkBreakpoint(breakpoint, source, topFrame.currentline, sourceMap) then
                 if breakpoint.condition then
                     local mappedCondition = mapExpressionNames(breakpoint.condition, sourceMap)
-                    local condition = "return " .. tostring(mappedCondition)
-                    local success, result = execute(condition, activeThread, 0, stackOffset, topFrame)
+                    local condition = "return " .. mappedCondition
+                    local success, result = execute(condition, stackOffset, topFrame)
                     if success and result then
-                        local conditionDisplay = ((("\"" .. tostring(breakpoint.condition)) .. "\" = \"") .. tostring(result)) .. "\""
+                        local conditionDisplay = ((("\"" .. breakpoint.condition) .. "\" = \"") .. tostring(result)) .. "\""
                         Send.debugBreak(
-                            (((("breakpoint hit: \"" .. tostring(breakpoint.file)) .. ":") .. tostring(breakpoint.line)) .. "\", ") .. tostring(conditionDisplay),
+                            (((("breakpoint hit: \"" .. breakpoint.file) .. ":") .. tostring(breakpoint.line)) .. "\", ") .. conditionDisplay,
                             "breakpoint",
                             getThreadId(activeThread)
                         )
@@ -1346,7 +1342,7 @@ do
                     end
                 else
                     Send.debugBreak(
-                        ((("breakpoint hit: \"" .. tostring(breakpoint.file)) .. ":") .. tostring(breakpoint.line)) .. "\"",
+                        ((("breakpoint hit: \"" .. breakpoint.file) .. ":") .. tostring(breakpoint.line)) .. "\"",
                         "breakpoint",
                         getThreadId(activeThread)
                     )
@@ -1367,14 +1363,35 @@ do
                 local sourceFile = sourceMap.sources[lineMapping.sourceIndex + 1]
                 local sourceLine = lineMapping.sourceLine
                 local sourceColumn = lineMapping.sourceColumn
-                return ((((((tostring(indent) .. tostring(sourceFile)) .. ":") .. tostring(sourceLine)) .. ":") .. tostring(sourceColumn)) .. ":") .. tostring(remainder)
+                return ((((((indent .. tostring(sourceFile)) .. ":") .. tostring(sourceLine)) .. ":") .. tostring(sourceColumn)) .. ":") .. remainder
             end
         end
-        return ((((tostring(indent) .. tostring(file)) .. ":") .. tostring(lineStr)) .. ":") .. tostring(remainder)
+        return ((((indent .. file) .. ":") .. lineStr) .. ":") .. remainder
     end
     local function mapSources(str)
         str = str:gsub("(%s*)([^\r\n]+):(%d+):([^\r\n]+)", mapSource)
         return str
+    end
+    local function breakForError(err, level, propagate)
+        local message = mapSources(
+            tostring(err)
+        )
+        level = (level or 1) + 1
+        if skipNextBreak then
+            skipNextBreak = false
+        else
+            local thread = getActiveThread()
+            Send.debugBreak(
+                message,
+                "error",
+                getThreadId(thread)
+            )
+            debugBreak(thread, level)
+        end
+        if propagate then
+            skipNextBreak = true
+            return luaError(message, level)
+        end
     end
     local function registerThread(thread)
         assert(not threadIds[thread])
@@ -1387,21 +1404,73 @@ do
         end
         return threadId
     end
-    local function debuggerCoroutineCreate(f)
+    local canYieldAcrossPcall
+    local function useXpcallInCoroutine()
+        if canYieldAcrossPcall == nil then
+            local _, yieldResult = luaCoroutineResume(
+                luaCoroutineCreate(
+                    function() return pcall(
+                        function() return coroutine.yield(true) end
+                    ) end
+                )
+            )
+            canYieldAcrossPcall = yieldResult == true
+        end
+        return canYieldAcrossPcall
+    end
+    local function debuggerCoroutineCreate(f, allowBreak)
+        if allowBreak and useXpcallInCoroutine() then
+            local originalFunc = f
+            local function debugFunc(...)
+                local args = {...}
+                local function wrappedFunc()
+                    return originalFunc(
+                        unpack(args)
+                    )
+                end
+                local results = {
+                    xpcall(wrappedFunc, breakForError)
+                }
+                if results[1] then
+                    return unpack(results, 2)
+                else
+                    skipNextBreak = true
+                    local message = mapSources(
+                        tostring(results[2])
+                    )
+                    return luaError(message, 2)
+                end
+            end
+            f = debugFunc
+        end
         local thread = luaCoroutineCreate(f)
         registerThread(thread)
         return thread
     end
+    local function debuggerCoroutineResume(thread, ...)
+        local activeThread = getActiveThread()
+        threadStackOffsets[activeThread] = 1
+        local results = {
+            luaCoroutineResume(thread, ...)
+        }
+        if not results[1] then
+            breakForError(results[2], 2)
+        end
+        threadStackOffsets[activeThread] = nil
+        return unpack(results)
+    end
     local function debuggerCoroutineWrap(f)
-        local thread = debuggerCoroutineCreate(f)
-        local resumer
-        resumer = function(...)
+        local thread = debuggerCoroutineCreate(f, true)
+        local function resumer(...)
+            local activeThread = getActiveThread()
+            threadStackOffsets[activeThread] = 1
             local results = {
-                coroutine.resume(thread, ...)
+                luaCoroutineResume(thread, ...)
             }
             if not results[1] then
-                luaError(results[2])
+                return breakForError(results[2], 1, true)
             end
+            threadStackOffsets[activeThread] = nil
             return unpack(results, 2)
         end
         return resumer
@@ -1413,64 +1482,43 @@ do
         else
             trace = luaDebugTraceback(threadOrMessage or "", (messageOrLevel or 1) + 1)
         end
-        if trace then
-            trace = mapSources(trace)
-        end
-        if skipBreakInNextTraceback then
-            skipBreakInNextTraceback = false
-        elseif (hookStack[#hookStack] == "global") and (debug.getinfo(2, "S").what == "C") then
-            local thread = ((isThread(threadOrMessage) and threadOrMessage) or coroutine.running()) or mainThread
-            Send.debugBreak(
-                trace or "error",
-                "error",
-                getThreadId(thread)
-            )
-            debugBreak(thread, 3)
+        trace = mapSources(trace)
+        if skipNextBreak then
+            skipNextBreak = false
+        elseif hookStack[#hookStack] == "global" then
+            local info = debug.getinfo(2, "S")
+            if info and (info.what == "C") then
+                local thread = (isThread(threadOrMessage) and threadOrMessage) or getActiveThread()
+                Send.debugBreak(
+                    trace,
+                    "error",
+                    getThreadId(thread)
+                )
+                debugBreak(thread, 3)
+            end
         end
         return trace
     end
     local function debuggerError(message, level)
-        message = mapSources(message)
-        local thread = coroutine.running() or mainThread
-        Send.debugBreak(
-            message,
-            "error",
-            getThreadId(thread)
-        )
-        debugBreak(thread, 2)
-        skipBreakInNextTraceback = true
-        return luaError(message, level)
+        return breakForError(message, (level or 0) + 1, true)
     end
     local function debuggerAssert(v, ...)
         local args = {...}
         if not v then
-            local message = ((args[1] ~= nil) and mapSources(
-                tostring(args[1])
-            )) or "assertion failed"
-            local thread = coroutine.running() or mainThread
-            Send.debugBreak(
-                message,
-                "error",
-                getThreadId(thread)
-            )
-            debugBreak(thread, 2)
-            skipBreakInNextTraceback = true
-            return luaError(message)
+            local message = ((args[1] ~= nil) and args[1]) or "assertion failed"
+            return breakForError(message, 1, true)
         end
-        return v, ...
+        return v, unpack(args)
     end
     local function setErrorHandler()
         local hookType = hookStack[#hookStack]
-        if hookType == "global" then
+        if hookType ~= nil then
             _G.error = debuggerError
             _G.assert = debuggerAssert
+            debug.traceback = debuggerTraceback
         else
             _G.error = luaError
             _G.assert = luaAssert
-        end
-        if hookType ~= nil then
-            debug.traceback = debuggerTraceback
-        else
             debug.traceback = luaDebugTraceback
         end
     end
@@ -1481,6 +1529,7 @@ do
         setErrorHandler()
         coroutine.create = luaCoroutineCreate
         coroutine.wrap = luaCoroutineWrap
+        coroutine.resume = luaCoroutineResume
         debug.sethook()
         for thread in pairs(threadIds) do
             if isThread(thread) and (coroutine.status(thread) ~= "dead") then
@@ -1488,14 +1537,17 @@ do
             end
         end
     end
+    local breakInCoroutinesEnv = "LOCAL_LUA_DEBUGGER_BREAK_IN_COROUTINES"
+    local breakInCoroutines = os.getenv(breakInCoroutinesEnv) == "1"
     function Debugger.pushHook(hookType)
         table.insert(hookStack, hookType)
         setErrorHandler()
         if #hookStack > 1 then
             return
         end
-        coroutine.create = debuggerCoroutineCreate
+        coroutine.create = function(f) return debuggerCoroutineCreate(f, breakInCoroutines) end
         coroutine.wrap = debuggerCoroutineWrap
+        coroutine.resume = (breakInCoroutines and debuggerCoroutineResume) or luaCoroutineResume
         local currentThread = coroutine.running()
         if currentThread and (not threadIds[currentThread]) then
             registerThread(currentThread)
@@ -1519,55 +1571,51 @@ do
         breakAtDepth = math.huge
     end
     function Debugger.debugGlobal(breakImmediately)
-        ____exports.Debugger.pushHook("global")
+        Debugger.pushHook("global")
         if breakImmediately then
-            ____exports.Debugger.triggerBreak()
+            Debugger.triggerBreak()
         end
-    end
-    local function onError(err)
-        local msg = mapSources(
-            tostring(err)
-        )
-        local thread = coroutine.running() or mainThread
-        Send.debugBreak(
-            msg,
-            "error",
-            getThreadId(thread)
-        )
-        debugBreak(thread, 2)
     end
     function Debugger.debugFunction(func, breakImmediately, args)
-        ____exports.Debugger.pushHook("function")
+        Debugger.pushHook("function")
         if breakImmediately then
-            ____exports.Debugger.triggerBreak()
+            Debugger.triggerBreak()
         end
-        local success, results = xpcall(
-            function() return {
-                func(
+        local results = {
+            xpcall(
+                function() return func(
                     unpack(args)
-                )
-            } end,
-            onError
-        )
-        ____exports.Debugger.popHook()
-        if success then
-            return unpack(results)
+                ) end,
+                breakForError
+            )
+        }
+        Debugger.popHook()
+        if results[1] then
+            return unpack(results, 2)
+        else
+            skipNextBreak = true
+            local message = mapSources(
+                tostring(results[2])
+            )
+            return luaError(message, 2)
         end
     end
 end
 return ____exports
-end,
+ end,
 ["lldebugger"] = function() local ____exports = {}
 local ____luafuncs = include("luafuncs")
 local luaAssert = ____luafuncs.luaAssert
 local loadLuaFile = ____luafuncs.loadLuaFile
 local ____debugger = include("debugger")
 local Debugger = ____debugger.Debugger
-_G.unpack = _G.unpack or table.unpack
+_G.lldebugger = _G.lldebugger or ____exports
 io.stdout:setvbuf("no")
 io.stderr:setvbuf("no")
 function ____exports.start(breakImmediately)
-    breakImmediately = breakImmediately or (os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1")
+    if not breakImmediately then
+        breakImmediately = os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1"
+    end
     Debugger.debugGlobal(breakImmediately)
 end
 function ____exports.finish()
@@ -1579,17 +1627,13 @@ end
 function ____exports.runFile(filePath, breakImmediately, arg)
     if type(filePath) ~= "string" then
         error(
-            ("expected string as first argument to runFile, but got '" .. tostring(
-                type(filePath)
-            )) .. "'",
+            ("expected string as first argument to runFile, but got '" .. type(filePath)) .. "'",
             0
         )
     end
     if (breakImmediately ~= nil) and (type(breakImmediately) ~= "boolean") then
         error(
-            ("expected boolean as second argument to runFile, but got '" .. tostring(
-                type(breakImmediately)
-            )) .. "'",
+            ("expected boolean as second argument to runFile, but got '" .. type(breakImmediately)) .. "'",
             0
         )
     end
@@ -1597,23 +1641,19 @@ function ____exports.runFile(filePath, breakImmediately, arg)
     local func = luaAssert(
         loadLuaFile(filePath, env)
     )
-    return Debugger.debugFunction(func, breakImmediately, arg)
+    return Debugger.debugFunction(func, breakImmediately, arg or ({}))
 end
 function ____exports.call(func, breakImmediately, ...)
     local args = {...}
     if type(func) ~= "function" then
         error(
-            ("expected string as first argument to debugFile, but got '" .. tostring(
-                type(func)
-            )) .. "'",
+            ("expected string as first argument to debugFile, but got '" .. type(func)) .. "'",
             0
         )
     end
     if (breakImmediately ~= nil) and (type(breakImmediately) ~= "boolean") then
         error(
-            ("expected boolean as second argument to debugFunction, but got '" .. tostring(
-                type(breakImmediately)
-            )) .. "'",
+            ("expected boolean as second argument to debugFunction, but got '" .. type(breakImmediately)) .. "'",
             0
         )
     end
@@ -1623,6 +1663,6 @@ function ____exports.requestBreak()
     Debugger.triggerBreak()
 end
 return ____exports
-end,
+ end,
 }
 return include("lldebugger")
