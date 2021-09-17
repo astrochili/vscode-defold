@@ -4,6 +4,9 @@
 ## The next required files can be downloaded from https://d.defold.com/stable/
 ##
 
+# The path to java. It's recommended to use java included in Defold. Also you can just set it to "java".
+java_path="/Applications/Defold.app/Contents/Resources/packages/jdk11.0.1-p1/bin/java"
+
 # The path to your bob.jar for building
 bob_path="/Applications/Defold.app/bob.jar"
 
@@ -59,9 +62,9 @@ target=$2
 
 function clean {
     echo "# Clean"
-    echo "$ java -jar $bob_path distclean"
+    echo "$ $java_path -jar $bob_path distclean"
     echo ""
-    java -jar $bob_path distclean
+    $java_path -jar $bob_path distclean
 }
 
 function resolve {
@@ -73,16 +76,16 @@ function resolve {
     fi
 
     echo "# Resolve Dependencies"
-    echo "$ java -jar $bob_path$arguments resolve"
+    echo "$ $java_path -jar $bob_path$arguments resolve"
     echo ""
-    java -jar $bob_path$arguments resolve
+    $java_path -jar $bob_path$arguments resolve
 }
 
 function build {
     echo "# Build"
-    echo "$ java -jar $bob_path --variant debug build"
+    echo "$ $java_path -jar $bob_path --variant debug build"
     echo ""
-    java -jar $bob_path --variant debug build
+    $java_path -jar $bob_path --variant debug build
 }
 
 function bundle {
@@ -171,9 +174,9 @@ function bundle {
     fi
 
     echo "# Bundle for $target with architectures: $architectures"
-    echo "$ java -jar $bob_path $arguments resolve distclean build bundle"
+    echo "$ $java_path -jar $bob_path $arguments resolve distclean build bundle"
     echo ""
-    java -jar $bob_path $arguments resolve distclean build bundle
+    $java_path -jar $bob_path $arguments resolve distclean build bundle
 }
 
 function launch {
