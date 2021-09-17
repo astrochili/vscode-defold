@@ -4,7 +4,7 @@
 ## The next required files can be downloaded from https://d.defold.com/stable/
 ##
 
-# The path to java. It's recommended to use java included in Defold. Also you can just set it to "java".
+# The path to java. It's recommended to use java included in Defold. But you can set it to just "java".
 java_path="/Applications/Defold.app/Contents/Resources/packages/jdk11.0.1-p1/bin/java"
 
 # The path to your bob.jar for building

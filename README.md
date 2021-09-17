@@ -15,16 +15,15 @@ This allows you not to use Defold Editor all the time if you are working only wi
 
 #### MacOS / Linux / Windows
 
-1. Make sure you have Java Runtime on your computer.
-2. Download this ready to use project or adapt your own.
-3. Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform.
-4. Configure paths to `bob.jar` and `dmengine` in `.vscode/defold.sh`.
-5. Install recommended by `.vscode/extensions.json` VSCode extensions.
+1. Download this ready to use project or adapt your own.
+2. Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform.
+3. Configure paths to `java`, `bob.jar` and `dmengine` in `.vscode/defold.sh`.
+4. Install recommended by `.vscode/extensions.json` VSCode extensions.
 
 #### Windows (additional steps)
 
-6. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
-7. Download [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/) and configure paths to `OpenAL32.dll` and `wrap_oal.dll` in `.vscode/defold.sh`.
+5. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
+6. Download [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/) and configure paths to `OpenAL32.dll` and `wrap_oal.dll` in `.vscode/defold.sh`.
 
 #### What's next
 
@@ -50,13 +49,16 @@ Unfortunately there is no the mobdebug extension for VSCode at this moment.
 
 ### Bob and Engine
 
-Bob is required to resolve dependencies, build and bundle. The engine is required to run your game.
+Java is required to rum bob.jar. Bob is required to resolve dependencies, build and bundle. The engine is required to run your game.
 
 Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform and configure paths to them in `.vscode/defold.sh`.
 
 To build and run on Windows you also need for `OpenAL32.dll` and `wrap_oal.dll` from [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/).
 
 ```bash
+# The path to java. It's recommended to use java included in Defold. But you can set it to just "java".
+java_path="/Applications/Defold.app/Contents/Resources/packages/jdk11.0.1-p1/bin/java"
+
 # The path to bob.jar for building
 bob_path="/Applications/Defold.app/bob.jar"
 
