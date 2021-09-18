@@ -4,6 +4,23 @@
     "editor.suggestSelection": "recentlyUsedByPrefix",
     "editor.suggest.shareSuggestSelections": true,
     "editor.suggest.showWords": false,
+    
+    // Lua tab size
+    "[lua]": {
+        "editor.tabSize": 2
+    },
+    "[script]": {
+        "editor.tabSize": 2
+    },
+    "[gui_script]": {
+        "editor.tabSize": 2
+    },
+    "[render_script]": {
+        "editor.tabSize": 2
+    },
+    "[editor_script]": {
+        "editor.tabSize": 2
+    },
 
     // Files
     "files.associations": {
