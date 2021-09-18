@@ -1,4 +1,4 @@
-local debugger = require('modules.lldebugger')
+local debugger = require('modules.debugger')
 debugger.start()
 
 -- This is an example script to debug
