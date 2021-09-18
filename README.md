@@ -49,7 +49,7 @@ Unfortunately there is no the mobdebug extension for VSCode at this moment.
 
 ### Bob and Engine
 
-Java is required to rum bob.jar. Bob is required to resolve dependencies, build and bundle. The engine is required to run your game.
+Java is required to run bob.jar. Bob is required to resolve dependencies, build and bundle. The engine is required to run your game.
 
 Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform and configure paths to them in `.vscode/defold.sh`.
 
@@ -116,7 +116,7 @@ Debugging is provided with [local-lua-debugger-vscode](https://marketplace.visua
 To debug you also need to start the debugger on the game side:
 
 ```lua
-local debugger = require('modules.lldebugger')
+local debugger = require('modules.debugger')
 debugger.start()
 ```
 
@@ -130,8 +130,6 @@ You can launch the selected configuration by shortcut **F5** by default.
 - The game outputs logs to the Debug Console tab.
 
 ## Limitations
-
-At this moment you must use a modified `modules/lldebugger.lua` from this repository. But after fixing [tomblind/local-lua-debugger-vscode/#33](https://github.com/tomblind/local-lua-debugger-vscode/issues/33) and [defold/defold#5703](https://github.com/defold/defold/issues/5703) it will be possible to use `lldebugger.lua` from the installed VSCode extension folder.
 
 There is no way to change breakpoints at runtime, only on pauses. Bind some key to call `debugger.requestBreak()` can be a great trick if you want to edit breakpoints at runtime but you don't have any breakpoints in the code at the moment. Watch [tomblind/local-lua-debugger-vscode/#32](https://github.com/tomblind/local-lua-debugger-vscode/issues/32) for updates.
 
