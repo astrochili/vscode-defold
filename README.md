@@ -16,14 +16,12 @@ This allows you not to use Defold Editor all the time if you are working only wi
 #### MacOS / Linux / Windows
 
 1. Download this ready to use project or adapt your own.
-2. Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform.
-3. Configure paths to `java`, `bob.jar` and `dmengine` in `.vscode/defold.sh`.
-4. Install recommended by `.vscode/extensions.json` VSCode extensions.
+2. Configure path to your Defold Editor in `.vscode/defold.sh`.
+3. Install recommended by `.vscode/extensions.json` VSCode extensions.
 
 #### Windows (additional steps)
 
-5. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
-6. Download [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/) and configure paths to `OpenAL32.dll` and `wrap_oal.dll` in `.vscode/defold.sh`.
+4. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
 
 #### What's next
 
@@ -40,41 +38,28 @@ These extentions are listed in workspace recommendations so it shouldn't be a pr
 - [cadenas.vscode-glsllint](https://marketplace.visualstudio.com/items?itemName=cadenas.vscode-glsllint) - Linting of OpenGL Shading Language.
 
 #### Why not [EmmyLua](https://github.com/EmmyLua/VSCode-EmmyLua)?
-In fact, this is also a great option. The key difference is that `sunmeko.lua` in addition can generate autocomplete *without* annotations.
+In fact, this is also a great option and you can use it. The key difference is that `sunmeko.lua` in addition can generate autocomplete *without* annotations.
 
 #### Why not the built-in [mobdebug](https://github.com/pkulchenko/MobDebug)?
 Unfortunately there is no the mobdebug extension for VSCode at this moment.
 
 ## Configuration
 
-### Bob and Engine
+### Defold
 
-Java is required to run bob.jar. Bob is required to resolve dependencies, build and bundle. The engine is required to run your game.
-
-Download [bob.jar](https://d.defold.com/stable/) and [dmengine](https://d.defold.com/stable/) for your desktop platform and configure paths to them in `.vscode/defold.sh`.
-
-To build and run on Windows you also need for `OpenAL32.dll` and `wrap_oal.dll` from [x86_64-win32/defoldsdk.zip](https://d.defold.com/stable/).
+Configure path to your Defold Editor folder in `.vscode/defold.sh`. `Java`, `bob`, `dmengine` and other necessary files are all extracted and used directly from your Defold Editor.
 
 ```bash
-# The path to java. It's recommended to use java included in Defold. But you can set it to just "java".
-java_path="/Applications/Defold.app/Contents/Resources/packages/jdk11.0.1-p1/bin/java"
-
-# The path to bob.jar for building
-bob_path="/Applications/Defold.app/bob.jar"
-
-# The path to dmengine for running without NE
-dummy_engine_path="/Applications/Defold.app/dmengine"
-
-# (Windows) The path to OpenAL32.dll from defoldsdk/ext/lib/x86_64-win32/OpenAL32.dll
-windows_openal32_path=""
-
-# (Windows) The path to wrap_oal.dll from defoldsdk/ext/lib/x86_64-win32/wrap_oal.dll
-windows_wrapoal_path=""
+# The path to your Defold Editor folder:
+# - MacOS: "/Applications/Defold.app"
+# - Linux: "/usr/bin/Defold"
+# - Windows: "C:/Program Files/Defold"
+defold_editor_path="YOUR-DEFOLD-PATH-HERE"
 ```
 
 ### Defold API
 
-Lua headers with Defold API are generated with [IntelliJ-Defold-Api](https://github.com/d954mas/IntelliJ-Defold-Api) by [d954mas](https://github.com/d954mas). Download `defold_api.zip` from the [releases](https://github.com/d954mas/IntelliJ-Defold-Api/releases) page and unarchive it to the `.defold-api` folder in your workspace.
+Lua headers with Defold API are generated with [IntelliJ-Defold-Api](https://github.com/d954mas/IntelliJ-Defold-Api) by [d954mas](https://github.com/d954mas). You can update them by downloading `defold_api.zip` from the [releases](https://github.com/d954mas/IntelliJ-Defold-Api/releases) page and unarchive it to the `.defold-api` folder in your workspace.
 
 ![intellisense](https://user-images.githubusercontent.com/4752473/113480000-ca02fd00-949a-11eb-9194-f4e546faef93.gif)
 

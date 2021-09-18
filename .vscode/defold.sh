@@ -1,27 +1,18 @@
 #!/bin/bash
 
 ##
-## The next required files can be downloaded from https://d.defold.com/stable/
-##
+## General Settings
+## You should probably change them
 
-# The path to java. It's recommended to use java included in Defold. But you can set it to just "java".
-java_path="/Applications/Defold.app/Contents/Resources/packages/jdk11.0.1-p1/bin/java"
-
-# The path to your bob.jar for building
-bob_path="/Applications/Defold.app/bob.jar"
-
-# The path to your dmengine for running without NE
-dummy_engine_path="/Applications/Defold.app/dmengine"
-
-# (Windows) the path to OpenAL32.dll from defoldsdk/ext/lib/x86_64-win32/OpenAL32.dll
-windows_openal32_path=""
-
-# (Windows) the path to wrap_oal.dll from defoldsdk/ext/lib/x86_64-win32/wrap_oal.dll
-windows_wrapoal_path=""
+# The path to your Defold Editor folder:
+# - MacOS: "/Applications/Defold.app"
+# - Linux: "/usr/bin/Defold"
+# - Windows: "C:/Program Files/Defold"
+defold_editor_path="YOUR-DEFOLD-PATH-HERE"
 
 ##
-## Additional bob settings
-##
+## Optional Bob Settings
+## You can change them if you understand how bob works
 
 # User email to resolve dependencies
 email=""
@@ -57,16 +48,52 @@ keystore_alias=""
 bundle_format="" 
 
 ##
-cmd=$1
-target=$2
+## Internal Variables
+## You have no need to change them.
 
+# Incoming Parameters 
+cmd=$1
+host_os=$2
+target_os=$3
+script_path=$(pwd)
+
+# Defold Paths
+defold_recources_path=${defold_editor_path%/}
+if [ $host_os = "macOS" ]
+then
+    defold_recources_path="$defold_recources_path/Contents/Resources"
+fi
+
+defold_config_path="$defold_recources_path/config"
+defold_editor_sha1=$(awk '/^editor_sha1/{print $3}' $defold_config_path)
+
+# Java Paths
+jdk_path="$defold_recources_path/packages/jdk11.0.1-p1"
+java_path="$jdk_path/bin/java"
+jar_path="$jdk_path/bin/jar"
+
+if [ $host_os = "Windows" ]
+then
+    java_path="$java_path.exe"
+    jar_path="$jar_path.exe"
+fi
+
+# Executable Paths
+defold_jar_path="$defold_recources_path/packages/defold-$defold_editor_sha1.jar"
+defold_bob_path="-cp $defold_jar_path com.dynamo.bob.Bob"
+
+##
+## Functions
+
+# Clean
 function clean {
     echo "# Clean"
-    echo "$ $java_path -jar $bob_path distclean"
+    echo "$ $java_path $defold_bob_path distclean"
     echo ""
-    $java_path -jar $bob_path distclean
+    $java_path $defold_bob_path distclean
 }
 
+# Resolve
 function resolve {
     if [ $email ]; then
         arguments="$arguments --email $email"
@@ -76,24 +103,26 @@ function resolve {
     fi
 
     echo "# Resolve Dependencies"
-    echo "$ $java_path -jar $bob_path$arguments resolve"
+    echo "$ $java_path $defold_bob_path$arguments resolve"
     echo ""
-    $java_path -jar $bob_path$arguments resolve
+    $java_path $defold_bob_path$arguments resolve
 }
 
+# Build
 function build {
     echo "# Build"
-    echo "$ $java_path -jar $bob_path --variant debug build"
+    echo "$ $java_path $defold_bob_path --variant debug build"
     echo ""
-    $java_path -jar $bob_path --variant debug build
+    $java_path $defold_bob_path --variant debug build
 }
 
+# Bundle
 function bundle {
-    bundle_output="./bundle/$target"
+    bundle_output="./bundle/$target_os"
     mkdir -p $bundle_output
     report_output="$bundle_output/build-report.html"
 
-    case $target in
+    case $target_os in
         "iOS")
             platform="armv7-darwin"
             architectures="armv7-darwin,arm64-darwin"
@@ -148,7 +177,7 @@ function bundle {
     fi
 
     ## iOS
-    if [ $target = "iOS" ]; then
+    if [ $target_os = "iOS" ]; then
         if [ $mobileprovisioning ]; then
             arguments="$arguments --mobileprovisioning \"$mobileprovisioning\""
         fi
@@ -158,7 +187,7 @@ function bundle {
     fi
 
     ## Android
-    if [ $target = "Android" ]; then
+    if [ $target_os = "Android" ]; then
         if [ $keystore ]; then
             arguments="$arguments --keystore \"$keystore\""
         fi
@@ -173,14 +202,15 @@ function bundle {
         fi
     fi
 
-    echo "# Bundle for $target with architectures: $architectures"
-    echo "$ $java_path -jar $bob_path $arguments resolve distclean build bundle"
+    echo "# Bundle for $target_os with architectures: $architectures"
+    echo "$ $java_path $defold_bob_path $arguments resolve distclean build bundle"
     echo ""
-    $java_path -jar $bob_path $arguments resolve distclean build bundle
+    $java_path $defold_bob_path $arguments resolve distclean build bundle
 }
 
+# Launch
 function launch {
-    case $target in
+    case $host_os in
         "macOS")
             platform_build_folder="x86_64-osx"
             ;;
@@ -194,47 +224,74 @@ function launch {
     esac
 
     build_path="./build/$platform_build_folder"
-    build_engine_path="$build_path/dmengine"
+    engine_path="$build_path/dmengine"
     projectc_path="./build/default/game.projectc"
+    temp_folder="./build/temp"
 
-    if [ -e $build_engine_path ]
+    mkdir -p $temp_folder
+
+    if ! [ -e $engine_path ]
     then
-        # There are native extensions so the engine path is platform specific
-        engine_path=$build_engine_path
-    else
-        # There are no native extensions so the engine path is default
-        engine_path=$dummy_engine_path
+        # There are no native extensions so let's copy the engine from Defold
+        mkdir -p $build_path
+        
+        # Extract dmengine from Defold Editor.
+        case $host_os in
+            "macOS")
+                defold_dmengine_path="_unpack/x86_64-darwin/bin/dmengine"
+                ;;
+            "Windows")
+                defold_dmengine_path="_unpack/x86_64-win32/bin/dmengine.exe"
+                ;;
+            "Linux")
+                defold_dmengine_path="_unpack/x86_64-linux/bin/dmengine"
+                ;;
+            *)  ;;
+        esac
+
+        cd $temp_folder        
+        $jar_path -xf $defold_jar_path $defold_dmengine_path
+        cd $script_path
+        cp "$temp_folder/$defold_dmengine_path" $engine_path
+        rm -rf "_unpack"
     fi
 
-    if [ $target = "Windows" ]
+    if [ $host_os = "Windows" ]
     then
         build_openal32_path="$build_path/OpenAL32.dll"
         if ! [ -e $build_openal32_path ]
         then
-            cp $windows_openal32_path $build_openal32_path
+            defold_openal32_path="_unpack/x86_64-win32/bin/OpenAL32.dll"
+            cd $temp_folder        
+            $jar_path -xf $defold_jar_path $defold_openal32_path
+            cd $script_path
+            cp $temp_folder/$defold_openal32_path $build_openal32_path
+            rm -rf "_unpack"
         fi
 
         build_wrapoal_path="$build_path/wrap_oal.dll"
         if ! [ -e $build_wrapoal_path ]
         then
-            cp $windows_wrapoal_path $build_wrapoal_path
+            defold_wrapoal_path="_unpack/x86_64-win32/bin/wrap_oal.dll"
+            cd $temp_folder        
+            $jar_path -xf $defold_jar_path $defold_wrapoal_path
+            cd $script_path
+            cp $temp_folder/$defold_wrapoal_path $build_wrapoal_path
+            rm -rf "_unpack"
         fi
     fi
 
-    if [ $target = "macOS" ] && [ $engine_path = $build_engine_path ]
+    if [ $host_os = "macOS" ]
     then
         # On macOS we need to copy builded dmengine to the different folder
         # Otherwise dmengine launches inside VSCode
         # I don't know why
-        temp_folder="./build/temp"
-        mkdir -p $temp_folder
-
         temp_engine_path="$temp_folder/dmengine"
-        cp $build_engine_path $temp_engine_path
+        cp $engine_path $temp_engine_path
         engine_path=$temp_engine_path
     fi
 
-    if [ $target = "macOS" ] || [ $target = "Linux" ]
+    if [ $host_os = "macOS" ] || [ $host_os = "Linux" ]
     then
         chmod +x $engine_path
     fi
@@ -249,6 +306,9 @@ function launch {
         rm -rf $temp_folder
     fi
 }
+
+##
+## Just run the incoming command
 
 case $cmd in
     "clean")

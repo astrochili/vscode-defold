@@ -7,7 +7,12 @@
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
             "command": "bash",
-            "args": [".vscode/defold.sh", "clean"]
+            "osx": { "args": [".vscode/defold.sh", "clean", "macOS"] },
+            "linux": { "args": [".vscode/defold.sh", "clean", "Linux"] },
+            "windows": {
+                "args": [".vscode/defold.sh", "clean", "Windows"],
+                "program": { "command": "C:/Program Files/Git/bin/bash" }
+            }
         },
         {
             "label": "Resolve",
@@ -15,7 +20,12 @@
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
             "command": "bash",
-            "args": [".vscode/defold.sh", "resolve"]
+            "osx": { "args": [".vscode/defold.sh", "resolve", "macOS"] },
+            "linux": { "args": [".vscode/defold.sh", "resolve", "Linux"] },
+            "windows": {
+                "args": [".vscode/defold.sh", "resolve", "Windows"],
+                "program": { "command": "C:/Program Files/Git/bin/bash" }
+            }
         },
         {
             "label": "Build",
@@ -23,7 +33,12 @@
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
             "command": "bash",
-            "args": [".vscode/defold.sh", "build"]
+            "osx": { "args": [".vscode/defold.sh", "build", "macOS"] },
+            "linux": { "args": [".vscode/defold.sh", "build", "Linux"] },
+            "windows": {
+                "args": [".vscode/defold.sh", "build", "Windows"],
+                "program": { "command": "C:/Program Files/Git/bin/bash" }
+            }
         },
         {
             "label": "Bundle",
@@ -31,7 +46,12 @@
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
             "command": "bash",
-            "args": [".vscode/defold.sh", "bundle", "${input:platform}"]
+            "osx": { "args": [".vscode/defold.sh", "bundle", "macOS", "${input:platform}"] },
+            "linux": { "args": [".vscode/defold.sh", "bundle", "Linux", "${input:platform}"] },
+            "windows": {
+                "args": [".vscode/defold.sh", "bundle", "Windows", "${input:platform}"],
+                "program": { "command": "C:/Program Files/Git/bin/bash" }
+            }
         }
     ],
     "inputs": [
