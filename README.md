@@ -1,13 +1,15 @@
-# How to turn VSCode into Defold IDE
+![logo](https://user-images.githubusercontent.com/4752473/133979748-853ff3d7-b9a5-4c66-ac3f-3a02416af7c2.png)
+
+# How to turn Visual Studio Code into Defold IDE
 
 This guide will help you to configure [VSCode](https://code.visualstudio.com/) for developing games with [Defold](https://defold.com/).
 
-- Syntax highlighting and linting.
-- Powerful IntelliSense (standard lua, Defold API, libraries, project code).
-- Building and launching the game from VSCode.
-- Debugging with breakpoints, call stacks, stepping, inspecting and evaluating.
+- Syntax **highlighting and linting**.
+- Powerful **IntelliSense** (standard lua, Defold API, libraries, project code).
+- **Building and launching** the game from VSCode.
+- **Debugging** with breakpoints, call stacks, stepping, inspecting and evaluating.
 
-This allows you not to use Defold Editor all the time if you are working only with the code at the moment.
+This allows you not to use Defold Editor at all if you are only working with code at the moment.
 
 [Discuss on the Defold forum](https://forum.defold.com/t/guide-how-to-turn-vscode-into-defold-ide-with-debugger/68002).
 
@@ -15,17 +17,18 @@ This allows you not to use Defold Editor all the time if you are working only wi
 
 #### MacOS / Linux / Windows
 
-1. Download this ready to use project or adapt your own.
-2. Configure path to your Defold Editor in `.vscode/defold.sh`.
-3. Install recommended by `.vscode/extensions.json` VSCode extensions.
+1. Download [this](https://github.com/astrochili/defold-vscode-guide/archive/refs/heads/master.zip) ready to use project. Or copy everything to your existing project except `main`, `game.project` and `README.md`.
+2. Install recommended by the workspace [extensions](#extensions) in the VSCode Extensions pane.
+3. Configure path to your Defold Editor by replacing `YOUR-DEFOLD-PATH-HERE` in [.vscode/defold.sh](.vscode/defold.sh#L11).
+5. Add `require('modules.debugger').start()` to your [code](main/main.script#L2).
 
 #### Windows (additional steps)
 
-4. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
+5. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
 
 #### What's next
 
-Now you can open tasks list with **[Ctrl/Cmd]-Shift-B** (by default) or launch the game to debug with **F5** (by default).
+Now you can open tasks list with **[Ctrl/Cmd]-Shift-B** (by default) or launch the game to debug with **F5** (by default). You can change [key bindings](https://code.visualstudio.com/docs/getstarted/keybindings) in the VSCode settings. 
 
 ## Extensions
 
