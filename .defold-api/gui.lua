@@ -1,7 +1,5 @@
 ---GUI API documentation
----GUI core hooks, functions, messages, properties and constants for
----creation and manipulation of GUI nodes. The "gui" namespace is
----accessible only from gui scripts.
+---GUI API documentation
 ---@class gui
 gui = {}
 ---This is a callback-function, which is called by the engine when a gui component is finalized (destroyed). It can
@@ -327,7 +325,7 @@ function gui.get_height() end
 ---@return hash the id of the node
 function gui.get_id(node) end
 
----Retrieve the index of the specified node.
+---Retrieve the index of the specified node among its siblings.
 ---The index defines the order in which a node appear in a GUI scene.
 ---Higher index means the node is drawn on top of lower indexed nodes.
 ---@param node node the node to retrieve the id from
@@ -537,8 +535,9 @@ function gui.hide_keyboard() end
 ---Returns true if a node is enabled and false if it's not.
 ---Disabled nodes are not rendered and animations acting on them are not evaluated.
 ---@param node node node to query
+---@param recursive boolean check hierarchy recursively
 ---@return boolean whether the node is enabled or not
-function gui.is_enabled(node) end
+function gui.is_enabled(node, recursive) end
 
 ---Alters the ordering of the two supplied nodes by moving the first node
 ---above the second.
