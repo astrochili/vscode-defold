@@ -24,6 +24,7 @@
 
     // Files
     "files.associations": {
+        "*.project": "ini",
         "*.script": "lua",
         "*.gui_script": "lua",
         "*.render_script": "lua",
