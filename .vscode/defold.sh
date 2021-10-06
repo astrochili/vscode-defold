@@ -55,17 +55,17 @@ bundle_format=""
 cmd=$1
 host_os=$2
 target_os=$3
-script_path=$(pwd)
+project_path="$(pwd)"
 
 # Defold Paths
-defold_recources_path=${defold_editor_path%/}
+defold_recources_path="${defold_editor_path%/}"
 if [ $host_os = "macOS" ]
 then
     defold_recources_path="$defold_recources_path/Contents/Resources"
 fi
 
 defold_config_path="$defold_recources_path/config"
-defold_editor_sha1=$(awk '/^editor_sha1/{print $3}' $defold_config_path)
+defold_editor_sha1=$(awk '/^editor_sha1/{print $3}' "$defold_config_path")
 
 # Java Paths
 jdk_path="$defold_recources_path/packages/jdk11.0.1-p1"
@@ -78,9 +78,9 @@ then
     jar_path="$jar_path.exe"
 fi
 
-# Executable Paths
+# Bob Paths
 defold_jar_path="$defold_recources_path/packages/defold-$defold_editor_sha1.jar"
-defold_bob_path="-cp $defold_jar_path com.dynamo.bob.Bob"
+bob_class="com.dynamo.bob.Bob"
 
 ##
 ## Functions
@@ -88,9 +88,9 @@ defold_bob_path="-cp $defold_jar_path com.dynamo.bob.Bob"
 # Clean
 function clean {
     echo "# Clean"
-    echo "$ $java_path $defold_bob_path distclean"
+    echo "$ \"$java_path\" -cp \"$defold_jar_path\" $bob_class distclean"
     echo ""
-    $java_path $defold_bob_path distclean
+    "$java_path" -cp "$defold_jar_path" $bob_class distclean
 }
 
 # Resolve
@@ -103,23 +103,23 @@ function resolve {
     fi
 
     echo "# Resolve Dependencies"
-    echo "$ $java_path $defold_bob_path$arguments resolve"
+    echo "$ \"$java_path\" -cp \"$defold_jar_path\" $bob_class $arguments resolve"
     echo ""
-    $java_path $defold_bob_path$arguments resolve
+    "$java_path" -cp "$defold_jar_path" $bob_class $arguments resolve
 }
 
 # Build
 function build {
     echo "# Build"
-    echo "$ $java_path $defold_bob_path --variant debug build"
+    echo "$ \"$java_path\" -cp \"$defold_jar_path\" $bob_class --variant debug build"
     echo ""
-    $java_path $defold_bob_path --variant debug build
+    "$java_path" -cp "$defold_jar_path" $bob_class --variant debug build
 }
 
 # Bundle
 function bundle {
     bundle_output="./bundle/$target_os"
-    mkdir -p $bundle_output
+    mkdir -p "$bundle_output"
     report_output="$bundle_output/build-report.html"
 
     case $target_os in
@@ -203,9 +203,9 @@ function bundle {
     fi
 
     echo "# Bundle for $target_os with architectures: $architectures"
-    echo "$ $java_path $defold_bob_path $arguments resolve distclean build bundle"
+    echo "$ \"$java_path\" -cp \"$defold_jar_path\" $bob_class $arguments resolve distclean build bundle"
     echo ""
-    $java_path $defold_bob_path $arguments resolve distclean build bundle
+    "$java_path" -cp "$defold_jar_path" $bob_class $arguments resolve distclean build bundle
 }
 
 # Launch
@@ -228,12 +228,12 @@ function launch {
     projectc_path="./build/default/game.projectc"
     temp_folder="./build/temp"
 
-    mkdir -p $temp_folder
+    mkdir -p "$temp_folder"
 
-    if ! [ -e $engine_path ]
+    if ! [ -e "$engine_path" ]
     then
         # There are no native extensions so let's copy the engine from Defold
-        mkdir -p $build_path
+        mkdir -p "$build_path"
         
         # Extract dmengine from Defold Editor.
         case $host_os in
@@ -249,34 +249,34 @@ function launch {
             *)  ;;
         esac
 
-        cd $temp_folder        
-        $jar_path -xf $defold_jar_path $defold_dmengine_path
-        cd $script_path
-        cp "$temp_folder/$defold_dmengine_path" $engine_path
+        cd "$temp_folder"
+        "$jar_path" -xf "$defold_jar_path" "$defold_dmengine_path"
+        cd "$project_path"
+        cp "$temp_folder/$defold_dmengine_path" "$engine_path"
         rm -rf "_unpack"
     fi
 
     if [ $host_os = "Windows" ]
     then
         build_openal32_path="$build_path/OpenAL32.dll"
-        if ! [ -e $build_openal32_path ]
+        if ! [ -e "$build_openal32_path" ]
         then
             defold_openal32_path="_unpack/x86_64-win32/bin/OpenAL32.dll"
-            cd $temp_folder        
-            $jar_path -xf $defold_jar_path $defold_openal32_path
-            cd $script_path
-            cp $temp_folder/$defold_openal32_path $build_openal32_path
+            cd "$temp_folder"
+            "$jar_path" -xf "$defold_jar_path" "$defold_openal32_path"
+            cd "$project_path"
+            cp "$temp_folder/$defold_openal32_path" "$build_openal32_path"
             rm -rf "_unpack"
         fi
 
         build_wrapoal_path="$build_path/wrap_oal.dll"
-        if ! [ -e $build_wrapoal_path ]
+        if ! [ -e "$build_wrapoal_path" ]
         then
             defold_wrapoal_path="_unpack/x86_64-win32/bin/wrap_oal.dll"
-            cd $temp_folder        
-            $jar_path -xf $defold_jar_path $defold_wrapoal_path
-            cd $script_path
-            cp $temp_folder/$defold_wrapoal_path $build_wrapoal_path
+            cd "$temp_folder"
+            "$jar_path" -xf "$defold_jar_path" "$defold_wrapoal_path"
+            cd "$project_path"
+            cp "$temp_folder/$defold_wrapoal_path" "$build_wrapoal_path"
             rm -rf "_unpack"
         fi
     fi
@@ -287,23 +287,23 @@ function launch {
         # Otherwise dmengine launches inside VSCode
         # I don't know why
         temp_engine_path="$temp_folder/dmengine"
-        cp $engine_path $temp_engine_path
-        engine_path=$temp_engine_path
+        cp "$engine_path" "$temp_engine_path"
+        engine_path="$temp_engine_path"
     fi
 
     if [ $host_os = "macOS" ] || [ $host_os = "Linux" ]
     then
-        chmod +x $engine_path
+        chmod +x "$engine_path"
     fi
 
     echo "# Launching"
     echo "$ $engine_path $projectc_path"
     echo ""
-    $engine_path $projectc_path
+    "$engine_path" "$projectc_path"
 
-    if [ $temp_folder ]
+    if [ "$temp_folder" ]
     then
-        rm -rf $temp_folder
+        rm -rf "$temp_folder"
     fi
 }
 
