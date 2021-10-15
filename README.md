@@ -46,8 +46,8 @@ These extentions are listed in workspace recommendations so it shouldn't be a pr
 - [slevesque.shader](https://marketplace.visualstudio.com/items?itemName=slevesque.shader) - Shader languages support.
 - [cadenas.vscode-glsllint](https://marketplace.visualstudio.com/items?itemName=cadenas.vscode-glsllint) - Linting of OpenGL Shading Language.
 
-#### Why not [EmmyLua](https://github.com/EmmyLua/VSCode-EmmyLua)?
-In fact, this is also a great option and you can use it. The key difference is that `sunmeko.lua` in addition can generate autocomplete *without* annotations.
+#### Can I use [EmmyLua](https://github.com/EmmyLua/VSCode-EmmyLua) instead?
+This is also a great option, and of course you can use it. The key difference is that `sunmeko.lua` can generate autocomplete *without* annotations.
 
 #### Why not the built-in [mobdebug](https://github.com/pkulchenko/MobDebug)?
 Unfortunately there is no the mobdebug extension for VSCode at this moment.
