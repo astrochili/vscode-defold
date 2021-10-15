@@ -8,6 +8,7 @@ This guide will help you to configure [VSCode](https://code.visualstudio.com/) f
 - Powerful **IntelliSense** (standard lua, Defold API, libraries, project code).
 - **Building and launching** the game from VSCode.
 - **Debugging** with breakpoints, call stacks, stepping, inspecting and evaluating.
+- **Bundling** to all the platforms and **Deploying** to the iOS or Android device.
 
 This allows you not to use Defold Editor at all if you are only working with code at the moment.
 
@@ -96,7 +97,8 @@ VSCode tasks are available with shortcut **[Ctrl/Cmd]-Shift-B** by default.
 - `Clean` the build folder. Runs bob with `distclean`.
 - `Resolve` the dependencies by fetching them. Runs bob with `resolve`.
 - `Build` for debugging. Runs bob with `--variant debug build`.
-- `Bundle` for the selected platform.
+- `Bundle` for the selected platform with selecting `debug` or `release` variant.
+- `Deploy` to the connected device with [ios-deploy](https://github.com/ios-control/ios-deploy) for iOS and [adb](https://developer.android.com/studio/command-line/adb) for Android. The tools must be installed and accessible via bash.
 
 You can configure additional arguments for dependencies resolution and bundling on the top of `.vscode/defold.sh`.
 
