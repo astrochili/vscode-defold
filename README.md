@@ -4,11 +4,11 @@
 
 This guide will help you to configure [VSCode](https://code.visualstudio.com/) for developing games with [Defold](https://defold.com/).
 
-- Syntax **highlighting and linting**.
+- Syntax **Highlighting** and **Linting**.
 - Powerful **IntelliSense** (standard lua, Defold API, libraries, project code).
-- **Building and launching** the game from VSCode.
+- **Building** and **Launching** the game from VSCode.
 - **Debugging** with breakpoints, call stacks, stepping, inspecting and evaluating.
-- **Bundling** to all the platforms and **Deploying** to the iOS or Android device.
+- **Bundling** to all the platforms and **Deploying** to connected mobile devices.
 
 This allows you not to use Defold Editor at all if you are only working with code at the moment.
 
