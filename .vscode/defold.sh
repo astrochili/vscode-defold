@@ -10,7 +10,7 @@
 # - Windows: "C:/Program Files/Defold"
 defold_editor_path="YOUR-DEFOLD-PATH-HERE"
 
-# Open the bundle folder after bundling is finished.
+# Open the output folder after completing the bundle.
 open_bundle_folder=true
 
 
@@ -88,6 +88,7 @@ fi
 # Bob Paths
 defold_jar_path="$defold_recources_path/packages/defold-$defold_editor_sha1.jar"
 bob_class="com.dynamo.bob.Bob"
+
 
 ##
 ## Functions
