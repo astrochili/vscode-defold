@@ -46,17 +46,39 @@
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": [],
             "command": "bash",
-            "osx": { "args": [".vscode/defold.sh", "bundle", "macOS", "${input:platform}"] },
-            "linux": { "args": [".vscode/defold.sh", "bundle", "Linux", "${input:platform}"] },
+            "osx": { "args": [".vscode/defold.sh", "bundle", "macOS", "${input:platform_to_build}", "${input:variant}"] },
+            "linux": { "args": [".vscode/defold.sh", "bundle", "Linux", "${input:platform_to_build}", "${input:variant}"] },
             "windows": {
-                "args": [".vscode/defold.sh", "bundle", "Windows", "${input:platform}"],
+                "args": [".vscode/defold.sh", "bundle", "Windows", "${input:platform_to_build}", "${input:variant}"],
+                "program": { "command": "C:/Program Files/Git/bin/bash" }
+            }
+        },
+        {
+            "label": "Deploy",
+            "type": "shell",
+            "group": { "kind": "build", "isDefault": true },
+            "problemMatcher": [],
+            "command": "bash",
+            "osx": { "args": [".vscode/defold.sh", "deploy", "macOS", "${input:platform_to_deploy}"] },
+            "linux": { "args": [".vscode/defold.sh", "deploy", "Linux", "${input:platform_to_deploy}"] },
+            "windows": {
+                "args": [".vscode/defold.sh", "deploy", "Windows", "${input:platform_to_deploy}"],
                 "program": { "command": "C:/Program Files/Git/bin/bash" }
             }
         }
     ],
     "inputs": [
         {
-            "id": "platform",
+            "id": "variant",
+            "description": "Select the variant to build",
+            "type": "pickString",
+            "options": [
+                { "value": "Debug" },
+                { "value": "Release" }
+            ]
+        },
+        {
+            "id": "platform_to_build",
             "description": "Select the platform to build",
             "type": "pickString",
             "options": [
@@ -67,6 +89,15 @@
                 { "value": "Linux" },
                 { "value": "HTML5" }
             ]
-        }      
+        },
+        {
+            "id": "platform_to_deploy",
+            "description": "Select the platform to deploy",
+            "type": "pickString",
+            "options": [
+                { "value": "iOS" },
+                { "value": "Android" }
+            ]
+        }
     ]
 }

@@ -10,6 +10,10 @@
 # - Windows: "C:/Program Files/Defold"
 defold_editor_path="YOUR-DEFOLD-PATH-HERE"
 
+# Open the bundle folder after bundling is finished.
+open_bundle_folder=true
+
+
 ##
 ## Optional Bob Settings
 ## You can change them if you understand how bob works
@@ -20,8 +24,9 @@ email=""
 # Authentication token to resolve dependencies
 auth=""
 
-# Use texture compression as specified in texture profiles
-texture_compression=true
+# Use texture compression as specified in texture profiles in debug / release bundles
+texture_compression_debug=false
+texture_compression_release=true
 
 # Generate the symbol file (if applicable)
 with_symbols=true
@@ -45,16 +50,18 @@ keystore_pass=""
 keystore_alias=""
 
 # (Android) Which format to generate bundle in: "apk" or "aab"
-bundle_format="" 
+bundle_format="apk" 
+
 
 ##
 ## Internal Variables
-## You have no need to change them.
+## You have no need to change them
 
-# Incoming Parameters 
+# Incoming Parameters
 cmd=$1
 host_os=$2
 target_os=$3
+variant=$4
 project_path="$(pwd)"
 
 # Defold Paths
@@ -150,12 +157,12 @@ function bundle {
         *)  ;;
     esac
 
+    ## General
     arguments="--archive"
     arguments="$arguments --platform \"$platform\""
     arguments="$arguments --architectures \"$architectures\""
     arguments="$arguments --bundle-output \"$bundle_output\""
     arguments="$arguments --build-report-html \"$report_output\""
-
 
     ## Dependencies
     if [ $email ]; then
@@ -165,10 +172,20 @@ function bundle {
         arguments="$arguments --auth \"$auth\""
     fi
 
-    ## General
-    if [[ $texture_compression ]]; then
-        arguments="$arguments --texture-compression $texture_compression"
-    fi
+    ## Variant
+    case $variant in
+        "Debug")
+            arguments="$arguments --texture-compression $texture_compression_debug"
+            arguments="$arguments --variant debug"
+            ;;
+        "Release")
+            arguments="$arguments --texture-compression $texture_compression_release"
+            arguments="$arguments --variant release"
+            ;;
+        *)  ;;
+    esac
+
+    ## Options
     if [ $liveupdate = true ] || [ $liveupdate = "yes" ]; then
         arguments="$arguments --liveupdate \"yes\""
     fi
@@ -205,7 +222,47 @@ function bundle {
     echo "# Bundle for $target_os with architectures: $architectures"
     echo "$ \"$java_path\" -cp \"$defold_jar_path\" $bob_class $arguments resolve distclean build bundle"
     echo ""
+    mkdir -p $bundle_output
     "$java_path" -cp "$defold_jar_path" $bob_class $arguments resolve distclean build bundle
+
+    if [ $open_bundle_folder = true ]; then
+        case $host_os in
+            "macOS")
+                open $bundle_output
+                ;;
+            "Linux")
+                nautilus $bundle_output
+                ;;
+            "Windows")
+                start $bundle_output
+                ;;
+            *)  ;;
+        esac
+    fi
+}
+
+# Deploy
+function deploy {
+    case $target_os in
+        "iOS")
+            deploy="ios-deploy -b"
+            bundle_extension="ipa"
+            ;;
+        "Android")
+            deploy="adb install"
+            bundle_extension=$bundle_format
+            ;;
+        *)  ;;
+    esac
+
+    bundle_output="./bundle/$target_os"
+    bundle_files=( $bundle_output/*.$bundle_extension )
+    bundle_file="${bundle_files[0]}"
+
+    echo "# Deploy for $target_os"
+    echo "$ $deploy $bundle_file"
+    echo ""
+    $deploy $bundle_file
 }
 
 # Launch
@@ -322,6 +379,9 @@ case $cmd in
         ;;
     "bundle")
         bundle
+        ;;
+    "deploy")
+        deploy
         ;;
     "launch")
         launch
