@@ -263,7 +263,7 @@ function deploy {
     echo "# Deploy for $target_os"
     echo "$ $deploy $bundle_file"
     echo ""
-    $deploy $bundle_file
+    $deploy "$bundle_file"
 }
 
 # Launch
