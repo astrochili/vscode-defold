@@ -257,8 +257,7 @@ function deploy {
     esac
 
     bundle_output="./bundle/$target_os"
-    bundle_files=( $bundle_output/*.$bundle_extension )
-    bundle_file="${bundle_files[0]}"
+    bundle_file=$(find "$bundle_output" -type f -name "*.$bundle_extension")
 
     echo "# Deploy for $target_os"
     echo "$ $deploy $bundle_file"
