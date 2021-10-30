@@ -4,22 +4,34 @@
     "editor.suggestSelection": "recentlyUsedByPrefix",
     "editor.suggest.shareSuggestSelections": true,
     "editor.suggest.showWords": false,
+    "vscode-lua-format.configPath": ".vscode/lua-format.config",
     
     // Lua tab size
     "[lua]": {
+        "editor.defaultFormatter": "Koihik.vscode-lua-format",
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
         "editor.tabSize": 2
     },
     "[script]": {
-        "editor.tabSize": 2
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
     },
     "[gui_script]": {
-        "editor.tabSize": 2
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
     },
     "[render_script]": {
-        "editor.tabSize": 2
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
     },
     "[editor_script]": {
-        "editor.tabSize": 2
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
     },
 
     // Files
@@ -107,4 +119,5 @@
         ".internal",
         ".defold-api"
     ],
+    
 }

@@ -24,7 +24,7 @@ This allows you not to use Defold Editor at all if you are only working with cod
 5. Add the code below to your project:
 
 ```lua
-local debugger = require('modules.debugger')
+local debugger = require('debugger.debugger')
 debugger.start()
 ```
 
@@ -34,7 +34,7 @@ debugger.start()
 
 #### What's next
 
-Now you can open tasks list with **[Ctrl/Cmd]-Shift-B** (by default) or launch the game to debug with **F5** (by default). You can change [key bindings](https://code.visualstudio.com/docs/getstarted/keybindings) in the VSCode settings. 
+Now you can open tasks list with **[Ctrl/Cmd]-Shift-B** (by default) or launch the game to debug with **F5** (by default). You can change [key bindings](https://code.visualstudio.com/docs/getstarted/keybindings) in the VSCode settings. Also you can **ctrl+alt+i** to format your code.
 
 ## Extensions
 
@@ -45,6 +45,7 @@ These extentions are listed in workspace recommendations so it shouldn't be a pr
 - [thejustinwalsh.textproto-grammer](https://marketplace.visualstudio.com/items?itemName=thejustinwalsh.textproto-grammer) - Textual Protobuf syntax highlighting.
 - [slevesque.shader](https://marketplace.visualstudio.com/items?itemName=slevesque.shader) - Shader languages support.
 - [cadenas.vscode-glsllint](https://marketplace.visualstudio.com/items?itemName=cadenas.vscode-glsllint) - Linting of OpenGL Shading Language.
+- [koihik.vscode-lua-format](https://marketplace.visualstudio.com/items?itemName=Koihik.vscode-lua-format) - Lua code formatter.
 
 #### Can I use [EmmyLua](https://github.com/EmmyLua/VSCode-EmmyLua) instead?
 This is also a great option, and of course you can use it. The key difference is that `sunmeko.lua` can generate autocomplete *without* annotations.
@@ -87,6 +88,9 @@ Some of settings are required for IntelliSense to work properly, but most of the
 ### Git
 
 There are `.gitignore` and `.gitattributes` files that should help your git to work more correctly with your Defold project.
+
+### Formatting
+To configure formatting rules edit `.vs-code/lua-format.config` according to [this style options](https://github.com/Koihik/LuaFormatter/blob/master/docs/Style-Config.md).
 
 ## Tasks
 
