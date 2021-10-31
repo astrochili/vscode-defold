@@ -34,7 +34,9 @@ debugger.start()
 
 #### What's next
 
-Now you can open tasks list with **[Ctrl/Cmd]-Shift-B** (by default) or launch the game to debug with **F5** (by default). You can change [key bindings](https://code.visualstudio.com/docs/getstarted/keybindings) in the VSCode settings. Also you can **ctrl+alt+i** to format your code.
+Now you can open tasks list with **[Ctrl/Cmd]-Shift-B** (by default) or launch the game to debug with **F5** (by default). Also you can **[Ctrl/Cmd]-Alt-I** to format your code.
+
+You can change [key bindings](https://code.visualstudio.com/docs/getstarted/keybindings) in the VSCode settings.
 
 ## Extensions
 
@@ -90,7 +92,8 @@ Some of settings are required for IntelliSense to work properly, but most of the
 There are `.gitignore` and `.gitattributes` files that should help your git to work more correctly with your Defold project.
 
 ### Formatting
-To configure formatting rules edit `.vs-code/lua-format.config` according to [this style options](https://github.com/Koihik/LuaFormatter/blob/master/docs/Style-Config.md).
+
+To configure formatting rules edit `.vscode/lua-format.config` according to [these style options](https://github.com/Koihik/LuaFormatter/blob/master/docs/Style-Config.md).
 
 ## Tasks
 
