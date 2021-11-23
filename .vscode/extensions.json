@@ -4,7 +4,7 @@
         "tomblind.local-lua-debugger-vscode",
         "thejustinwalsh.textproto-grammer",
         "slevesque.shader",
-        "cadenas.vscode-glsllint",
+        "dtoplak.vscode-glsllint",
         "koihik.vscode-lua-format"
     ]
 }
