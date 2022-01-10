@@ -2,6 +2,16 @@
 ---Functions and messages used to manipulate tile map components.
 ---@class tilemap
 tilemap = {}
+---flip tile horizontally
+tilemap.H_FLIP = nil
+---rotate tile 180 degrees clockwise
+tilemap.ROTATE_180 = nil
+---rotate tile 270 degrees clockwise
+tilemap.ROTATE_270 = nil
+---rotate tile 90 degrees clockwise
+tilemap.ROTATE_90 = nil
+---flip tile vertically
+tilemap.V_FLIP = nil
 ---Get the bounds for a tile map. This function returns multiple values:
 ---The lower left corner index x and y coordinates (1-indexed),
 ---the tile map width and the tile map height.
@@ -45,14 +55,16 @@ function tilemap.get_tile(url, layer, x, y) end
 ---The coordinates must be within the bounds of the tile map as it were created.
 ---That is, it is not possible to extend the size of a tile map by setting tiles outside the edges.
 ---To clear a tile, set the tile to number 0. Which tile map and layer to manipulate is identified by the URL and the layer name parameters.
+---Transform bitmask is arithmetic sum of one or both FLIP constants (tilemap.H_FLIP, tilemap.V_FLIP) and/or one of ROTATION constants
+---(tilemap.ROTATE_90, tilemap.ROTATE_180, tilemap.ROTATE_270).
+---Flip always applies before rotation (clockwise).
 ---@param url string|hash|url the tile map
 ---@param layer string|hash name of the layer for the tile
 ---@param x number x-coordinate of the tile
 ---@param y number y-coordinate of the tile
 ---@param tile number index of new tile to set. 0 resets the cell
----@param h_flipped boolean optional if the tile should be horizontally flipped
----@param v_flipped boolean optional i the tile should be vertically flipped
-function tilemap.set_tile(url, layer, x, y, tile, h_flipped, v_flipped) end
+---@param transform_bitmask number optional flip and/or rotation should be applied to the tile
+function tilemap.set_tile(url, layer, x, y, tile, transform_bitmask) end
 
 ---Sets the visibility of the tilemap layer
 ---@param url string|hash|url the tile map

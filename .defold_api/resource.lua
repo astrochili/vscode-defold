@@ -71,6 +71,13 @@ function resource.get_buffer(path) end
 ---@return number reference to the Manifest that is currently loaded
 function resource.get_current_manifest() end
 
+---Gets the text metrics from a font
+---@param url hash the font to get the (unscaled) metrics from
+---@param text string text to measure
+---@param options table A table containing parameters for the text. Supported entries:
+---@return table a table with the following fields:
+function resource.get_text_metrics(url, text, options) end
+
 ---Is any liveupdate data mounted and currently in use?
 ---This can be used to determine if a new manifest or zip file should be downloaded.
 ---@return bool true if a liveupdate archive (any format) has been loaded

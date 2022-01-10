@@ -113,11 +113,11 @@
     "Lua.workspace.ignoreDir": [
         ".vscode",
         ".internal",
-        ".defold-api"
+        ".defold_api"
     ],
     "Lua.workspace.library": [
         ".internal",
-        ".defold-api"
+        ".defold_api"
     ],
     
 }

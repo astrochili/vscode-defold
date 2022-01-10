@@ -89,6 +89,7 @@ function sound.pause(url, pause) end
 ---@param url string|hash|url the sound that should play
 ---@param play_properties table 
 ---@param complete_function function(self, message_id, message, sender)) function to call when the sound has finished playing.
+---@return number The identifier for the sound voice
 function sound.play(url, play_properties, complete_function) end
 
 ---Set gain on all active playing voices of a sound.

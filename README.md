@@ -89,7 +89,7 @@ It's recommend to start VSCode with the project folder first and then open the s
 
 ### Defold API
 
-Lua headers with Defold API are generated with [IntelliJ-Defold-Api](https://github.com/d954mas/IntelliJ-Defold-Api) by [d954mas](https://github.com/d954mas). You can update them by downloading `defold_api.zip` from the [releases](https://github.com/d954mas/IntelliJ-Defold-Api/releases) page and unarchive it to the `.defold-api` folder in your workspace.
+Lua headers with Defold API are generated with [IntelliJ-Defold-Api](https://github.com/d954mas/IntelliJ-Defold-Api) by [d954mas](https://github.com/d954mas). You can update them by downloading `defold_api.zip` from the [releases](https://github.com/d954mas/IntelliJ-Defold-Api/releases) page and unarchive it to the `.defold_api` folder in your workspace.
 
 ![intellisense](https://user-images.githubusercontent.com/4752473/113480000-ca02fd00-949a-11eb-9194-f4e546faef93.gif)
 

@@ -112,7 +112,8 @@ go.PLAYBACK_ONCE_PINGPONG = nil
 ---By starting a new animation in that function, several animations can be sequenced together. See the examples for more information.
 --- If you call go.animate() from a game object's final() function,
 ---any passed complete_function will be ignored and never called upon animation completion.
----See the properties guide <> for which properties can be animated and the animation guide <> for how to animate them.
+---See the properties guide <> for which properties can be animated and the animation guide <> for how
+---them.
 ---@param url string|hash|url url of the game object or component having the property
 ---@param property string|hash id of the property to animate
 ---@param playback constant playback mode of the animation
@@ -126,7 +127,7 @@ function go.animate(url, property, playback, to, easing, duration, delay, comple
 ---By calling this function, all stored animations of the given property will be canceled.
 ---See the properties guide <> for which properties can be animated and the animation guide <> for how to animate them.
 ---@param url string|hash|url url of the game object or component having the property
----@param property string|hash ide of the property to animate
+---@param property string|hash id of the property to cancel
 function go.cancel_animations(url, property) end
 
 ---Delete one or more game objects identified by id. Deletion is asynchronous meaning that
@@ -142,8 +143,9 @@ function go.delete(id, recursive) end
 ---gets a named property of the specified game object or component
 ---@param url string|hash|url url of the game object or component having the property
 ---@param property string|hash id of the property to retrieve
+---@param options table (optional) options table - index integer index into array property (1 based) - key hash name of internal property
 ---@return any the value of the specified property
-function go.get(url, property) end
+function go.get(url, property, options) end
 
 ---Returns or constructs an instance identifier. The instance id is a hash
 ---of the absolute path to the instance.
@@ -223,7 +225,8 @@ function go.property(name, value) end
 ---@param url string|hash|url url of the game object or component having the property
 ---@param property string|hash id of the property to set
 ---@param value any the value to set
-function go.set(url, property, value) end
+---@param options table (optional) options table - index integer index into array property (1 based) - key hash name of internal property
+function go.set(url, property, value, options) end
 
 ---Sets the parent for a game object instance. This means that the instance will exist in the geometrical space of its parent,
 ---like a basic transformation hierarchy or scene graph. If no parent is specified, the instance will be detached from any parent and exist in world

@@ -25,6 +25,11 @@ function timer.cancel(handle) end
 ---@return hash handle identifier for the create timer, returns timer.INVALID_TIMER_HANDLE if the timer can not be created
 function timer.delay(delay, _repeat, callback) end
 
+---Manual triggering a callback for a timer.
+---@param handle hash the timer handle returned by timer.delay()
+---@return boolean if the timer was active, false if the timer is already cancelled / complete
+function timer.trigger(handle) end
+
 
 
 

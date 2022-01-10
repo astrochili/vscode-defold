@@ -36,6 +36,11 @@ function physics.destroy_joint(collisionobject, joint_id) end
 ---@return vector3 gravity vector of collection
 function physics.get_gravity() end
 
+---Returns the group name of a collision object as a hash.
+---@param url string|hash|url the collision object to return the group of.
+---@return hash hash value of the group. function checkIsEnemy()     local grp = physics.get_group("#collisionobject")     assert( grp == hash("enemy") ) end
+function physics.get_group(url) end
+
 ---Get a table for properties for a connected joint. The joint has to be created before
 ---properties can be retrieved.
 ---Note: Currently only supported in 2D physics.
@@ -59,6 +64,13 @@ function physics.get_joint_reaction_force(collisionobject, joint_id) end
 ---@param joint_id string|hash id of the joint
 ---@return float the reaction torque on bodyB in N*m.
 function physics.get_joint_reaction_torque(collisionobject, joint_id) end
+
+---Returns true if the specified group is set in the mask of a collision
+---object, false otherwise.
+---@param url string|hash|url the collision object to check the mask of.
+---@param group string the name of the group to check for.
+---@return boolean boolean value of the maskbit. 'true' if present, 'false' otherwise. function checkCollideWithUser()     -- to check if the collisionobject would collide with "user" group     local hits_user = physics.get_maskbit("#collisionobject","user")     return hits_user end
+function physics.get_maskbit(url, group) end
 
 ---Ray casts are used to test for intersections against collision objects in the physics world.
 ---Collision objects of types kinematic, dynamic and static are tested against. Trigger objects
@@ -95,6 +107,13 @@ function physics.raycast_async(from, to, groups, request_id) end
 ---@param gravity vector3 the new gravity vector
 function physics.set_gravity(gravity) end
 
+---Updates the group property of a collision object to the specified
+---string value. The group name should exist i.e. have been used in
+---a collision object in the editor.
+---@param url string|hash|url the collision object affected.
+---@param group string the new group name to be assigned. function changeCollisionGroup()      physics.set_group("#collisionobject", "enemy") end
+function physics.set_group(url, group) end
+
 ---Flips the collision shapes horizontally for a collision object
 ---@param url string|hash|url the collision object that should flip its shapes
 ---@param flip boolean true if the collision object should flip its shapes, false if not
@@ -107,6 +126,12 @@ function physics.set_hflip(url, flip) end
 ---@param joint_id string|hash id of the joint
 ---@param properties table joint specific properties table Note: The collide_connected field cannot be updated/changed after a connection has been made.
 function physics.set_joint_properties(collisionobject, joint_id, properties) end
+
+---Sets or clears the masking of a group (maskbit) in a collision object.
+---@param url string|hash|url the collision object to change the mask of.
+---@param group string the name of the group (maskbit) to modify in the mask.
+---@param type bool  boolean value of the new maskbit. 'true' to enable, 'false' to disable. function makeUserAlly()     -- no longer collide with the "user" group     physics.set_maskbit("#collisionobject","user",false) end
+function physics.set_maskbit(url, group, type) end
 
 ---Flips the collision shapes vertically for a collision object
 ---@param url string|hash|url the collision object that should flip its shapes

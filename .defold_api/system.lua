@@ -9,6 +9,11 @@ sys.NETWORK_CONNECTED = nil
 sys.NETWORK_CONNECTED_CELLULAR = nil
 ---no network connection found
 sys.NETWORK_DISCONNECTED = nil
+---deserializes buffer into a lua table
+---@param buffer string buffer to deserialize from
+---@return table lua table with deserialized data
+function sys.deserialize(buffer) end
+
 ---Terminates the game application and reports the specified code to the OS.
 ---@param code number exit code to report to the OS, 0 means clean exit
 function sys.exit(code) end
@@ -113,6 +118,12 @@ function sys.reboot(arg1, arg2, arg3, arg4, arg5, arg6) end
 ---@param table table lua table to save
 ---@return boolean a boolean indicating if the table could be saved or not
 function sys.save(filename, table) end
+
+---The buffer can later deserialized by sys.deserialize.
+---This method has all the same limitations as sys.save.
+---@param table table lua table to serialize
+---@return string serialized data buffer
+function sys.serialize(table) end
 
 ---Sets the host that is used to check for network connectivity against.
 ---@param host string hostname to check against
