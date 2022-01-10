@@ -77,7 +77,7 @@ Lua headers with Defold API are generated with [IntelliJ-Defold-Api](https://git
 
 ### Libraries
 
-To help the language server to find external libraries and parse their headers you need to unarchive the `*.zip` files in the `.internal/lib/` folder. Don't delete the archives themselves of course.
+To help the language server to find external libraries and parse their headers you need to unarchive the `*.zip` files in the `.internal/lib/` folder. This folder appears after the external libraries are fetched. Don't delete the archives themselves of course.
 
 Unarchive only libraries without native extensions. If you want to unarchive a mixed library with a native extension and Lua modules, you will need to remove the native extension part after unarchiving, otherwise the build will fail.
 
