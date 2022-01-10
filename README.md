@@ -19,8 +19,9 @@ This allows you not to use Defold Editor at all if you are only working with cod
 #### MacOS / Linux / Windows
 
 1. Download [master](https://github.com/astrochili/defold-vscode-guide/archive/refs/heads/master.zip) to use it as your starting project. Or copy files into your existing project (except `main`, `game.project` and `README.md`).
-3. Install recommended by the workspace [extensions](#extensions) on the VSCode Extensions pane.
-4. Configure path to your Defold Editor by replacing `YOUR-DEFOLD-PATH-HERE` in [.vscode/defold.sh](.vscode/defold.sh#L11).
+2. Install recommended by the workspace [extensions](#extensions) on the VSCode Extensions pane.
+3. Configure path to your Defold Editor by replacing `YOUR-DEFOLD-PATH-HERE` in [.vscode/defold.sh](.vscode/defold.sh#L11).
+4. Set VSCode as the [custom editor](#custom-editor) in Defold preferences.
 5. Add the code below to your project:
 
 ```lua
@@ -30,7 +31,7 @@ debugger.start()
 
 #### Windows (additional steps)
 
-5. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
+6. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
 
 #### What's next
 
@@ -57,7 +58,7 @@ Unfortunately there is no the mobdebug extension for VSCode at this moment.
 
 ## Configuration
 
-### Defold
+### Defold Path
 
 Configure path to your Defold Editor folder in `.vscode/defold.sh`. `Java`, `bob`, `dmengine` and other necessary files are all extracted and used directly from your Defold Editor.
 
@@ -68,6 +69,23 @@ Configure path to your Defold Editor folder in `.vscode/defold.sh`. `Java`, `bob
 # - Windows: "C:/Program Files/Defold"
 defold_editor_path="YOUR-DEFOLD-PATH-HERE"
 ```
+
+### Custom Editor
+
+To open source files from Defold directly in VSCode you need to set VSCode as the custom editor in Defold preferences by settings the path to your VSCode executable:
+
+- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Electron`
+- Linux: `/usr/bin/code`
+- Windows: `C:\Program Files\Microsoft VS Code\Code.exe`
+
+Also set these parameters to open files from Defold correctly:
+
+- Open File: `{file}`
+- Open File at Line: `-g {file}:{line}`
+
+#### MacOS only:
+
+It's recommend to start VSCode with the project folder first and then open the source files from Defold, otherwise Defold will try to run VSCode with the Defold icon in the Dock as separate from original VSCode application.
 
 ### Defold API
 
