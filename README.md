@@ -14,26 +14,34 @@ This allows you not to use Defold Editor at all if you are only working with cod
 
 [Discuss on the Defold forum](https://forum.defold.com/t/guide-how-to-turn-vscode-into-defold-ide-with-debugger/68002).
 
-## Quick start
+## Download
+
+#### Start form the scratch
+
+- Use this repository [as the template](https://github.com/astrochili/defold-vscode-guide/generate) or download [master](https://github.com/astrochili/defold-vscode-guide/archive/refs/heads/master.zip) as your starting project.
+
+#### Or integrate to your existing project
+
+- Copy `.vscode`, `.defold_api`, `debugger`, `.gitattributes`, `.gitignore` to your existing project folder.
+
+## Setup
 
 #### MacOS / Linux / Windows
 
-1. Use this repository [as the template](https://github.com/astrochili/defold-vscode-guide/generate) or copy files from [master](https://github.com/astrochili/defold-vscode-guide/archive/refs/heads/master.zip) into your existing project (except `main`, `game.project` and `README.md`).
-2. Install recommended by the workspace [extensions](#extensions) on the VSCode Extensions pane.
-3. Configure path to your Defold Editor by replacing `YOUR-DEFOLD-PATH-HERE` in [.vscode/defold.sh](.vscode/defold.sh#L11).
-4. Set VSCode as the [custom editor](#custom-editor) in Defold preferences.
-5. Add the code below to your project:
+1. Install recommended by the workspace [extensions](#extensions) on the VSCode Extensions pane.
+2. Configure path to your Defold Editor by replacing `YOUR-DEFOLD-PATH-HERE` in [.vscode/defold.sh](.vscode/defold.sh#L11).
+3. Set VSCode as the [custom editor](#custom-editor) in Defold preferences.
+4. Add the debugger starting code to your project:
 
 ```lua
-local debugger = require('debugger.debugger')
-debugger.start()
+require('debugger.debugger').start()
 ```
 
 #### Windows (additional steps)
 
-6. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
+5. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
 
-#### What's next
+### What's next
 
 Now you can open tasks list with **[Ctrl/Cmd]-Shift-B** (by default) or launch the game to debug with **F5** (by default). Also you can **[Ctrl/Cmd]-Alt-I** to format your code.
 
