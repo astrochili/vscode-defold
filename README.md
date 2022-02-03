@@ -18,7 +18,7 @@ This allows you not to use Defold Editor at all if you are only working with cod
 
 #### MacOS / Linux / Windows
 
-1. Download [master](https://github.com/astrochili/defold-vscode-guide/archive/refs/heads/master.zip) to use it as your starting project. Or copy files into your existing project (except `main`, `game.project` and `README.md`).
+1. Use this repository [as the template](https://github.com/astrochili/defold-vscode-guide/generate) or copy files from [master](https://github.com/astrochili/defold-vscode-guide/archive/refs/heads/master.zip) into your existing project (except `main`, `game.project` and `README.md`).
 2. Install recommended by the workspace [extensions](#extensions) on the VSCode Extensions pane.
 3. Configure path to your Defold Editor by replacing `YOUR-DEFOLD-PATH-HERE` in [.vscode/defold.sh](.vscode/defold.sh#L11).
 4. Set VSCode as the [custom editor](#custom-editor) in Defold preferences.
