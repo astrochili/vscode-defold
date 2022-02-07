@@ -144,7 +144,7 @@ Debugging is provided with [local-lua-debugger-vscode](https://marketplace.visua
 To debug you also need to start the debugger on the game side:
 
 ```lua
-local debugger = require('modules.debugger')
+local debugger = require('debugger.debugger')
 debugger.start()
 ```
 
