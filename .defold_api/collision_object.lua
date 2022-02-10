@@ -38,7 +38,7 @@ function physics.get_gravity() end
 
 ---Returns the group name of a collision object as a hash.
 ---@param url string|hash|url the collision object to return the group of.
----@return hash hash value of the group. function checkIsEnemy()     local grp = physics.get_group("#collisionobject")     assert( grp == hash("enemy") ) end
+---@return hash hash value of the group. local function check_is_enemy()     local group = physics.get_group("#collisionobject")     return group == hash("enemy") end
 function physics.get_group(url) end
 
 ---Get a table for properties for a connected joint. The joint has to be created before
@@ -69,7 +69,7 @@ function physics.get_joint_reaction_torque(collisionobject, joint_id) end
 ---object, false otherwise.
 ---@param url string|hash|url the collision object to check the mask of.
 ---@param group string the name of the group to check for.
----@return boolean boolean value of the maskbit. 'true' if present, 'false' otherwise. function checkCollideWithUser()     -- to check if the collisionobject would collide with "user" group     local hits_user = physics.get_maskbit("#collisionobject","user")     return hits_user end
+---@return boolean boolean value of the maskbit. 'true' if present, 'false' otherwise. local function is_invincible()     -- check if the collisionobject would collide with the "bullet" group     local invincible = physics.get_maskbit("#collisionobject", "bullet")     return invincible end
 function physics.get_maskbit(url, group) end
 
 ---Ray casts are used to test for intersections against collision objects in the physics world.
@@ -111,7 +111,7 @@ function physics.set_gravity(gravity) end
 ---string value. The group name should exist i.e. have been used in
 ---a collision object in the editor.
 ---@param url string|hash|url the collision object affected.
----@param group string the new group name to be assigned. function changeCollisionGroup()      physics.set_group("#collisionobject", "enemy") end
+---@param group string the new group name to be assigned. local function change_collision_group()      physics.set_group("#collisionobject", "enemy") end
 function physics.set_group(url, group) end
 
 ---Flips the collision shapes horizontally for a collision object
@@ -130,8 +130,8 @@ function physics.set_joint_properties(collisionobject, joint_id, properties) end
 ---Sets or clears the masking of a group (maskbit) in a collision object.
 ---@param url string|hash|url the collision object to change the mask of.
 ---@param group string the name of the group (maskbit) to modify in the mask.
----@param type bool  boolean value of the new maskbit. 'true' to enable, 'false' to disable. function makeUserAlly()     -- no longer collide with the "user" group     physics.set_maskbit("#collisionobject","user",false) end
-function physics.set_maskbit(url, group, type) end
+---@param maskbit boolean boolean value of the new maskbit. 'true' to enable, 'false' to disable. local function make_invincible()     -- no longer collide with the "bullet" group     physics.set_maskbit("#collisionobject", "bullet", false) end
+function physics.set_maskbit(url, group, maskbit) end
 
 ---Flips the collision shapes vertically for a collision object
 ---@param url string|hash|url the collision object that should flip its shapes
