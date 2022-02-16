@@ -22,7 +22,7 @@ This allows you not to use Defold Editor at all if you are only working with cod
 
 #### Or integrate to your existing project
 
-- Copy `.vscode`, `.defold_api`, `debugger`, `.gitattributes`, `.gitignore` to your existing project folder.
+- Copy `debugger`, `.vscode`, `.defold_api`, `.gitattributes`, `.gitignore` to your existing project folder.
 
 ## Setup
 
