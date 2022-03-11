@@ -225,10 +225,6 @@ function gui.cancel_animation(node, property) end
 ---@param node node node cancel flipbook animation for
 function gui.cancel_flipbook(node) end
 
----cancel a spine animation
----@param node node spine node that should cancel its animation
-function gui.cancel_spine(node) end
-
 ---Make a clone instance of a node.
 ---This function does not clone the supplied node's children nodes.
 ---Use gui.clone_tree for that purpose.
@@ -447,7 +443,7 @@ function gui.get_size(node) end
 ---The size mode defines how the node will adjust itself in size. Automatic
 ---size mode alters the node size based on the node's content. Automatic size
 ---mode works for Box nodes and Pie nodes which will both adjust their size
----to match the assigned image. Spine, Particle fx and Text nodes will ignore
+---to match the assigned image. Particle fx and Text nodes will ignore
 ---any size mode setting.
 ---@param node node node from which to get the size mode (node)
 ---@return constant the current size mode
@@ -457,40 +453,6 @@ function gui.get_size_mode(node) end
 ---@param node node node to manipulate
 ---@return vector4 configuration values
 function gui.get_slice9(node) end
-
----Gets the playing animation on a spine node
----@param node node node to get spine skin from
----@return hash spine animation id, 0 if no animation is playing
-function gui.get_spine_animation(node) end
-
----The returned node can be used for parenting and transform queries.
----This function has complexity O(n), where n is the number of bones in the spine model skeleton.
----@param node node spine node to query for bone node
----@param bone_id string|hash id of the corresponding bone
----@return node node corresponding to the spine bone
-function gui.get_spine_bone(node, bone_id) end
-
----This is only useful for spine nodes. Gets the normalized cursor of the animation on a spine node.
----@param node node spine node to get the cursor for (node)
----@return  value number cursor value
-function gui.get_spine_cursor(node) end
-
----This is only useful for spine nodes. Gets the playback rate of the animation on a spine node.
----@param node node spine node to set the cursor for
----@return number playback rate
-function gui.get_spine_playback_rate(node) end
-
----Returns the spine scene id of the supplied node.
----This is currently only useful for spine nodes.
----The returned spine scene must be mapped to the gui scene in the gui editor.
----@param node node node to get texture from
----@return hash spine scene id
-function gui.get_spine_scene(node) end
-
----Gets the spine skin of a spine node
----@param node node node to get spine skin from
----@return hash spine skin id, 0 if no explicit skin is set
-function gui.get_spine_skin(node) end
 
 ---Returns the text value of a text node. This is only useful for text nodes.
 ---@param node node node from which to get the text
@@ -565,12 +527,6 @@ function gui.new_particlefx_node(pos, particlefx) end
 ---@return node new pie node
 function gui.new_pie_node(pos, size) end
 
----Dynamically create a new spine node.
----@param pos vector3|vector4 node position
----@param spine_scene string|hash spine scene id
----@return node new spine node
-function gui.new_spine_node(pos, spine_scene) end
-
 ---Dynamically create a new text node.
 ---@param pos vector3|vector4 node position
 ---@param text string node text
@@ -610,14 +566,6 @@ function gui.play_flipbook(node, animation, complete_function, play_properties) 
 ---@param emitter_state_function function(self, node, emitter, state) optional callback function that will be called when an emitter attached to this particlefx changes state.
 function gui.play_particlefx(node, emitter_state_function) end
 
----Starts a spine animation.
----@param node node spine node that should play the animation
----@param animation_id string|hash id of the animation to play
----@param playback constant playback mode
----@param play_properties table optional table with properties
----@param complete_function function(self, node) function to call when the animation has completed
-function gui.play_spine_anim(node, animation_id, playback, play_properties, complete_function) end
-
 ---Resets the input context of keyboard. This will clear marked text.
 function gui.reset_keyboard() end
 
@@ -625,6 +573,12 @@ function gui.reset_keyboard() end
 ---The reset only applies to static node loaded from the scene.
 ---Nodes that are created dynamically from script are not affected.
 function gui.reset_nodes() end
+
+---Convert the screen position to the local position of supplied node
+---@param node node node used for getting local transformation matrix
+---@param screen_position vector3 screen position
+---@return vector3 local position
+function gui.screen_to_local(node, screen_position) end
 
 ---Sets the adjust mode on a node.
 ---The adjust mode defines how the node will adjust itself to screen
@@ -792,6 +746,11 @@ function gui.set_rotation(node, rotation) end
 ---@param scale vector3|vector4 new scale
 function gui.set_scale(node, scale) end
 
+---Set the screen position to the supplied node
+---@param node node node to set the screen position to
+---@param screen_position vector3 screen position
+function gui.set_screen_position(node, screen_position) end
+
 ---Sets the shadow color of the supplied node.
 ---See gui.set_color <> for info how vectors encode color values.
 ---@param node node node to set the shadow color for
@@ -808,7 +767,7 @@ function gui.set_size(node, size) end
 ---The size mode defines how the node will adjust itself in size. Automatic
 ---size mode alters the node size based on the node's content. Automatic size
 ---mode works for Box nodes and Pie nodes which will both adjust their size
----to match the assigned image. Spine, Particle fx and Text nodes will ignore
+---to match the assigned image. Particle fx and Text nodes will ignore
 ---any size mode setting.
 ---@param node node node to set size mode for
 ---@param size_mode constant size mode to set
@@ -818,27 +777,6 @@ function gui.set_size_mode(node, size_mode) end
 ---@param node node node to manipulate
 ---@param values vector4 new values
 function gui.set_slice9(node, values) end
-
----This is only useful for spine nodes. The cursor is normalized.
----@param node node spine node to set the cursor for
----@param cursor number cursor value
-function gui.set_spine_cursor(node, cursor) end
-
----This is only useful for spine nodes. Sets the playback rate of the animation on a spine node. Must be positive.
----@param node node spine node to set the cursor for
----@param playback_rate number playback rate
-function gui.set_spine_playback_rate(node, playback_rate) end
-
----Set the spine scene on a spine node. The spine scene must be mapped to the gui scene in the gui editor.
----@param node node node to set spine scene for
----@param spine_scene string|hash spine scene id
-function gui.set_spine_scene(node, spine_scene) end
-
----Sets the spine skin on a spine node.
----@param node node node to set the spine skin on
----@param spine_skin string|hash spine skin id
----@param spine_slot string|hash optional slot id to only change a specific slot
-function gui.set_spine_skin(node, spine_skin, spine_slot) end
 
 ---Set the text value of a text node. This is only useful for text nodes.
 ---@param node node node to set text for

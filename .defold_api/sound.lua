@@ -40,7 +40,7 @@ function sound.get_peak(group, window) end
 ---square root of the mean (average) value of the squared function of
 ---the instantaneous values.
 ---For instance: for a sinewave signal with a peak gain of -1.94 dB (0.8 linear),
----the RMS is 0.8 × 1/sqrt(2) which is about 0.566.
+---the RMS is 0.8 ? 1/sqrt(2) which is about 0.566.
 --- Note the returned value might be an approximation and in particular
 ---the effective window might be larger than specified.
 ---@param group string|hash group name
