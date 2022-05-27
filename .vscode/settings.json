@@ -108,7 +108,8 @@
     "Lua.diagnostics.disable": [
         "lowercase-global",
         "trailing-space",
-        "redefined-local"
+        "redefined-local",
+        "missing-parameter"
     ],
     "Lua.workspace.ignoreDir": [
         ".vscode",
