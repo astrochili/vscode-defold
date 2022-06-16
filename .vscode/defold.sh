@@ -75,9 +75,15 @@ defold_config_path="$defold_recources_path/config"
 defold_editor_sha1=$(awk '/^editor_sha1/{print $3}' "$defold_config_path")
 
 # Java Paths
-jdk_path="$defold_recources_path/packages/jdk11.0.1-p1"
-java_path="$jdk_path/bin/java"
-jar_path="$jdk_path/bin/jar"
+jdk_path=$(awk '/^jdk/{print $3}' "$defold_config_path")
+jdk_path=${jdk_path/\$\{bootstrap.resourcespath\}/"$defold_recources_path"}
+
+java_path=$(awk '/^java/{print $3}' "$defold_config_path")
+java_path=${java_path/\$\{launcher.jdk\}/"$jdk_path"}
+
+jar_path=$(awk '/^jar/{print $3}' "$defold_config_path")
+jar_path=${jar_path/\$\{bootstrap.resourcespath\}/"$defold_recources_path"}
+jar_path=${jar_path/\$\{editor_sha1\}/"$defold_editor_sha1"}
 
 if [ $host_os = "Windows" ]
 then
