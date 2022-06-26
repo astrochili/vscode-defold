@@ -81,9 +81,11 @@ jdk_path=${jdk_path/\$\{bootstrap.resourcespath\}/"$defold_recources_path"}
 java_path=$(awk '/^java/{print $3}' "$defold_config_path")
 java_path=${java_path/\$\{launcher.jdk\}/"$jdk_path"}
 
-jar_path=$(awk '/^jar/{print $3}' "$defold_config_path")
-jar_path=${jar_path/\$\{bootstrap.resourcespath\}/"$defold_recources_path"}
-jar_path=${jar_path/\$\{build.editor_sha1\}/"$defold_editor_sha1"}
+# NOTE: This only works if in the Defold config file 'jar = ${launcher.jdk}/bin/jar'
+#jar_path=$(awk '/^jar/{print $3}' "$defold_config_path")
+#jar_path=${jar_path/\$\{bootstrap.resourcespath\}/"$defold_recources_path"}
+#jar_path=${jar_path/\$\{build.editor_sha1\}/"$defold_editor_sha1"}
+jar_path="${java_path::-4}jar"
 
 if [ $host_os = "Windows" ]
 then
