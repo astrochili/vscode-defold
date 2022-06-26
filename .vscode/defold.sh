@@ -83,7 +83,7 @@ java_path=${java_path/\$\{launcher.jdk\}/"$jdk_path"}
 
 jar_path=$(awk '/^jar/{print $3}' "$defold_config_path")
 jar_path=${jar_path/\$\{bootstrap.resourcespath\}/"$defold_recources_path"}
-jar_path=${jar_path/\$\{editor_sha1\}/"$defold_editor_sha1"}
+jar_path=${jar_path/\$\{build.editor_sha1\}/"$defold_editor_sha1"}
 
 if [ $host_os = "Windows" ]
 then
