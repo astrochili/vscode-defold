@@ -81,9 +81,7 @@ jdk_path=${jdk_path/\$\{bootstrap.resourcespath\}/"$defold_recources_path"}
 java_path=$(awk '/^java/{print $3}' "$defold_config_path")
 java_path=${java_path/\$\{launcher.jdk\}/"$jdk_path"}
 
-jar_path=$(awk '/^jar/{print $3}' "$defold_config_path")
-jar_path=${jar_path/\$\{bootstrap.resourcespath\}/"$defold_recources_path"}
-jar_path=${jar_path/\$\{editor_sha1\}/"$defold_editor_sha1"}
+jar_path=${java_path/bin\/java/"bin/jar"}
 
 if [ $host_os = "Windows" ]
 then
@@ -92,7 +90,10 @@ then
 fi
 
 # Bob Paths
-defold_jar_path="$defold_recources_path/packages/defold-$defold_editor_sha1.jar"
+defold_jar_path=$(awk '/^jar/{print $3}' "$defold_config_path")
+defold_jar_path=${defold_jar_path/\$\{bootstrap.resourcespath\}/"$defold_recources_path"}
+defold_jar_path=${defold_jar_path/\$\{build.editor_sha1\}/"$defold_editor_sha1"}
+
 bob_class="com.dynamo.bob.Bob"
 
 
