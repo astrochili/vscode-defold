@@ -121,11 +121,15 @@ function resource.set_sound(path, buffer) end
 ---@param buffer buffer The buffer of precreated pixel data  Currently, only 1 mipmap is generated.
 function resource.set_texture(path, table, buffer) end
 
----Stores a zip file and uses it for live update content.
----The path is renamed and stored in the (internal) live update location
+---Stores a zip file and uses it for live update content. The contents of the
+---zip file will be verified against the manifest to ensure file integrity.
+---It is possible to opt out of the resource verification using an option passed
+---to this function.
+---The path is stored in the (internal) live update location.
 ---@param path string the path to the original file on disc
 ---@param callback function(self, status) the callback function executed after the storage has completed
-function resource.store_archive(path, callback) end
+---@param options table optional table with extra parameters. Supported entries:
+function resource.store_archive(path, callback, options) end
 
 ---Create a new manifest from a buffer. The created manifest is verified
 ---by ensuring that the manifest was signed using the bundled public/private

@@ -38,7 +38,7 @@ vmath = {}
 function vmath.conj(q1) end
 
 ---Given two linearly independent vectors P and Q, the cross product,
----P ? Q, is a vector that is perpendicular to both P and Q and
+---P × Q, is a vector that is perpendicular to both P and Q and
 ---therefore normal to the plane containing them.
 ---If the two vectors have the same direction (or have the exact
 ---opposite direction from one another, i.e. are not linearly independent)
@@ -49,8 +49,8 @@ function vmath.conj(q1) end
 function vmath.cross(v1, v2) end
 
 ---The returned value is a scalar defined as:
----P ? Q = |P| |Q| cos ?
----where ? is the angle between the vectors P and Q.
+---P ⋅ Q = |P| |Q| cos θ
+---where θ is the angle between the vectors P and Q.
 ---
 ---
 --- * If the dot product is positive then the angle between the vectors is below 90 degrees.
@@ -232,8 +232,8 @@ function vmath.ortho_inv(m1) end
 
 ---Calculates the extent the projection of the first vector onto the second.
 ---The returned value is a scalar p defined as:
----p = |P| cos ? / |Q|
----where ? is the angle between the vectors P and Q.
+---p = |P| cos θ / |Q|
+---where θ is the angle between the vectors P and Q.
 ---@param v1 vector3 vector to be projected on the second
 ---@param v2 vector3 vector onto which the first will be projected, must not have zero length
 ---@return number the projected extent of the first vector onto the second

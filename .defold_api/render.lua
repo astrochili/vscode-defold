@@ -1,9 +1,9 @@
 ---Rendering API documentation
 ---Rendering functions, messages and constants. The "render" namespace is
 ---accessible only from render scripts.
----The rendering API is built on top of OpenGL ES 2.0, is a subset of the
+---The rendering API was originally built on top of OpenGL ES 2.0, and it uses a subset of the
 ---OpenGL computer graphics rendering API for rendering 2D and 3D computer
----graphics. OpenGL ES 2.0 is supported on all our target platforms.
+---graphics. Our current target is OpenGLES 3.0 with fallbacks to 2.0 on some platforms.
 --- It is possible to create materials and write shaders that
 ---require features not in OpenGL ES 2.0, but those will not work cross platform.
 ---@class render
@@ -41,12 +41,24 @@ render.FILTER_LINEAR = nil
 render.FILTER_NEAREST = nil
 render.FORMAT_DEPTH = nil
 render.FORMAT_LUMINANCE = nil
+---May be nil if the format isn't supported
+render.FORMAT_R16F = nil
+---May be nil if the format isn't supported
+render.FORMAT_R32F = nil
+---May be nil if the format isn't supported
+render.FORMAT_RG16F = nil
+---May be nil if the format isn't supported
+render.FORMAT_RG32F = nil
 render.FORMAT_RGB = nil
+---May be nil if the format isn't supported
+render.FORMAT_RGB16F = nil
+---May be nil if the format isn't supported
+render.FORMAT_RGB32F = nil
 render.FORMAT_RGBA = nil
-render.FORMAT_RGBA_DXT1 = nil
-render.FORMAT_RGBA_DXT3 = nil
-render.FORMAT_RGBA_DXT5 = nil
-render.FORMAT_RGB_DXT1 = nil
+---May be nil if the format isn't supported
+render.FORMAT_RGBA16F = nil
+---May be nil if the format isn't supported
+render.FORMAT_RGBA32F = nil
 render.FORMAT_STENCIL = nil
 render.RENDER_TARGET_DEFAULT = nil
 render.STATE_BLEND = nil
@@ -96,11 +108,12 @@ function render.disable_texture(unit) end
 ---system constants buffer is used containing constants as defined in materials and set through
 ---go.set <> (or particlefx.set_constant <>) on visual components.
 ---@param predicate predicate predicate to draw for
----@param constants constant_buffer optional constants to use while rendering
-function render.draw(predicate, constants) end
+---@param options table optional table with properties:
+function render.draw(predicate, options) end
 
 ---Draws all 3d debug graphics such as lines drawn with "draw_line" messages and physics visualization.
-function render.draw_debug3d() end
+---@param options table optional table with properties:
+function render.draw_debug3d(options) end
 
 ---If another material was already enabled, it will be automatically disabled
 ---and the specified material is used instead.
@@ -173,7 +186,7 @@ function render.predicate(tags) end
 ---of parameters. The following parameter keys are available:
 ---
 ---Key                           Values
----format                        render.FORMAT_LUMINANCErender.FORMAT_RGBrender.FORMAT_RGBA render.FORMAT_RGB_DXT1render.FORMAT_RGBA_DXT1render.FORMAT_RGBA_DXT3 render.FORMAT_RGBA_DXT5render.FORMAT_DEPTHrender.FORMAT_STENCIL
+---format                        render.FORMAT_LUMINANCErender.FORMAT_RGBrender.FORMAT_RGBArender.FORMAT_DEPTHrender.FORMAT_STENCILrender.FORMAT_RGBA32Frender.FORMAT_RGBA16F
 ---width                         number
 ---height                        number
 ---min_filter                    render.FILTER_LINEARrender.FILTER_NEAREST
@@ -292,7 +305,7 @@ function render.set_depth_mask(depth) end
 ---offset for each polygon. The initial value is 0.
 ---units is multiplied by an implementation-specific value to create a
 ---constant depth offset. The initial value is 0.
----The value of the offset is computed as factor ? DZ + r ? units
+---The value of the offset is computed as factor × DZ + r × units
 ---DZ is a measurement of the depth slope of the polygon which is the change in z (depth)
 ---values divided by the change in either x or y coordinates, as you traverse a polygon.
 ---The depth values are in window coordinates, clamped to the range [0, 1].

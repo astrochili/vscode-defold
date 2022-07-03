@@ -124,10 +124,10 @@ go.PLAYBACK_ONCE_PINGPONG = nil
 ---@param complete_function function(self, url, property) optional function to call when the animation has completed
 function go.animate(url, property, playback, to, easing, duration, delay, complete_function) end
 
----By calling this function, all stored animations of the given property will be canceled.
+---By calling this function, all or specified stored property animations of the game object or component will be canceled.
 ---See the properties guide <> for which properties can be animated and the animation guide <> for how to animate them.
----@param url string|hash|url url of the game object or component having the property
----@param property string|hash id of the property to cancel
+---@param url string|hash|url url of the game object or component
+---@param property string|hash optional id of the property to cancel
 function go.cancel_animations(url, property) end
 
 ---Delete one or more game objects identified by id. Deletion is asynchronous meaning that
