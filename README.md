@@ -1,18 +1,19 @@
 ![logo](https://user-images.githubusercontent.com/4752473/133979748-853ff3d7-b9a5-4c66-ac3f-3a02416af7c2.png)
+[![buymeacoffee](https://user-images.githubusercontent.com/4752473/179627111-617b77b1-f900-4fac-9e03-df73994246ad.svg)](https://www.buymeacoffee.com/astrochili) [![yoomoney](https://user-images.githubusercontent.com/4752473/179627145-7b0fde31-9d1b-4050-933f-82ce3227c617.svg)](https://yoomoney.ru/to/410011261306506) [![twitter](https://user-images.githubusercontent.com/4752473/179627140-c8991473-c4c1-4d6a-9bb1-4dc2117b049f.svg)](https://twitter.com/astronachos) [![telegram](https://user-images.githubusercontent.com/4752473/179627134-0bdcf8a5-7826-4ed2-b8cd-06d0b9792422.svg)](https://t.me/astronachos)
 
 # How to turn Visual Studio Code into Defold IDE
 
 This guide will help you to configure [VSCode](https://code.visualstudio.com/) for developing games with [Defold](https://defold.com/).
 
-- Syntax **Highlighting** and **Linting**.
-- Powerful **IntelliSense** (standard lua, Defold API, libraries, project code).
-- **Building** and **Launching** the game from VSCode.
-- **Debugging** with breakpoints, call stacks, stepping, inspecting and evaluating.
-- **Bundling** to all the platforms and **Deploying** to connected mobile devices.
+- [x] Syntax **Highlighting** and **Linting**.
+- [x] Powerful **IntelliSense** (standard lua, Defold API, libraries, project code).
+- [x] **Building** and **Launching** the game from VSCode.
+- [x] **Debugging** with breakpoints, call stacks, stepping, inspecting and evaluating.
+- [x] **Bundling** to all the platforms and **Deploying** to connected mobile devices.
 
 This allows you not to use Defold Editor at all if you are only working with code at the moment.
 
-[Discuss on the Defold forum](https://forum.defold.com/t/guide-how-to-turn-vscode-into-defold-ide-with-debugger/68002).
+💬 [Discuss on the forum](https://forum.defold.com/t/guide-how-to-turn-vscode-into-defold-ide-with-debugger/68002).
 
 ## Download
 
