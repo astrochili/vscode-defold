@@ -302,7 +302,7 @@ function launch {
         # Extract dmengine from Defold Editor.
         case $host_os in
             "macOS")
-                defold_dmengine_path="_unpack/x86_64-darwin/bin/dmengine"
+                defold_dmengine_path="_unpack/x86_64-macos/bin/dmengine"
                 ;;
             "Windows")
                 defold_dmengine_path="_unpack/x86_64-win32/bin/dmengine.exe"
