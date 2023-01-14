@@ -60,9 +60,11 @@ These extentions are listed in workspace recommendations so it shouldn't be a pr
 - [koihik.vscode-lua-format](https://marketplace.visualstudio.com/items?itemName=Koihik.vscode-lua-format) - Lua code formatter.
 
 #### Can I use [EmmyLua](https://github.com/EmmyLua/VSCode-EmmyLua) instead?
+
 This is also a great option, and of course you can use it. The key difference is that `sunmeko.lua` can generate autocomplete *without* annotations.
 
 #### Why not the built-in [mobdebug](https://github.com/pkulchenko/MobDebug)?
+
 Unfortunately there is no the mobdebug extension for VSCode at this moment.
 
 ## Configuration
@@ -98,9 +100,24 @@ It's recommend to start VSCode with the project folder first and then open the s
 
 ### Defold API
 
+![intellisense](https://user-images.githubusercontent.com/4752473/113480000-ca02fd00-949a-11eb-9194-f4e546faef93.gif)
+
+
+There are two ways to provide Defold API headers. Both methods are possible, but the one where the headers are up to date according to the latest Defold version is always preferable.
+
+#### Provided with IntelliJ-Defold-Api
+
 Lua headers with Defold API are generated with [IntelliJ-Defold-Api](https://github.com/d954mas/IntelliJ-Defold-Api) by [d954mas](https://github.com/d954mas). You can update them by downloading `defold_api.zip` from the [releases](https://github.com/d954mas/IntelliJ-Defold-Api/releases) page and unarchive it to the `.defold_api` folder in your workspace.
 
-![intellisense](https://user-images.githubusercontent.com/4752473/113480000-ca02fd00-949a-11eb-9194-f4e546faef93.gif)
+#### Provided with sunmeko.lua
+
+The alternative way is using Defold API headers included in [sunmeko.lua](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) by adding the library path `${3rd}/Defold/library` to the [settings.json](.vscode/settings.json):
+
+```json
+"Lua.workspace.library": [
+    "${3rd}/Defold/library"
+]
+```
 
 ### Libraries
 
