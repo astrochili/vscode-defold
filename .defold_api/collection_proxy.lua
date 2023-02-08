@@ -3,7 +3,16 @@
 ---which are used to dynamically load collections into the runtime.
 ---@class collectionproxy
 collectionproxy = {}
----return an indexed table of missing resources for a collection proxy. Each
+---return an indexed table of resources for a collection proxy. Each
+---entry is a hexadecimal string that represents the data of the specific
+---resource. This representation corresponds with the filename for each
+---individual resource that is exported when you bundle an application with
+---LiveUpdate functionality.
+---@param collectionproxy url the collectionproxy to check for resources.
+---@return table the resources
+function collectionproxy.get_resources(collectionproxy) end
+
+---return an array of missing resources for a collection proxy. Each
 ---entry is a hexadecimal string that represents the data of the specific
 ---resource. This representation corresponds with the filename for each
 ---individual resource that is exported when you bundle an application with

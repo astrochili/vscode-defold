@@ -42,9 +42,20 @@ function profiler.get_cpu_usage() end
 ---@return number used by the application
 function profiler.get_memory_usage() end
 
+---Send a text to the profiler
+---@param text string the string to send to the profiler
+function profiler.log_text(text) end
+
 ---Get the number of recorded frames in the on-screen profiler ui recording buffer
 ---@return number the number of recorded frames, zero if on-screen profiler is disabled
 function profiler.recorded_frame_count() end
+
+---Starts a profile scope.
+---@param name string The name of the scope
+function profiler.scope_begin(name) end
+
+---End the current profile scope.
+function profiler.scope_end() end
 
 ---Set the on-screen profile mode - run, pause, record or show peak frame
 ---@param mode constant the mode to set the ui profiler in

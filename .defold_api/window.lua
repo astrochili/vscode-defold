@@ -25,6 +25,10 @@ window.WINDOW_EVENT_RESIZED = nil
 ---@return constant The mode for screen dimming
 function window.get_dim_mode() end
 
+---This returns the current lock state of the mouse cursor
+---@return boolean The lock state
+function window.get_mouse_lock() end
+
 ---This returns the current window size (width and height).
 ---@return number The window width
 ---@return number The window height
@@ -39,6 +43,12 @@ function window.set_dim_mode(mode) end
 ---Sets a window event listener.
 ---@param callback function(self, event, data) A callback which receives info about window events. Pass an empty function or nil if you no longer wish to receive callbacks.
 function window.set_listener(callback) end
+
+---Set the locking state for current mouse cursor on a PC platform.
+---This function locks or unlocks the mouse cursor to the center point of the window. While the cursor is locked,
+---mouse position updates will still be sent to the scripts as usual.
+---@param flag boolean The lock state for the mouse cursor
+function window.set_mouse_lock(flag) end
 
 
 

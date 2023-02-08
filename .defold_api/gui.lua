@@ -471,6 +471,12 @@ function gui.get_texture(node) end
 ---@return number tracking scaling number (default=0)
 function gui.get_tracking(node) end
 
+---Returns true if a node is visible and false if it's not.
+---Invisible nodes are not rendered.
+---@param node node node to query
+---@return boolean whether the node is visible or not
+function gui.get_visible(node) end
+
 ---Returns the scene width.
 ---@return number scene width
 function gui.get_width() end
@@ -809,6 +815,11 @@ function gui.set_texture_data(texture, width, height, type, buffer, flip) end
 ---@param tracking number a scaling number for the letter spacing (default=0)
 function gui.set_tracking(node, tracking) end
 
+---Set if a node should be visible or not. Only visible nodes are rendered.
+---@param node node node to be visible or not
+---@param visible boolean whether the node should be visible or not
+function gui.set_visible(node, visible) end
+
 ---The x-anchor specifies how the node is moved when the game is run in a different resolution.
 ---@param node node node to set x-anchor for
 ---@param anchor constant anchor constant
@@ -829,7 +840,8 @@ function gui.show_keyboard(type, autoclose) end
 
 ---Stops the particle fx for a gui node
 ---@param node node node to stop particle fx for
-function gui.stop_particlefx(node) end
+---@param options table options when stopping the particle fx. Supported options:
+function gui.stop_particlefx(node, options) end
 
 ---This is a callback-function, which is called by the engine when a gui component is initialized. It can be used
 ---to set the initial state of the script and gui scene.

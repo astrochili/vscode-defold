@@ -23,6 +23,10 @@ render.BLEND_SRC_ALPHA = nil
 render.BLEND_SRC_ALPHA_SATURATE = nil
 render.BLEND_SRC_COLOR = nil
 render.BLEND_ZERO = nil
+render.BUFFER_COLOR0_BIT = nil
+render.BUFFER_COLOR1_BIT = nil
+render.BUFFER_COLOR2_BIT = nil
+render.BUFFER_COLOR3_BIT = nil
 render.BUFFER_COLOR_BIT = nil
 render.BUFFER_DEPTH_BIT = nil
 render.BUFFER_STENCIL_BIT = nil
@@ -78,11 +82,13 @@ render.WRAP_CLAMP_TO_BORDER = nil
 render.WRAP_CLAMP_TO_EDGE = nil
 render.WRAP_MIRRORED_REPEAT = nil
 render.WRAP_REPEAT = nil
----Clear buffers in the currently enabled render target with specified value.
+---Clear buffers in the currently enabled render target with specified value. If the render target has been created with multiple
+---color attachments, all buffers will be cleared with the same value.
 ---@param buffers table table with keys specifying which buffers to clear and values set to clear values. Available keys are:
 function render.clear(buffers) end
 
----Constant buffers are used to set shader program variables and are optionally passed to the render.draw() function. The buffer's constant elements can be indexed like an ordinary Lua table, but you can't iterate over them with pairs() or ipairs().
+---Constant buffers are used to set shader program variables and are optionally passed to the render.draw() function.
+---The buffer's constant elements can be indexed like an ordinary Lua table, but you can't iterate over them with pairs() or ipairs().
 ---@return constant_buffer new constant buffer
 function render.constant_buffer() end
 
@@ -193,6 +199,9 @@ function render.predicate(tags) end
 ---mag_filter                    render.FILTER_LINEARrender.FILTER_NEAREST
 ---u_wrap                        render.WRAP_CLAMP_TO_BORDERrender.WRAP_CLAMP_TO_EDGErender.WRAP_MIRRORED_REPEATrender.WRAP_REPEAT
 ---v_wrap                        render.WRAP_CLAMP_TO_BORDERrender.WRAP_CLAMP_TO_EDGErender.WRAP_MIRRORED_REPEATrender.WRAP_REPEAT
+---The render target can be created to support multiple color attachments. Each attachment can have different format settings and texture filters,
+---but attachments must be added in sequence, meaning you cannot create a render target at slot 0 and 3.
+---Instead it has to be created with all four buffer types ranging from [0..3] (as denoted by render.BUFFER_COLORX_BIT where 'X' is the attachment you want to create).
 ---@param name string render target name
 ---@param parameters table table of buffer parameters, see the description for available keys and values
 ---@return render_target new render target

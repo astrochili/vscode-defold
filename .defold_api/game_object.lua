@@ -143,7 +143,7 @@ function go.delete(id, recursive) end
 ---gets a named property of the specified game object or component
 ---@param url string|hash|url url of the game object or component having the property
 ---@param property string|hash id of the property to retrieve
----@param options table (optional) options table - index integer index into array property (1 based) - key hash name of internal property
+---@param options table optional options table - index integer index into array property (1 based) - key hash name of internal property
 ---@return any the value of the specified property
 function go.get(url, property, options) end
 
@@ -225,7 +225,7 @@ function go.property(name, value) end
 ---@param url string|hash|url url of the game object or component having the property
 ---@param property string|hash id of the property to set
 ---@param value any the value to set
----@param options table (optional) options table - index integer index into array property (1 based) - key hash name of internal property
+---@param options table optional options table - index integer index into array property (1 based) - key hash name of internal property
 function go.set(url, property, value, options) end
 
 ---Sets the parent for a game object instance. This means that the instance will exist in the geometrical space of its parent,

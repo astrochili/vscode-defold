@@ -22,7 +22,6 @@ function file:flush() end
 ---for line in file:lines() do body end
 ---
 ---
----
 ---will iterate over all lines of the file.
 ---(Unlike io.lines, this function does not close the file
 ---when the loop ends.)
@@ -139,7 +138,6 @@ function io.input(file) end
 ---returns a new line from the file.
 ---Therefore, the construction
 ---for line in io.lines(filename) do body end
----
 ---
 ---
 ---will iterate over all lines of the file.

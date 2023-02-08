@@ -31,18 +31,23 @@ function sys.get_application_info(app_string) end
 ---@return string path to application executable
 function sys.get_application_path() end
 
----Get config value from the game.project configuration file.
----In addition to the project file, configuration values can also be passed
----to the runtime as command line arguments with the --config argument.
+---Get integer config value from the game.project configuration file with optional default value
 ---@param key string key to get value for. The syntax is SECTION.KEY
----@return string config value as a string. nil if the config key doesn't exists
-function sys.get_config(key) end
+---@param default_value integer (optional) default value to return if the value does not exist
+---@return integer config value as an integer. default_value if the config key does not exist. 0 if no default value was supplied.
+function sys.get_config_int(key, default_value) end
 
----Get config value from the game.project configuration file with default value
+---Get number config value from the game.project configuration file with optional default value
 ---@param key string key to get value for. The syntax is SECTION.KEY
----@param default_value string default value to return if the value does not exist
----@return string config value as a string. default_value if the config key does not exist
-function sys.get_config(key, default_value) end
+---@param default_value number (optional) default value to return if the value does not exist
+---@return number config value as an number. default_value if the config key does not exist. 0 if no default value was supplied.
+function sys.get_config_number(key, default_value) end
+
+---Get string config value from the game.project configuration file with optional default value
+---@param key string key to get value for. The syntax is SECTION.KEY
+---@param default_value string (optional) default value to return if the value does not exist
+---@return string config value as a string. default_value if the config key does not exist. nil if no default value was supplied.
+function sys.get_config_string(key, default_value) end
 
 --- Returns the current network connectivity status
 ---on mobile platforms.
@@ -65,8 +70,9 @@ function sys.get_ifaddrs() end
 function sys.get_save_file(application_id, file_name) end
 
 ---Returns a table with system information.
+---@param options table optional options table - ignore_secure boolean this flag ignores values might be secured by OS e.g. device_ident
 ---@return table table with system information in the following fields:
-function sys.get_sys_info() end
+function sys.get_sys_info(options) end
 
 ---If the file exists, it must have been created by sys.save to be loaded.
 ---@param filename string file to read from
@@ -89,7 +95,7 @@ function sys.load_resource(filename) end
 
 ---Open URL in default application, typically a browser
 ---@param url string url to open
----@param attributes table table with attributes target - string : Optional. Specifies the target attribute or the name of the window. The following values are supported: - _self - URL replaces the current page. This is default. - _blank - URL is loaded into a new window, or tab. - _parent - URL is loaded into the parent frame. - _top - URL replaces any framesets that may be loaded. - name - The name of the window (Note: the name does not specify the title of the new window).
+---@param attributes table table with attributes target - string : Optional. Specifies the target attribute or the name of the window. The following values are supported: - _self - (default value) URL replaces the current page. - _blank - URL is loaded into a new window, or tab. - _parent - URL is loaded into the parent frame. - _top - URL replaces any framesets that may be loaded. - name - The name of the window (Note: the name does not specify the title of the new window).
 ---@return boolean a boolean indicating if the url could be opened or not
 function sys.open_url(url, attributes) end
 

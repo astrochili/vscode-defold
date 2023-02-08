@@ -9,7 +9,6 @@
 ---require "builtins.scripts.socket"
 ---
 ---
----
 ---LuaSocket is Copyright © 2004-2007 Diego Nehab. All rights reserved.
 ---LuaSocket is free software, released under the MIT license (same license as the Lua core).
 ---@class socket
@@ -61,9 +60,9 @@ function client:receive(pattern, prefix) end
 ---@param data string the string to be sent.
 ---@param i number optional starting index of the string.
 ---@param j number optional end index of string.
----@return number] the index of the last byte within [i, j that has been sent, or nil in case of error. Notice that, if i is 1 or absent, this is effectively the total number of bytes sent.
+---@return number the index of the last byte within [i, j] that has been sent, or nil in case of error. Notice that, if i is 1 or absent, this is effectively the total number of bytes sent.
 ---@return string the error message, or nil if no error occurred. The error message can be "closed" in case the connection was closed before the transmission was completed or the string "timeout" in case there was a timeout during the operation.
----@return number] in case of error, the index of the last byte within [i, j that has been sent. You might want to try again from the byte following that. nil if no error occurred.
+---@return number in case of error, the index of the last byte within [i, j] that has been sent. You might want to try again from the byte following that. nil if no error occurred.
 function client:send(data, i, j) end
 
 ---Sets the underling socket descriptor or handle associated to the object. The current one is simply replaced, not closed, and no other change to the object state is made
@@ -301,7 +300,6 @@ function socket.connect(address, port, locaddr, locport, family) end
 ---    addr = address-n
 ---  }
 ---}
----
 ---
 ---
 ---Here, family contains the string "inet" for IPv4 addresses, and "inet6" for IPv6 addresses.

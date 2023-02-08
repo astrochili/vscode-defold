@@ -43,7 +43,8 @@ function particlefx.set_constant(url, emitter, constant, value) end
 ---Stopping a particle FX does not remove already spawned particles.
 ---Which particle FX to stop is identified by the URL.
 ---@param url string|hash|url the particle fx that should stop playing
-function particlefx.stop(url) end
+---@param options table Options when stopping the particle fx. Supported options:
+function particlefx.stop(url, options) end
 
 
 
