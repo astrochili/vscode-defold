@@ -139,8 +139,8 @@ function bundle {
 
     case $target_os in
         "iOS")
-            platform="armv7-darwin"
-            architectures="armv7-darwin,arm64-darwin"
+            platform="arm64-ios"
+            architectures="arm64-ios"
             ;;
         "Android")
             platform="armv7-android"
