@@ -59,6 +59,12 @@ function sys.get_connectivity() end
 ---@return table table with engine information in the following fields:
 function sys.get_engine_info() end
 
+---Create a path to the host device for unit testing
+---Useful for saving logs etc during development
+---@param filename string file to read from
+---@return string the path prefixed with the proper host mount
+function sys.get_host_path(filename) end
+
 ---Returns an array of tables with information on network interfaces.
 ---@return table an array of tables. Each table entry contain the following fields:
 function sys.get_ifaddrs() end

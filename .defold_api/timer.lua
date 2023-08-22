@@ -22,8 +22,13 @@ function timer.cancel(handle) end
 ---@param delay number time interval in seconds
 ---@param _repeat boolean true = repeat timer until cancel, false = one-shot timer
 ---@param callback function(self, handle, time_elapsed) timer callback function
----@return hash handle identifier for the create timer, returns timer.INVALID_TIMER_HANDLE if the timer can not be created
+---@return hash identifier for the create timer, returns timer.INVALID_TIMER_HANDLE if the timer can not be created
 function timer.delay(delay, _repeat, callback) end
+
+---Get information about timer.
+---@param handle hash the timer handle returned by timer.delay()
+---@return table or nil if timer is cancelled/completed. table with data in the following fields:
+function timer.get_info(handle) end
 
 ---Manual triggering a callback for a timer.
 ---@param handle hash the timer handle returned by timer.delay()

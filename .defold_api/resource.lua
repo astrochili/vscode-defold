@@ -6,28 +6,28 @@ resource = {}
 resource.COMPRESSION_TYPE_BASIS_UASTC = nil
 ---COMPRESSION_TYPE_DEFAULT compression type
 resource.COMPRESSION_TYPE_DEFAULT = nil
----LIVEUPDATE_BUNDLED_RESOURCE_MISMATCH
-resource.LIVEUPDATE_BUNDLED_RESOURCE_MISMATCH = nil
----LIVEUPDATE_ENGINE_VERSION_MISMATCH
-resource.LIVEUPDATE_ENGINE_VERSION_MISMATCH = nil
----LIVEUPDATE_FORMAT_ERROR
-resource.LIVEUPDATE_FORMAT_ERROR = nil
----LIVEUPDATE_INVALID_RESOURCE
-resource.LIVEUPDATE_INVALID_RESOURCE = nil
----LIVEUPDATE_OK
-resource.LIVEUPDATE_OK = nil
----LIVEUPDATE_SCHEME_MISMATCH
-resource.LIVEUPDATE_SCHEME_MISMATCH = nil
----LIVEUPDATE_SIGNATURE_MISMATCH
-resource.LIVEUPDATE_SIGNATURE_MISMATCH = nil
----LIVEUPDATE_VERSION_MISMATCH
-resource.LIVEUPDATE_VERSION_MISMATCH = nil
 ---luminance type texture format
 resource.TEXTURE_FORMAT_LUMINANCE = nil
+---R16F type texture format
+resource.TEXTURE_FORMAT_R16F = nil
+---R32F type texture format
+resource.TEXTURE_FORMAT_R32F = nil
+---RG16F type texture format
+resource.TEXTURE_FORMAT_RG16F = nil
+---RG32F type texture format
+resource.TEXTURE_FORMAT_RG32F = nil
 ---RGB type texture format
 resource.TEXTURE_FORMAT_RGB = nil
+---RGB16F type texture format
+resource.TEXTURE_FORMAT_RGB16F = nil
+---RGB32F type texture format
+resource.TEXTURE_FORMAT_RGB32F = nil
 ---RGBA type texture format
 resource.TEXTURE_FORMAT_RGBA = nil
+---RGBA16F type texture format
+resource.TEXTURE_FORMAT_RGBA16F = nil
+---RGBA32F type texture format
+resource.TEXTURE_FORMAT_RGBA32F = nil
 ---RGBA_ASTC_4x4 type texture format
 resource.TEXTURE_FORMAT_RGBA_ASTC_4x4 = nil
 ---RGBA_BC3 type texture format
@@ -54,6 +54,8 @@ resource.TEXTURE_FORMAT_RG_BC5 = nil
 resource.TEXTURE_FORMAT_R_BC4 = nil
 ---2D texture type
 resource.TEXTURE_TYPE_2D = nil
+---2D Array texture type
+resource.TEXTURE_TYPE_2D_ARRAY = nil
 ---Cube map texture type
 resource.TEXTURE_TYPE_CUBE_MAP = nil
 ---Constructor-like function with two purposes:
@@ -95,6 +97,19 @@ function resource.buffer(path) end
 ---@return hash Returns the atlas resource path
 function resource.create_atlas(path, table) end
 
+---This function creates a new buffer resource that can be used in the same way as any buffer created during build time.
+---The function requires a valid buffer created from either buffer.create <> or another pre-existing buffer resource.
+---By default, the new resource will take ownership of the buffer lua reference, meaning the buffer will not automatically be removed
+---when the lua reference to the buffer is garbage collected. This behaviour can be overruled by specifying 'transfer_ownership = false'
+---in the argument table. If the new buffer resource is created from a buffer object that is created by another resource,
+---the buffer object will be copied and the new resource will effectively own a copy of the buffer instead.
+---Note that the path to the new resource must have the '.bufferc' extension, "/path/my_buffer" is not a valid path but "/path/my_buffer.bufferc" is.
+---The path must also be unique, attempting to create a buffer with the same name as an existing resource will raise an error.
+---@param path string The path to the resource.
+---@param table table A table containing info about how to create the buffer. Supported entries:
+---@return hash Returns the buffer resource path
+function resource.create_buffer(path, table) end
+
 ---Creates a new texture resource that can be used in the same way as any texture created during build time.
 ---The path used for creating the texture must be unique, trying to create a resource at a path that is already
 ---registered will trigger an error. If the intention is to instead modify an existing texture, use the resource.set_texture <>
@@ -102,8 +117,9 @@ function resource.create_atlas(path, table) end
 ---meaning "/path/my_texture" is not a valid path but "/path/my_texture.texturec" is.
 ---@param path string The path to the resource.
 ---@param table table A table containing info about how to create the texture. Supported entries:
+---@param buffer buffer optional buffer of precreated pixel data
 ---@return hash The path to the resource.
-function resource.create_texture(path, table) end
+function resource.create_texture(path, table, buffer) end
 
 ---Constructor-like function with two purposes:
 ---
@@ -127,10 +143,6 @@ function resource.get_atlas(path) end
 ---@return buffer The resource buffer
 function resource.get_buffer(path) end
 
----Return a reference to the Manifest that is currently loaded.
----@return number reference to the Manifest that is currently loaded
-function resource.get_current_manifest() end
-
 ---Gets the text metrics from a font
 ---@param url hash the font to get the (unscaled) metrics from
 ---@param text string text to measure
@@ -138,10 +150,10 @@ function resource.get_current_manifest() end
 ---@return table a table with the following fields:
 function resource.get_text_metrics(url, text, options) end
 
----Is any liveupdate data mounted and currently in use?
----This can be used to determine if a new manifest or zip file should be downloaded.
----@return bool true if a liveupdate archive (any format) has been loaded
-function resource.is_using_liveupdate_data() end
+---Gets texture info from a texture resource path or a texture handle
+---@param path hash|string|handle The path to the resource or a texture handle
+---@return table A table containing info about the texture:
+function resource.get_texture_info(path) end
 
 ---Loads the resource data for a specific resource.
 ---@param path string The path to the resource
@@ -200,36 +212,6 @@ function resource.set_sound(path, buffer) end
 ---@param table table A table containing info about the texture. Supported entries:
 ---@param buffer buffer The buffer of precreated pixel data  To update a cube map texture you need to pass in six times the amount of data via the buffer, since a cube map has six sides!
 function resource.set_texture(path, table, buffer) end
-
----Stores a zip file and uses it for live update content. The contents of the
----zip file will be verified against the manifest to ensure file integrity.
----It is possible to opt out of the resource verification using an option passed
----to this function.
----The path is stored in the (internal) live update location.
----@param path string the path to the original file on disc
----@param callback function(self, status) the callback function executed after the storage has completed
----@param options table optional table with extra parameters. Supported entries:
-function resource.store_archive(path, callback, options) end
-
----Create a new manifest from a buffer. The created manifest is verified
----by ensuring that the manifest was signed using the bundled public/private
----key-pair during the bundle process and that the manifest supports the current
----running engine version. Once the manifest is verified it is stored on device.
----The next time the engine starts (or is rebooted) it will look for the stored
----manifest before loading resources. Storing a new manifest allows the
----developer to update the game, modify existing resources, or add new
----resources to the game through LiveUpdate.
----@param manifest_buffer string the binary data that represents the manifest
----@param callback function(self, status) the callback function executed once the engine has attempted to store the manifest.
-function resource.store_manifest(manifest_buffer, callback) end
-
----add a resource to the data archive and runtime index. The resource will be verified
----internally before being added to the data archive.
----@param manifest_reference number The manifest to check against.
----@param data string The resource data that should be stored.
----@param hexdigest string The expected hash for the resource, retrieved through collectionproxy.missing_resources.
----@param callback function(self, hexdigest, status) The callback function that is executed once the engine has been attempted to store the resource.
-function resource.store_resource(manifest_reference, data, hexdigest, callback) end
 
 ---Constructor-like function with two purposes:
 ---

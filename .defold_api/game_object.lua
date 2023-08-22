@@ -140,6 +140,11 @@ function go.cancel_animations(url, property) end
 ---@param recursive boolean optional boolean, set to true to recursively delete child hiearchy in child to parent order
 function go.delete(id, recursive) end
 
+---check if the specified game object exists
+---@param url string|hash|url url of the game object to check
+---@return bool true if the game object exists
+function go.exists(url) end
+
 ---gets a named property of the specified game object or component
 ---@param url string|hash|url url of the game object or component having the property
 ---@param property string|hash id of the property to retrieve

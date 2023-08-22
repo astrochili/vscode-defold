@@ -36,6 +36,11 @@ function factory.get_status(url) end
 ---@param complete_function function(self, url, result)) function to call when resources are loaded.
 function factory.load(url, complete_function) end
 
+---Changes the prototype for the factory.
+---@param url string|hash|url the factory component
+---@param prototype string|nil the path to the new prototype, or nil
+function factory.set_prototype(url, prototype) end
+
 ---This decreases the reference count for each resource loaded with factory.load. If reference is zero, the resource is destroyed.
 ---Calling this function when the factory is not marked as dynamic loading does nothing.
 ---@param url string|hash|url the factory component to unload

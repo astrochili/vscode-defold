@@ -43,6 +43,12 @@ function collectionfactory.get_status(url) end
 ---@param complete_function function(self, url, result)) function to call when resources are loaded.
 function collectionfactory.load(url, complete_function) end
 
+---Changes the prototype for the collection factory.
+---Setting the prototype to "nil" will revert back to the original prototype.
+---@param url string|hash|url the collection factory component
+---@param prototype string|nil the path to the new prototype, or nil
+function collectionfactory.set_prototype(url, prototype) end
+
 ---This decreases the reference count for each resource loaded with collectionfactory.load. If reference is zero, the resource is destroyed.
 ---Calling this function when the factory is not marked as dynamic loading does nothing.
 ---@param url string|hash|url the collection factory component to unload
