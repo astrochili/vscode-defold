@@ -44,7 +44,7 @@ function msg.url() end
 function msg.url(urlstring) end
 
 ---creates a new URL from separate arguments
----@param socket string|hash socket of the URL
+---@param socket string|hash|nil socket of the URL
 ---@param path string|hash path of the URL
 ---@param fragment string|hash fragment of the URL
 ---@return url a new URL
