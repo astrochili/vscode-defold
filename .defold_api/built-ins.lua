@@ -17,8 +17,4 @@ function hash_to_hex(h) end
 ---in a manner similar to +print()+, but will also recurse into tables
 ---and pretty print them. There is a limit to how deep the function
 ---will recurse.
----@param v any value to print
-function pprint(v) end
-
-
-
+function pprint(...) end
