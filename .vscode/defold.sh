@@ -242,7 +242,8 @@ function bundle {
                 nautilus $bundle_output
                 ;;
             "Windows")
-                start $bundle_output
+                windows_output=$(echo $bundle_output | sed 's/^.\///' | sed 's/\//\\/g')
+                start $windows_output
                 ;;
             *)  ;;
         esac
