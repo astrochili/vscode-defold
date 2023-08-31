@@ -178,6 +178,20 @@ You can launch the selected configuration by shortcut **F5** by default.
 - Bob's tasks output logs to the Terminal tab.
 - The game outputs logs to the Debug Console tab.
 
+## Troubleshooting
+
+#### *fatal: cannot open file 'YOUR-DEFOLD-PATH-HERE/config* (Debug Console)
+
+Setup the path to the Defold Editor. See at [Defold Path](#defold-path) part.
+
+#### *The system cannot find the path specified* (Debug Console)
+
+This can happen when you try to start a debugger session and the bash path does not match the path in the `.vscode/launch.json` file. The default bash installation path is `C:/Program Files/Git/bin/bash`, so make sure it is there, or change the path in `.vscode/launch.json`.
+
+#### *Warning: Failed to clean up temp directory 'C:\Users\...'* (Terminal)
+
+It can be ignored, see at [post on the forum](https://forum.defold.com/t/bob-failed-to-clean-up-temp-directory-solved/68065/).
+
 ## Limitations
 
 There is no way to change breakpoints at runtime, only on pauses. Bind some key to call `debugger.requestBreak()` can be a great trick if you want to edit breakpoints at runtime but you don't have any breakpoints in the code at the moment. Watch [tomblind/local-lua-debugger-vscode/#32](https://github.com/tomblind/local-lua-debugger-vscode/issues/32) for updates.
