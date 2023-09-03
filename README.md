@@ -81,7 +81,7 @@ Configure path to your Defold Editor folder in `.vscode/defold.sh`. `Java`, `bob
 defold_editor_path="YOUR-DEFOLD-PATH-HERE"
 ```
 
-### Custom Editor
+### Opening files from Defold
 
 To open source files from Defold directly in VSCode you need to set VSCode as the custom editor in Defold preferences by settings the path to your VSCode executable:
 
@@ -91,12 +91,8 @@ To open source files from Defold directly in VSCode you need to set VSCode as th
 
 Also set these parameters to open files from Defold correctly:
 
-- Open File: `{file}`
-- Open File at Line: `-g {file}:{line}`
-
-#### MacOS only:
-
-It's recommend to start VSCode with the project folder first and then open the source files from Defold, otherwise Defold will try to run VSCode with the Defold icon in the Dock as separate from original VSCode application.
+- Open File: `. {file}`
+- Open File at Line: `. -g {file}:{line}`
 
 ### Defold API
 
