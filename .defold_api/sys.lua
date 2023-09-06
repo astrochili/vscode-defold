@@ -1,17 +1,33 @@
----System API documentation
----Functions and messages for using system resources, controlling the engine,
----error handling and debugging.
+--[[
+  Generated with github.com/astrochili/defold-annotations
+  Defold 1.5.0
+
+  System API documentation
+
+  Functions and messages for using system resources, controlling the engine,
+  error handling and debugging.
+--]]
+
+---@diagnostic disable: lowercase-global
+---@diagnostic disable: missing-return
+---@diagnostic disable: duplicate-doc-param
+---@diagnostic disable: duplicate-set-field
+
 ---@class sys
 sys = {}
+
 ---network connected through other, non cellular, connection
 sys.NETWORK_CONNECTED = nil
+
 ---network connected through mobile cellular
 sys.NETWORK_CONNECTED_CELLULAR = nil
+
 ---no network connection found
 sys.NETWORK_DISCONNECTED = nil
+
 ---deserializes buffer into a lua table
 ---@param buffer string buffer to deserialize from
----@return table lua table with deserialized data
+---@return table table lua table with deserialized data
 function sys.deserialize(buffer) end
 
 ---Terminates the game application and reports the specified code to the OS.
@@ -24,65 +40,119 @@ function sys.exit(code) end
 ---in a custom "Info.plist".
 --- On Android, the app_string is the package identifier for the app.
 ---@param app_string string platform specific string with application package or query, see above for details.
----@return table table with application information in the following fields:
+---@return table app_info table with application information in the following fields:
+---
+---installed
+---boolean true if the application is installed, false otherwise.
+---
 function sys.get_application_info(app_string) end
 
 ---The path from which the application is run.
----@return string path to application executable
+---@return string path path to application executable
 function sys.get_application_path() end
 
 ---Get integer config value from the game.project configuration file with optional default value
 ---@param key string key to get value for. The syntax is SECTION.KEY
----@param default_value integer (optional) default value to return if the value does not exist
----@return integer config value as an integer. default_value if the config key does not exist. 0 if no default value was supplied.
+---@param default_value? integer (optional) default value to return if the value does not exist
+---@return integer value config value as an integer. default_value if the config key does not exist. 0 if no default value was supplied.
 function sys.get_config_int(key, default_value) end
 
 ---Get number config value from the game.project configuration file with optional default value
 ---@param key string key to get value for. The syntax is SECTION.KEY
----@param default_value number (optional) default value to return if the value does not exist
----@return number config value as an number. default_value if the config key does not exist. 0 if no default value was supplied.
+---@param default_value? number (optional) default value to return if the value does not exist
+---@return number value config value as an number. default_value if the config key does not exist. 0 if no default value was supplied.
 function sys.get_config_number(key, default_value) end
 
 ---Get string config value from the game.project configuration file with optional default value
 ---@param key string key to get value for. The syntax is SECTION.KEY
----@param default_value string (optional) default value to return if the value does not exist
----@return string config value as a string. default_value if the config key does not exist. nil if no default value was supplied.
+---@param default_value? string (optional) default value to return if the value does not exist
+---@return string value config value as a string. default_value if the config key does not exist. nil if no default value was supplied.
 function sys.get_config_string(key, default_value) end
 
---- Returns the current network connectivity status
+---  Returns the current network connectivity status
 ---on mobile platforms.
 ---On desktop, this function always return sys.NETWORK_CONNECTED.
----@return constant network connectivity status:
+---@return constant status network connectivity status:
+---
+---sys.NETWORK_DISCONNECTED (no network connection is found)
+---sys.NETWORK_CONNECTED_CELLULAR (connected through mobile cellular)
+---sys.NETWORK_CONNECTED (otherwise, Wifi)
+---
 function sys.get_connectivity() end
 
 ---Returns a table with engine information.
----@return table table with engine information in the following fields:
+---@return table engine_info table with engine information in the following fields:
+---
+---version
+---string The current Defold engine version, i.e. "1.2.96"
+---version_sha1
+---string The SHA1 for the current engine build, i.e. "0060183cce2e29dbd09c85ece83cbb72068ee050"
+---is_debug
+---boolean If the engine is a debug or release version
+---
 function sys.get_engine_info() end
 
 ---Create a path to the host device for unit testing
 ---Useful for saving logs etc during development
 ---@param filename string file to read from
----@return string the path prefixed with the proper host mount
+---@return string host_path the path prefixed with the proper host mount
 function sys.get_host_path(filename) end
 
 ---Returns an array of tables with information on network interfaces.
----@return table an array of tables. Each table entry contain the following fields:
+---@return table ifaddrs an array of tables. Each table entry contain the following fields:
+---
+---name
+---string Interface name
+---address
+---string IP address.  might be nil if not available.
+---mac
+---string Hardware MAC address.  might be nil if not available.
+---up
+---boolean true if the interface is up (available to transmit and receive data), false otherwise.
+---running
+---boolean true if the interface is running, false otherwise.
+---
 function sys.get_ifaddrs() end
 
 ---The save-file path is operating system specific and is typically located under the user's home directory.
 ---@param application_id string user defined id of the application, which helps define the location of the save-file
 ---@param file_name string file-name to get path for
----@return string path to save-file
+---@return string path path to save-file
 function sys.get_save_file(application_id, file_name) end
 
 ---Returns a table with system information.
----@param options table optional options table - ignore_secure boolean this flag ignores values might be secured by OS e.g. device_ident
----@return table table with system information in the following fields:
+---@param options? table optional options table
+---- ignore_secure boolean this flag ignores values might be secured by OS e.g. device_ident
+---@return table sys_info table with system information in the following fields:
+---
+---device_model
+---string  Only available on iOS and Android.
+---manufacturer
+---string  Only available on iOS and Android.
+---system_name
+---string The system name: "Darwin", "Linux", "Windows", "HTML5", "Android" or "iPhone OS"
+---system_version
+---string The system OS version.
+---api_version
+---string The API version on the system.
+---language
+---string Two character ISO-639 format, i.e. "en".
+---device_language
+---string Two character ISO-639 format (i.e. "sr") and, if applicable, followed by a dash (-) and an ISO 15924 script code (i.e. "sr-Cyrl" or "sr-Latn"). Reflects the device preferred language.
+---territory
+---string Two character ISO-3166 format, i.e. "US".
+---gmt_offset
+---number The current offset from GMT (Greenwich Mean Time), in minutes.
+---device_ident
+---string This value secured by OS.  "identifierForVendor" on iOS.  "android_id" on Android. On Android, you need to add READ_PHONE_STATE permission to be able to get this data. We don't use this permission in Defold.
+---user_agent
+---string  The HTTP user agent, i.e. "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/602.4.8 (KHTML, like Gecko) Version/10.0.3 Safari/602.4.8"
+---
 function sys.get_sys_info(options) end
 
 ---If the file exists, it must have been created by sys.save to be loaded.
 ---@param filename string file to read from
----@return table lua table, which is empty if the file could not be found
+---@return table loaded lua table, which is empty if the file could not be found
 function sys.load(filename) end
 
 ---Loads a custom resource. Specify the full filename of the resource that you want
@@ -95,14 +165,21 @@ function sys.load(filename) end
 ---included:
 ---For example "main/data/,assets/level_data.json".
 ---@param filename string resource to load, full path
----@return string loaded data, or nil if the resource could not be loaded
----@return string the error message, or nil if no error occurred
+---@return string data loaded data, or nil if the resource could not be loaded
+---@return string error the error message, or nil if no error occurred
 function sys.load_resource(filename) end
 
 ---Open URL in default application, typically a browser
 ---@param url string url to open
----@param attributes table table with attributes target - string : Optional. Specifies the target attribute or the name of the window. The following values are supported: - _self - (default value) URL replaces the current page. - _blank - URL is loaded into a new window, or tab. - _parent - URL is loaded into the parent frame. - _top - URL replaces any framesets that may be loaded. - name - The name of the window (Note: the name does not specify the title of the new window).
----@return boolean a boolean indicating if the url could be opened or not
+---@param attributes? table table with attributes
+---target
+---- string : Optional. Specifies the target attribute or the name of the window. The following values are supported:
+---- _self - (default value) URL replaces the current page.
+---- _blank - URL is loaded into a new window, or tab.
+---- _parent - URL is loaded into the parent frame.
+---- _top - URL replaces any framesets that may be loaded.
+---- name - The name of the window (Note: the name does not specify the title of the new window).
+---@return boolean success a boolean indicating if the url could be opened or not
 function sys.open_url(url, attributes) end
 
 ---Reboots the game engine with a specified set of arguments.
@@ -128,13 +205,13 @@ function sys.reboot(arg1, arg2, arg3, arg4, arg5, arg6) end
 ---the limit on the total number of rows remains in effect.
 ---@param filename string file to write to
 ---@param table table lua table to save
----@return boolean a boolean indicating if the table could be saved or not
+---@return boolean success a boolean indicating if the table could be saved or not
 function sys.save(filename, table) end
 
 ---The buffer can later deserialized by sys.deserialize.
 ---This method has all the same limitations as sys.save.
 ---@param table table lua table to serialize
----@return string serialized data buffer
+---@return string buffer serialized data buffer
 function sys.serialize(table) end
 
 ---Sets the host that is used to check for network connectivity against.
@@ -143,7 +220,15 @@ function sys.set_connectivity_host(host) end
 
 ---Set the Lua error handler function.
 ---The error handler is a function which is called whenever a lua runtime error occurs.
----@param error_handler function(source, message, traceback) the function to be called on error
+---@param error_handler fun(source, message, traceback) the function to be called on error
+---
+---source
+---string The runtime context of the error. Currently, this is always "lua".
+---message
+---string The source file, line number and error message.
+---traceback
+---string The stack traceback.
+---
 function sys.set_error_handler(error_handler) end
 
 ---Set game update-frequency (frame cap). This option is equivalent to display.update_frequency in
@@ -165,8 +250,5 @@ function sys.set_update_frequency(frequency) end
 ---This setting may be overridden by driver settings.
 ---@param swap_interval number target swap interval.
 function sys.set_vsync_swap_interval(swap_interval) end
-
-
-
 
 return sys

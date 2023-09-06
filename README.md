@@ -65,7 +65,7 @@ This is also a great option, and of course you can use it. The key difference is
 
 #### Why not the built-in [mobdebug](https://github.com/pkulchenko/MobDebug)?
 
-Unfortunately there is no the mobdebug extension for VSCode at this moment.
+Currently can't find a way to use it smoothly with VSCode + Defold.
 
 ## Configuration
 
@@ -98,15 +98,19 @@ Also set these parameters to open files from Defold correctly:
 
 ![intellisense](https://user-images.githubusercontent.com/4752473/113480000-ca02fd00-949a-11eb-9194-f4e546faef93.gif)
 
-There are **3 sources** of Defold API lua headers. All the sources are possible, but they are all updated manually, so choose the one with the newer version of Defold API.
+There are **4 sources** of Defold API lua headers. All the sources are possible, but they are all updated manually, so choose the one with the newer version of Defold API.
+
+#### Provided by astrochili
+
+Lua headers with Defold API are generated with [astrochili/defold-annotations](https://github.com/astrochili/defold-annotations/). You can update it by downloading `defold_api_x.x.x.zip` from the [releases](https://github.com/astrochili/defold-annotations/releases) page and unarchive it to the `.defold_api` folder in your workspace. This one is used in this repository.
 
 #### Provided by d954mas
 
-Lua headers with Defold API are generated with [IntelliJ-Defold-Api](https://github.com/d954mas/IntelliJ-Defold-Api) by [d954mas](https://github.com/d954mas). You can update it by downloading `defold_api.zip` from the [releases](https://github.com/d954mas/IntelliJ-Defold-Api/releases) page and unarchive it to the `.defold_api` folder in your workspace. This one is used in this repository.
+Lua headers with Defold API are generated with [d954mas/IntelliJ-Defold-Api](https://github.com/d954mas/IntelliJ-Defold-Api). You can update it by downloading `defold_api.zip` from the [releases](https://github.com/d954mas/IntelliJ-Defold-Api/releases) page and unarchive it to the `.defold_api` folder in your workspace.
 
 #### Provided by mikatuo
 
-Lua headers with Defold API are generated with [defold-lua-annotations]([https://github.com/d954mas/IntelliJ-Defold-Api](https://github.com/mikatuo/defold-lua-annotations/)) by [mikatuo](https://github.com/mikatuo). You can update them by downloading `defold_lua-x.zip` from the [releases](https://github.com/mikatuo/defold-lua-annotations/releases/) page and unarchive it to the `.defold_api` folder in your workspace.
+Lua headers with Defold API are generated with [mikatuo/defold-lua-annotations](https://github.com/mikatuo/defold-lua-annotations/). You can update them by downloading `defold_lua-x.zip` from the [releases](https://github.com/mikatuo/defold-lua-annotations/releases/) page and unarchive it to the `.defold_api` folder in your workspace.
 
 #### Provided by sunmeko
 
