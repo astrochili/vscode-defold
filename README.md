@@ -98,29 +98,25 @@ Also set these parameters to open files from Defold correctly:
 
 ![intellisense](https://user-images.githubusercontent.com/4752473/113480000-ca02fd00-949a-11eb-9194-f4e546faef93.gif)
 
-There are **4 sources** of Defold API lua headers. All the sources are possible, but they are all updated manually, so choose the one with the newer version of Defold API.
+There are few sources of Defold API annotations. All of them are based on the same documentation source and are possible to use. So choose the one with the newer version of Defold API.
 
 #### Provided by astrochili
 
+[![defold-annoptations](https://img.shields.io/github/v/release/astrochili/defold-annotations.svg?include_prereleases=&sort=semver&color=blue)](https://github.com/astrochili/defold-annotations/releases)
+
 Lua headers with Defold API are generated with [astrochili/defold-annotations](https://github.com/astrochili/defold-annotations/). You can update it by downloading `defold_api_x.x.x.zip` from the [releases](https://github.com/astrochili/defold-annotations/releases) page and unarchive it to the `.defold_api` folder in your workspace. This one is used in this repository.
-
-#### Provided by d954mas
-
-Lua headers with Defold API are generated with [d954mas/IntelliJ-Defold-Api](https://github.com/d954mas/IntelliJ-Defold-Api). You can update it by downloading `defold_api.zip` from the [releases](https://github.com/d954mas/IntelliJ-Defold-Api/releases) page and unarchive it to the `.defold_api` folder in your workspace.
 
 #### Provided by mikatuo
 
+[![defold-annoptations](https://img.shields.io/github/v/release/mikatuo/defold-lua-annotations.svg?include_prereleases=&sort=semver&color=blue)](https://github.com/mikatuo/defold-lua-annotations/releases)
+
 Lua headers with Defold API are generated with [mikatuo/defold-lua-annotations](https://github.com/mikatuo/defold-lua-annotations/). You can update them by downloading `defold_lua-x.zip` from the [releases](https://github.com/mikatuo/defold-lua-annotations/releases/) page and unarchive it to the `.defold_api` folder in your workspace.
 
-#### Provided by sunmeko
+#### Provided by d954mas
 
-The alternative way is using Defold API headers included in [sunmeko.lua](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) by adding the library path `${3rd}/Defold/library` to the [settings.json](.vscode/settings.json):
+[![defold-annoptations](https://img.shields.io/github/v/release/d954mas/IntelliJ-Defold-Api.svg?include_prereleases=&sort=semver&color=blue)](https://github.com/d954mas/IntelliJ-Defold-Api/releases)
 
-```json
-"Lua.workspace.library": [
-    "${3rd}/Defold/library"
-]
-```
+Lua headers with Defold API are generated with [d954mas/IntelliJ-Defold-Api](https://github.com/d954mas/IntelliJ-Defold-Api). You can update it by downloading `defold_api.zip` from the [releases](https://github.com/d954mas/IntelliJ-Defold-Api/releases) page and unarchive it to the `.defold_api` folder in your workspace.
 
 ### Libraries
 
