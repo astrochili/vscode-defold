@@ -48,7 +48,7 @@ function model.get_go(url, bone_id) end
 ---go.PLAYBACK_LOOP_BACKWARD
 ---go.PLAYBACK_LOOP_PINGPONG
 ---
----@param play_properties? table optional table with properties
+---@param play_properties table|nil optional table with properties
 ---Play properties table:
 ---
 ---blend_duration
@@ -58,7 +58,7 @@ function model.get_go(url, bone_id) end
 ---playback_rate
 ---number The rate with which the animation will be played. Must be positive.
 ---
----@param complete_function? fun(self, message_id, message, sender)) function to call when the animation has completed.
+---@param complete_function fun(self, message_id, message, sender))|nil function to call when the animation has completed.
 ---
 ---self
 ---object The current object.

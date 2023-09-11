@@ -26,7 +26,7 @@ image.TYPE_RGBA = nil
 
 ---Load image (PNG or JPEG) from buffer.
 ---@param buffer string image data buffer
----@param premult? boolean optional flag if alpha should be premultiplied. Defaults to false
+---@param premult boolean|nil optional flag if alpha should be premultiplied. Defaults to false
 ---@return table image object or nil if loading fails. The object is a table with the following fields:
 ---
 ---number width: image width

@@ -53,19 +53,19 @@ function sys.get_application_path() end
 
 ---Get integer config value from the game.project configuration file with optional default value
 ---@param key string key to get value for. The syntax is SECTION.KEY
----@param default_value? integer (optional) default value to return if the value does not exist
+---@param default_value integer|nil (optional) default value to return if the value does not exist
 ---@return integer value config value as an integer. default_value if the config key does not exist. 0 if no default value was supplied.
 function sys.get_config_int(key, default_value) end
 
 ---Get number config value from the game.project configuration file with optional default value
 ---@param key string key to get value for. The syntax is SECTION.KEY
----@param default_value? number (optional) default value to return if the value does not exist
+---@param default_value number|nil (optional) default value to return if the value does not exist
 ---@return number value config value as an number. default_value if the config key does not exist. 0 if no default value was supplied.
 function sys.get_config_number(key, default_value) end
 
 ---Get string config value from the game.project configuration file with optional default value
 ---@param key string key to get value for. The syntax is SECTION.KEY
----@param default_value? string (optional) default value to return if the value does not exist
+---@param default_value string|nil (optional) default value to return if the value does not exist
 ---@return string value config value as a string. default_value if the config key does not exist. nil if no default value was supplied.
 function sys.get_config_string(key, default_value) end
 
@@ -121,7 +121,7 @@ function sys.get_ifaddrs() end
 function sys.get_save_file(application_id, file_name) end
 
 ---Returns a table with system information.
----@param options? table optional options table
+---@param options table|nil optional options table
 ---- ignore_secure boolean this flag ignores values might be secured by OS e.g. device_ident
 ---@return table sys_info table with system information in the following fields:
 ---
@@ -171,7 +171,7 @@ function sys.load_resource(filename) end
 
 ---Open URL in default application, typically a browser
 ---@param url string url to open
----@param attributes? table table with attributes
+---@param attributes table|nil table with attributes
 ---target
 ---- string : Optional. Specifies the target attribute or the name of the window. The following values are supported:
 ---- _self - (default value) URL replaces the current page.

@@ -338,10 +338,10 @@ gui.SIZE_MODE_MANUAL = nil
 ---     Either specify one of the gui.EASING_* constants or provide a
 ---     vector with a custom curve. See the animation guide for more information.
 ---@param duration number duration of the animation in seconds.
----@param delay? number delay before the animation starts in seconds.
----@param complete_function? fun(self, node) function to call when the
+---@param delay number|nil delay before the animation starts in seconds.
+---@param complete_function fun(self, node)|nil function to call when the
 ---     animation has completed
----@param playback? constant playback mode
+---@param playback constant|nil playback mode
 ---
 ---gui.PLAYBACK_ONCE_FORWARD
 ---gui.PLAYBACK_ONCE_BACKWARD
@@ -711,14 +711,14 @@ function gui.is_enabled(node, recursive) end
 ---above the second.
 ---If the second argument is nil the first node is moved to the top.
 ---@param node node to move
----@param node? node reference node above which the first node should be moved
+---@param node node|nil reference node above which the first node should be moved
 function gui.move_above(node, node) end
 
 ---Alters the ordering of the two supplied nodes by moving the first node
 ---below the second.
 ---If the second argument is nil the first node is moved to the bottom.
 ---@param node node to move
----@param node? node reference node below which the first node should be moved
+---@param node node|nil reference node below which the first node should be moved
 function gui.move_below(node, node) end
 
 ---Dynamically create a new box node.
@@ -774,7 +774,7 @@ function gui.pick_node(node, x, y) end
 ---Use this function to set one-frame still images on the node.
 ---@param node node node to set animation for
 ---@param animation string|hash animation id
----@param complete_function? fun(self, node) optional function to call when the animation has completed
+---@param complete_function fun(self, node)|nil optional function to call when the animation has completed
 ---
 ---self
 ---
@@ -785,7 +785,7 @@ function gui.pick_node(node, x, y) end
 ---node The node that is animated.
 ---
 ---
----@param play_properties? table optional table with properties
+---@param play_properties table|nil optional table with properties
 ---
 ---offset
 ---number The normalized initial value of the animation cursor when the animation starts playing
@@ -796,7 +796,7 @@ function gui.play_flipbook(node, animation, complete_function, play_properties) 
 
 ---Plays the paricle fx for a gui node
 ---@param node node node to play particle fx for
----@param emitter_state_function? fun(self, node, emitter, state) optional callback function that will be called when an emitter attached to this particlefx changes state.
+---@param emitter_state_function fun(self, node, emitter, state)|nil optional callback function that will be called when an emitter attached to this particlefx changes state.
 ---
 ---self
 ---object The current object

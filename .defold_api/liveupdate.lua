@@ -99,7 +99,7 @@ function liveupdate.remove_mount(name) end
 ---status
 ---constant the status of the store operation (See liveupdate.store_manifest)
 ---
----@param options? table optional table with extra parameters. Supported entries:
+---@param options table|nil optional table with extra parameters. Supported entries:
 ---
 ---boolean verify: if archive should be verified as well as stored (defaults to true)
 ---

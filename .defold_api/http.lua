@@ -35,9 +35,9 @@ http = {}
 ---string path: the stored path (if saved to disc)
 ---string error: if any unforeseen errors occurred (e.g. file I/O)
 ---
----@param headers? table optional table with custom headers
----@param post_data? string optional data to send
----@param options? table optional table with request parameters. Supported entries:
+---@param headers table|nil optional table with custom headers
+---@param post_data string|nil optional data to send
+---@param options table|nil optional table with request parameters. Supported entries:
 ---
 ---number timeout: timeout in seconds
 ---string path: path on disc where to download the file. Only overwrites the path if status is 200

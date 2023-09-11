@@ -37,9 +37,9 @@ socket._VERSION = nil
 ---your system configuration.
 ---@param address string the address to connect to.
 ---@param port number the port to connect to.
----@param locaddr? string optional local address to bind to.
----@param locport? number optional local port to bind to.
----@param family? string optional socket family to use, "inet" or "inet6".
+---@param locaddr string|nil optional local address to bind to.
+---@param locport number|nil optional local port to bind to.
+---@param family string|nil optional socket family to use, "inet" or "inet6".
 ---@return client tcp_client a new IPv6 TCP client object, or nil in case of error.
 ---@return string error the error message, or nil if no error occurred.
 function socket.connect(address, port, locaddr, locport, family) end
@@ -123,7 +123,7 @@ function socket.protect(func) end
 ---(Using select with non-socket objects: Any object that implements getfd and dirty can be used with select, allowing objects from other libraries to be used within a socket.select driven loop.)
 ---@param recvt table array with the sockets to test for characters available for reading.
 ---@param sendt table array with sockets that are watched to see if it is OK to immediately write on them.
----@param timeout? number the maximum amount of time (in seconds) to wait for a change in status. Nil, negative or omitted timeout value allows the function to block indefinitely.
+---@param timeout number|nil the maximum amount of time (in seconds) to wait for a change in status. Nil, negative or omitted timeout value allows the function to block indefinitely.
 ---@return table sockets_r a list with the sockets ready for reading.
 ---@return table sockets_w a list with the sockets ready for writing.
 ---@return string error an error message. "timeout" if a timeout condition was met, otherwise nil.
@@ -134,12 +134,12 @@ function socket.select(recvt, sendt, timeout) end
 ---D is the number of arguments to drop. Ret1 to retN are the arguments.
 ---The function returns retD+1 to retN.
 ---@param d number the number of arguments to drop.
----@param ret1? any argument 1.
----@param ret2? any argument 2.
----@param retN? any argument N.
----@return any retD+1? argument D+1.
----@return any retD+2? argument D+2.
----@return any retN? argument N.
+---@param ret1 any|nil argument 1.
+---@param ret2 any|nil argument 2.
+---@param retN any|nil argument N.
+---@return any|nil retD+1 argument D+1.
+---@return any|nil retD+2 argument D+2.
+---@return any|nil retN argument N.
 function socket.skip(d, ret1, ret2, retN) end
 
 ---Freezes the program execution during a given amount of time.

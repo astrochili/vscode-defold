@@ -264,7 +264,7 @@ function render.disable_texture(unit) end
 ---system constants buffer is used containing constants as defined in materials and set through
 ---go.set (or particlefx.set_constant) on visual components.
 ---@param predicate predicate predicate to draw for
----@param options? table optional table with properties:
+---@param options table|nil optional table with properties:
 ---
 ---frustum
 ---vmath.matrix4 A frustum matrix used to cull renderable items. (E.g. local frustum = proj * view). May be nil.
@@ -274,7 +274,7 @@ function render.disable_texture(unit) end
 function render.draw(predicate, options) end
 
 ---Draws all 3d debug graphics such as lines drawn with "draw_line" messages and physics visualization.
----@param options? table optional table with properties:
+---@param options table|nil optional table with properties:
 ---
 ---frustum
 ---vmath.matrix4 A frustum matrix used to cull renderable items. (E.g. local frustum = proj * view). May be nil.
@@ -305,7 +305,7 @@ function render.enable_state(state) end
 ---A material shader can then use the texture to sample from.
 ---@param unit number texture unit to enable texture for
 ---@param render_target handle render target or texture from which to enable the specified texture unit
----@param buffer_type? constant optional buffer type from which to enable the texture. Note that this argument only applies to render targets. Defaults to render.BUFFER_COLOR_BIT
+---@param buffer_type constant|nil optional buffer type from which to enable the texture. Note that this argument only applies to render targets. Defaults to render.BUFFER_COLOR_BIT
 ---
 ---render.BUFFER_COLOR_BIT
 ---render.BUFFER_DEPTH_BIT
@@ -542,7 +542,7 @@ function render.set_projection(matrix) end
 ---Sets a render target. Subsequent draw operations will be to the
 ---render target until it is replaced by a subsequent call to set_render_target.
 ---@param render_target render_target render target to set. render.RENDER_TARGET_DEFAULT to set the default render target
----@param options? table optional table with behaviour parameters
+---@param options table|nil optional table with behaviour parameters
 ---
 ---transient
 ---table Transient frame buffer types are only valid while the render target is active, i.e becomes undefined when a new target is set by a subsequent call to set_render_target.

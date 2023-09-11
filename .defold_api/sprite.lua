@@ -19,7 +19,7 @@ sprite = {}
 ---a animation_done message is sent to the script that started the animation.
 ---@param url string|hash|url the sprite that should play the animation
 ---@param id unknown hash name hash of the animation to play
----@param complete_function? fun(self, message_id, message, sender)) function to call when the animation has completed.
+---@param complete_function fun(self, message_id, message, sender))|nil function to call when the animation has completed.
 ---
 ---self
 ---object The current object.
@@ -36,7 +36,7 @@ sprite = {}
 ---sender
 ---url The invoker of the callback: the sprite component.
 ---
----@param play_properties? table optional table with properties:
+---@param play_properties table|nil optional table with properties:
 ---
 ---offset
 ---number the normalized initial value of the animation cursor when the animation starts playing.

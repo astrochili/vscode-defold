@@ -36,7 +36,7 @@ physics.JOINT_TYPE_WELD = nil
 ---@param position_a vector3 local position where to attach the joint on the first collision object
 ---@param collisionobject_b string|hash|url second collision object
 ---@param position_b vector3 local position where to attach the joint on the second collision object
----@param properties? table optional joint specific properties table
+---@param properties table|nil optional joint specific properties table
 ---See each joint type for possible properties field. The one field that is accepted for all joint types is:
 ---- boolean collide_connected: Set this flag to true if the attached bodies should collide.
 function physics.create_joint(joint_type, collisionobject_a, joint_id, position_a, collisionobject_b, position_b, properties) end
@@ -131,7 +131,7 @@ function physics.raycast(from, to, groups, options) end
 ---@param from vector3 the world position of the start of the ray
 ---@param to vector3 the world position of the end of the ray
 ---@param groups table a lua table containing the hashed groups for which to test collisions against
----@param request_id? number a number between [0,-255]. It will be sent back in the response for identification, 0 by default
+---@param request_id number|nil a number between [0,-255]. It will be sent back in the response for identification, 0 by default
 function physics.raycast_async(from, to, groups, request_id) end
 
 ---Set the gravity in runtime. The gravity change is not global, it will only affect

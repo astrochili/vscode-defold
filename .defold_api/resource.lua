@@ -103,7 +103,7 @@ resource.TEXTURE_TYPE_CUBE_MAP = nil
 ---Load the specified resource as part of loading the script
 ---Return a hash to the run-time version of the resource
 --- This function can only be called within go.property function calls.
----@param path? string optional resource path string to the resource
+---@param path string|nil optional resource path string to the resource
 ---@return hash path a path hash to the binary version of the resource
 function resource.atlas(path) end
 
@@ -111,7 +111,7 @@ function resource.atlas(path) end
 ---Load the specified resource as part of loading the script
 ---Return a hash to the run-time version of the resource
 --- This function can only be called within go.property function calls.
----@param path? string optional resource path string to the resource
+---@param path string|nil optional resource path string to the resource
 ---@return hash path a path hash to the binary version of the resource
 function resource.buffer(path) end
 
@@ -323,7 +323,7 @@ function resource.create_texture(path, table, buffer) end
 ---Load the specified resource as part of loading the script
 ---Return a hash to the run-time version of the resource
 --- This function can only be called within go.property function calls.
----@param path? string optional resource path string to the resource
+---@param path string|nil optional resource path string to the resource
 ---@return hash path a path hash to the binary version of the resource
 function resource.font(path) end
 
@@ -346,7 +346,7 @@ function resource.get_buffer(path) end
 ---Gets the text metrics from a font
 ---@param url hash the font to get the (unscaled) metrics from
 ---@param text string text to measure
----@param options? table A table containing parameters for the text. Supported entries:
+---@param options table|nil A table containing parameters for the text. Supported entries:
 ---
 ---width
 ---integer The width of the text field. Not used if line_break is false.
@@ -399,7 +399,7 @@ function resource.load(path) end
 ---Load the specified resource as part of loading the script
 ---Return a hash to the run-time version of the resource
 --- This function can only be called within go.property function calls.
----@param path? string optional resource path string to the resource
+---@param path string|nil optional resource path string to the resource
 ---@return hash path a path hash to the binary version of the resource
 function resource.material(path) end
 
@@ -618,7 +618,7 @@ function resource.set_texture(path, table, buffer) end
 ---Load the specified resource as part of loading the script
 ---Return a hash to the run-time version of the resource
 --- This function can only be called within go.property function calls.
----@param path? string optional resource path string to the resource
+---@param path string|nil optional resource path string to the resource
 ---@return hash path a path hash to the binary version of the resource
 function resource.texture(path) end
 
@@ -626,7 +626,7 @@ function resource.texture(path) end
 ---Load the specified resource as part of loading the script
 ---Return a hash to the run-time version of the resource
 --- This function can only be called within go.property function calls.
----@param path? string optional resource path string to the resource
+---@param path string|nil optional resource path string to the resource
 ---@return hash path a path hash to the binary version of the resource
 function resource.tile_source(path) end
 

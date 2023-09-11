@@ -94,7 +94,7 @@ function sound.pause(url, pause) end
 ---10db/20.
 --- A sound will continue to play even if the game object the sound component belonged to is deleted. You can call sound.stop() to stop the sound.
 ---@param url string|hash|url the sound that should play
----@param play_properties? table 
+---@param play_properties table|nil 
 ---optional table with properties:
 ---delay
 ---number delay in seconds before the sound starts playing, default is 0.
@@ -105,7 +105,7 @@ function sound.pause(url, pause) end
 ---speed
 ---number sound speed where 1.0 is normal speed, 0.5 is half speed and 2.0 is double speed. The final speed of the sound will be a multiplication of this speed and the sound speed.
 ---
----@param complete_function? fun(self, message_id, message, sender)) function to call when the sound has finished playing or stopped manually via sound.stop.
+---@param complete_function fun(self, message_id, message, sender))|nil function to call when the sound has finished playing or stopped manually via sound.stop.
 ---
 ---self
 ---object The current object.
@@ -130,7 +130,7 @@ function sound.play(url, play_properties, complete_function) end
 ---Inversely, to find the linear value from a dB value, use the formula
 ---10db/20.
 ---@param url string|hash|url the sound to set the gain of
----@param gain? number sound gain between 0 and 1. The final gain of the sound will be a combination of this gain, the group gain and the master gain.
+---@param gain number|nil sound gain between 0 and 1. The final gain of the sound will be a combination of this gain, the group gain and the master gain.
 function sound.set_gain(url, gain) end
 
 ---Set mixer group gain
@@ -145,7 +145,7 @@ function sound.set_group_gain(group, gain) end
 ---Set panning on all active playing voices of a sound.
 ---The valid range is from -1.0 to 1.0, representing -45 degrees left, to +45 degrees right.
 ---@param url string|hash|url the sound to set the panning value to
----@param pan? number sound panning between -1.0 and 1.0
+---@param pan number|nil sound panning between -1.0 and 1.0
 function sound.set_pan(url, pan) end
 
 ---Stop playing all active voices
