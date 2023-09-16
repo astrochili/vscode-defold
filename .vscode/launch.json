@@ -1,36 +1,17 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Build & Run",
-            "type": "lua-local",
-            "request": "launch",
-            "stopOnEntry": false,
-            "verbose": false,
-            "internalConsoleOptions": "openOnSessionStart",
-            "program": { "command": "bash" },
-            "osx": { "args": [".vscode/defold.sh", "launch", "macOS"] },
-            "linux": { "args": [".vscode/defold.sh", "launch", "Linux"] },
-            "windows": {
-                "args": [".vscode/defold.sh", "launch", "Windows"],
-                "program": { "command": "C:/Program Files/Git/bin/bash" }
-            },
-            "preLaunchTask": "Build",
-        },
-        {
-            "name": "Just Run",
-            "type": "lua-local",
-            "request": "launch",
-            "stopOnEntry": false,
-            "verbose": false,
-            "internalConsoleOptions": "openOnSessionStart",
-            "program": { "command": "bash" },
-            "osx": { "args": [".vscode/defold.sh", "launch", "macOS"] },
-            "linux": { "args": [".vscode/defold.sh", "launch", "Linux"] },
-            "windows": {
-                "args": [".vscode/defold.sh", "launch", "Windows"],
-                "program": { "command": "C:/Program Files/Git/bin/bash" }
-            },
-        }
-    ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Run Extension",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}"
+			],
+			"outFiles": [
+				"${workspaceFolder}/out/**/*.js"
+			],
+			"preLaunchTask": "${defaultBuildTask}"
+		}
+	]
 }

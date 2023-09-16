@@ -1,103 +1,18 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "Clean",
-            "type": "shell",
-            "group": { "kind": "build", "isDefault": true },
-            "problemMatcher": [],
-            "command": "bash",
-            "osx": { "args": [".vscode/defold.sh", "clean", "macOS"] },
-            "linux": { "args": [".vscode/defold.sh", "clean", "Linux"] },
-            "windows": {
-                "args": [".vscode/defold.sh", "clean", "Windows"],
-                "program": { "command": "C:/Program Files/Git/bin/bash" }
-            }
-        },
-        {
-            "label": "Resolve",
-            "type": "shell",
-            "group": { "kind": "build", "isDefault": true },
-            "problemMatcher": [],
-            "command": "bash",
-            "osx": { "args": [".vscode/defold.sh", "resolve", "macOS"] },
-            "linux": { "args": [".vscode/defold.sh", "resolve", "Linux"] },
-            "windows": {
-                "args": [".vscode/defold.sh", "resolve", "Windows"],
-                "program": { "command": "C:/Program Files/Git/bin/bash" }
-            }
-        },
-        {
-            "label": "Build",
-            "type": "shell",
-            "group": { "kind": "build", "isDefault": true },
-            "problemMatcher": [],
-            "command": "bash",
-            "osx": { "args": [".vscode/defold.sh", "build", "macOS"] },
-            "linux": { "args": [".vscode/defold.sh", "build", "Linux"] },
-            "windows": {
-                "args": [".vscode/defold.sh", "build", "Windows"],
-                "program": { "command": "C:/Program Files/Git/bin/bash" }
-            }
-        },
-        {
-            "label": "Bundle",
-            "type": "shell",
-            "group": { "kind": "build", "isDefault": true },
-            "problemMatcher": [],
-            "command": "bash",
-            "osx": { "args": [".vscode/defold.sh", "bundle", "macOS", "${input:platform_to_build}", "${input:variant}"] },
-            "linux": { "args": [".vscode/defold.sh", "bundle", "Linux", "${input:platform_to_build}", "${input:variant}"] },
-            "windows": {
-                "args": [".vscode/defold.sh", "bundle", "Windows", "${input:platform_to_build}", "${input:variant}"],
-                "program": { "command": "C:/Program Files/Git/bin/bash" }
-            }
-        },
-        {
-            "label": "Deploy",
-            "type": "shell",
-            "group": { "kind": "build", "isDefault": true },
-            "problemMatcher": [],
-            "command": "bash",
-            "osx": { "args": [".vscode/defold.sh", "deploy", "macOS", "${input:platform_to_deploy}"] },
-            "linux": { "args": [".vscode/defold.sh", "deploy", "Linux", "${input:platform_to_deploy}"] },
-            "windows": {
-                "args": [".vscode/defold.sh", "deploy", "Windows", "${input:platform_to_deploy}"],
-                "program": { "command": "C:/Program Files/Git/bin/bash" }
-            }
-        }
-    ],
-    "inputs": [
-        {
-            "id": "variant",
-            "description": "Select the variant to build",
-            "type": "pickString",
-            "options": [
-                { "value": "Debug" },
-                { "value": "Release" }
-            ]
-        },
-        {
-            "id": "platform_to_build",
-            "description": "Select the platform to build",
-            "type": "pickString",
-            "options": [
-                { "value": "iOS" },
-                { "value": "Android" },
-                { "value": "macOS" },
-                { "value": "Windows" },
-                { "value": "Linux" },
-                { "value": "HTML5" }
-            ]
-        },
-        {
-            "id": "platform_to_deploy",
-            "description": "Select the platform to deploy",
-            "type": "pickString",
-            "options": [
-                { "value": "iOS" },
-                { "value": "Android" }
-            ]
-        }
-    ]
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "esbuild",
+			"isBackground": true,
+			"problemMatcher": "$tsc-watch",
+			"presentation": {
+				"reveal": "never"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
 }

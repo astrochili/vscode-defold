@@ -1,12 +1,10 @@
-/.internal
-/build
-/bundle
-.externalToolBuilders
+# System
 .DS_Store
 Thumbs.db
-.lock-wscript
-*.pyc
-.project
-.cproject
-builtins
-log.txt
+
+# Development
+out
+dist
+node_modules
+.vscode-test/
+*.vsix

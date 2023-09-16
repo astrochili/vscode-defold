@@ -1,197 +1,343 @@
 ![logo](https://user-images.githubusercontent.com/4752473/133979748-853ff3d7-b9a5-4c66-ac3f-3a02416af7c2.png)
-[![astronachos](https://raw.githubusercontent.com/astronachos/astronachos.github.io/master/static/badges/astronachos.svg)](https://astronachos.com) [![twitter](https://raw.githubusercontent.com/astronachos/astronachos.github.io/master/static/badges/twitter.svg)](https://twitter.com/astronachos) [![telegram](https://raw.githubusercontent.com/astronachos/astronachos.github.io/master/static/badges/telegram.svg)](https://t.me/astronachos) [![buymeacoffee](https://raw.githubusercontent.com/astronachos/astronachos.github.io/master/static/badges/buymeacoffee.svg)](https://www.buymeacoffee.com/astrochili) [![tinkoff](https://raw.githubusercontent.com/astronachos/astronachos.github.io/master/static/badges/tinkoff.svg)](https://www.tinkoff.ru/cf/4B9FjHDHA5a)
 
-# How to turn Visual Studio Code into Defold IDE
+[![Website](https://img.shields.io/badge/website-gray.svg?&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxNiIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDE4IDE2Ij48Y2lyY2xlIGN4PSIzLjY2IiBjeT0iMTQuNzUiIHI9IjEuMjUiIGZpbGw9InVybCgjYSkiLz48Y2lyY2xlIGN4PSI4LjY2IiBjeT0iMTQuNzUiIHI9IjEuMjUiIGZpbGw9InVybCgjYikiLz48Y2lyY2xlIGN4PSIxMy42NSIgY3k9IjE0Ljc1IiByPSIxLjI1IiBmaWxsPSJ1cmwoI2MpIi8+PHBhdGggZmlsbD0idXJsKCNkKSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNy42MyAxLjQ4Yy41LS43IDEuNTUtLjcgMi4wNSAwbDYuMjIgOC44MWMuNTguODMtLjAxIDEuOTctMS4wMyAxLjk3SDIuNDRhMS4yNSAxLjI1IDAgMCAxLTEuMDItMS45N2w2LjIxLTguODFaIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiLz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIyLjQxIiB4Mj0iMi40MSIgeTE9IjEzLjUiIHkyPSIxNiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiNGRDhENDIiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGOTU0MUYiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDE9IjcuNDEiIHgyPSI3LjQxIiB5MT0iMTMuNSIgeTI9IjE2IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agc3RvcC1jb2xvcj0iI0ZEOEQ0MiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0Y5NTQxRiIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJjIiB4MT0iMTIuNCIgeDI9IjEyLjQiIHkxPSIxMy41IiB5Mj0iMTYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBzdG9wLWNvbG9yPSIjRkQ4RDQyIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjk1NDFGIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImQiIHgxPSIuMDMiIHgyPSIuMDMiIHkxPSIuMDMiIHkyPSIxMi4yNiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiNGRkU2NUUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRkM4MzAiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48L3N2Zz4=)](https://astronachos.com/)
+[![Mastodon](https://img.shields.io/badge/mastodon-gray?&logo=mastodon)](https://mastodon.gamedev.place/@astronachos)
+[![Twitter](https://img.shields.io/badge/twitter-gray?&logo=twitter)](https://twitter.com/astronachos)
+[![Telegram](https://img.shields.io/badge/telegram-gray?&logo=telegram)](https://t.me/astronachos)
+[![Buy me a coffee](https://img.shields.io/badge/buy_me_a_coffee-gray?&logo=buy%20me%20a%20coffee)](https://buymeacoffee.com/astrochili)
 
-This guide will help you to configure [VSCode](https://code.visualstudio.com/) for developing games with [Defold](https://defold.com/).
+> [!NOTE]
+> This is a spiritual successor to the original guide [How to turn Visual Studio Code into Defold IDE](https://github.com/astrochili/vscode-defold/tree/old-guide).
 
-- [x] Syntax **Highlighting** and **Linting**.
-- [x] Powerful **IntelliSense** (standard lua, Defold API, libraries, project code).
-- [x] **Building** and **Launching** the game from VSCode.
-- [x] **Debugging** with breakpoints, call stacks, stepping, inspecting and evaluating.
-- [x] **Bundling** to all the platforms and **Deploying** to connected mobile devices.
+# Defold Kit extension for VS Code
 
-This allows you not to use Defold Editor at all if you are only working with code at the moment.
+[![Version](https://img.shields.io/visual-studio-marketplace/v/astronachos.defold)](https://marketplace.visualstudio.com/items?itemName=astronachos.defold)
+[![Downloads](https://img.shields.io/visual-studio-marketplace/d/astronachos.defold)](https://marketplace.visualstudio.com/items?itemName=astronachos.defold)
+[![Installs](https://img.shields.io/visual-studio-marketplace/i/astronachos.defold)](https://marketplace.visualstudio.com/items?itemName=astronachos.defold)
+[![MIT Licence](https://img.shields.io/badge/License-MIT-blue)](https://github.com/astrochili/vscode-defold/blob/master/LICENCE)
 
-💬 [Discuss on the forum](https://forum.defold.com/t/guide-how-to-turn-vscode-into-defold-ide-with-debugger/68002).
+A toolkit for [Visual Studio Code](https://code.visualstudio.com/) to develop, build, launch, debug, bundle and deploy your game made with [Defold](https://defold.com/).
 
-## Download
+- [x] 💼 Installing recommended extensions
+- [x] 📝 Lua highlighting, autocompletion and linting
+- [x] 🛠️ Applying relevant settings to the workspace
+- [x] 📘 Lua annotations for Defold API
+- [x] 📚 Lua annotations for dependencies
+- [x] 🚀 Building and launching
+- [x] 🔎 Debugging with breakpoints
+- [x] 📦 Bundling for all the platforms
+- [x] 📲 Deploying to connected mobile devices
 
-#### Start form the scratch
+You can not to use the Defold Editor at all if you are only working with code at the moment.
 
-- Use this repository [as the template](https://github.com/astrochili/defold-vscode-guide/generate) or download [master](https://github.com/astrochili/defold-vscode-guide/archive/refs/heads/master.zip) as your starting project.
-
-#### Or integrate to your existing project
-
-- Copy `debugger`, `.vscode`, `.defold_api`, `.gitattributes`, `.gitignore` to your existing project folder.
+💬 [Discuss on the forum](https://forum.defold.com/t/guide-how-to-turn-vscode-into-defold-ide-with-debugger/68002)
 
 ## Setup
 
-#### MacOS / Linux / Windows
+It's possible to install the extension from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=astronachos.defold) or manually by downloading the `.vsix` archive from the [realeses](https://github.com/astrochili/vscode-defold/releases) page.
 
-1. Install recommended by the workspace [extensions](#extensions) on the VSCode Extensions pane.
-2. Configure path to your Defold Editor by replacing `YOUR-DEFOLD-PATH-HERE` in [.vscode/defold.sh](.vscode/defold.sh#L11).
-3. Set VSCode as the [custom editor](#custom-editor) in Defold preferences.
-4. Add the debugger starting code to your project:
+After installing the extension and opening a Defold project, you will be prompted to [setup Defold Kit](#setup-defold-kit) with a step-by-step dialogue.
 
-```lua
-require('debugger.debugger').start()
-```
+### Path to Defold
 
-#### Windows (additional steps)
+![screenshot-defold](https://github.com/astrochili/defold-vscode-guide/assets/4752473/d0790cba-3c21-4f9b-bee3-2d2980e1ca3f)
 
-5. Install `bash` following [this instruction](https://stackoverflow.com/a/50527994/6352765).
+Defold Kit requires [Defold](https://defold.com) installed (surprise).
 
-### What's next
+Select the automatically suggested path if it exists, or select the Defold folder manually.
 
-Now you can open tasks list with **[Ctrl/Cmd]-Shift-B** (by default) or launch the game to debug with **F5** (by default). Also you can **[Ctrl/Cmd]-Alt-I** to format your code.
+### Extensions
 
-You can change [key bindings](https://code.visualstudio.com/docs/getstarted/keybindings) in the VSCode settings.
+![screenshot-extensions](https://github.com/astrochili/defold-vscode-guide/assets/4752473/d3d93fce-b029-4bf5-823f-79131ac2e3bf)
 
-## Extensions
+Select the extensions you want to install.
 
-These extentions are listed in workspace recommendations so it shouldn't be a problem to install them quickly in the VSCode Extensions pane.
+The first two are highly recommended, the next three are optional:
 
-- [sumneko.lua](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) - A powerful Lua language server with IntelliSense.
-- [tomblind.local-lua-debugger-vscode](https://marketplace.visualstudio.com/items?itemName=tomblind.local-lua-debugger-vscode) - A nice local debugger for Lua.
-- [thejustinwalsh.textproto-grammer](https://marketplace.visualstudio.com/items?itemName=thejustinwalsh.textproto-grammer) - Textual Protobuf syntax highlighting.
-- [slevesque.shader](https://marketplace.visualstudio.com/items?itemName=slevesque.shader) - Shader languages support.
-- [dtoplak.vscode-glsllint](https://marketplace.visualstudio.com/items?itemName=dtoplak.vscode-glsllint) - Linting of OpenGL Shading Language.
-- [koihik.vscode-lua-format](https://marketplace.visualstudio.com/items?itemName=Koihik.vscode-lua-format) - Lua code formatter.
+- [sumneko.lua](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) - Autocompletion, annotations, diagnostics and etc.
+- [tomblind.local-lua-debugger-vscode](https://marketplace.visualstudio.com/items?itemName=tomblind.local-lua-debugger-vscode) - Launching to debug with breakpoints.
+- [thejustinwalsh.textproto-grammer](https://marketplace.visualstudio.com/items?itemName=thejustinwalsh.textproto-grammer) - Syntax highlighting for `.collection`, `.go` and other Protobuf files.
+- [slevesque.shader](https://marketplace.visualstudio.com/items?itemName=slevesque.shader) - GLSL support for `.vp` and `.fp` files.
+- [dtoplak.vscode-glsllint](https://marketplace.visualstudio.com/items?itemName=dtoplak.vscode-glsllint) - GLSL linting for `.vp` and `.fp` files.
 
-#### Can I use [EmmyLua](https://github.com/EmmyLua/VSCode-EmmyLua) instead?
+### Workspace
 
-This is also a great option, and of course you can use it. The key difference is that `sunmeko.lua` can generate autocomplete *without* annotations.
+![screenshot-settings](https://github.com/astrochili/defold-vscode-guide/assets/4752473/763332dc-371a-4b7e-9efd-dd1f341118e7)
 
-#### Why not the built-in [mobdebug](https://github.com/pkulchenko/MobDebug)?
+Some additional settings to apply to the workspace.
 
-Currently can't find a way to use it smoothly with VSCode + Defold.
+#### Debugger Scripts
 
-## Configuration
+> Displayed if the [`tomblind.local-lua-debugger-vscode`](#extensions) extension is installed.
 
-### Defold Path
+To run the game for debugging with breakpoints, it's required to [start the debugger](#debugger) on the game side. These files allow you to do that.
 
-Configure path to your Defold Editor folder in `.vscode/defold.sh`. `Java`, `bob`, `dmengine` and other necessary files are all extracted and used directly from your Defold Editor.
+#### Launch Configuration
 
-```bash
-# The path to your Defold Editor folder:
-# - MacOS: "/Applications/Defold.app"
-# - Linux: "/usr/bin/Defold"
-# - Windows: "C:/Program Files/Defold"
-defold_editor_path="YOUR-DEFOLD-PATH-HERE"
-```
+> Displayed if the [`tomblind.local-lua-debugger-vscode`](#extensions) extension is installed.
 
-### Opening files from Defold
+To launch the game from the **Run and Debug** panel, it's required to add the relevant configuration to the `.vscode/launch.json` file. The `Defold` configuration will be added.
 
-To open source files from Defold directly in VSCode you need to set VSCode as the custom editor in Defold preferences by settings the path to your VSCode executable:
+#### Workspace Settings
+
+These settings are recommended for Defold project workspace to make your development  more comfortable.
+
+The settings will only be applied to the installed extensions. You can check them in the [settings.ts](src/data/settings.ts).
+
+#### Workspace Recommendations
+
+Adds Defold Kit to the `.vscode/extensions.json` file to appear in the recommended extensions to install for this workspace.
+
+### Annotations Syncing
+
+![screenshot-annotations](https://github.com/astrochili/defold-vscode-guide/assets/4752473/88878bce-abb8-4dd2-bf76-46f7668e9129)
+
+> This step is skipping if the [`sumneko.lua`](#extensions) extension is not installed.
+
+Synchronise Lua annotations with the Defold Editor version and project dependencies.
+
+#### Defold API Annotations
+
+Fethes Defold API annotations from the repository according the [settings](#defoldannotationsrepository) and unpacks them to the Defold Kit shared storage.
+
+#### Dependencies Annotations
+
+Unpacks archives from the `.internal/libs` folder and copies `*.lua` files from libraries to the Defold Kit workspace storage.
+
+## Opening Files from Defold
+
+![screenshot-preferences](https://github.com/astrochili/defold-vscode-guide/assets/4752473/d5107629-5f4c-4010-9851-002266fd5ff8)
+
+To open script files from the Defold Editor directly in Visual Studio Code, you must set the following settings by specifying the path to the executable file:
 
 - MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Electron`
 - Linux: `/usr/bin/code`
 - Windows: `C:\Program Files\Microsoft VS Code\Code.exe`
 
-Also set these parameters to open files from Defold correctly:
+ Set these parameters to open specific files and lines:
 
 - Open File: `. {file}`
 - Open File at Line: `. -g {file}:{line}`
 
-### Defold API
-
-![intellisense](https://user-images.githubusercontent.com/4752473/113480000-ca02fd00-949a-11eb-9194-f4e546faef93.gif)
-
-There are few sources of Defold API annotations. All of them are based on the same documentation source and are possible to use. So choose the one with the newer version of Defold API.
-
-#### Provided by astrochili
-
-[![defold-annoptations](https://img.shields.io/github/v/release/astrochili/defold-annotations.svg?include_prereleases=&sort=semver&color=blue)](https://github.com/astrochili/defold-annotations/releases)
-
-Lua headers with Defold API are generated with [astrochili/defold-annotations](https://github.com/astrochili/defold-annotations/). You can update it by downloading `defold_api_x.x.x.zip` from the [releases](https://github.com/astrochili/defold-annotations/releases) page and unarchive it to the `.defold_api` folder in your workspace. This one is used in this repository.
-
-#### Provided by mikatuo
-
-[![defold-annoptations](https://img.shields.io/github/v/release/mikatuo/defold-lua-annotations.svg?include_prereleases=&sort=semver&color=blue)](https://github.com/mikatuo/defold-lua-annotations/releases)
-
-Lua headers with Defold API are generated with [mikatuo/defold-lua-annotations](https://github.com/mikatuo/defold-lua-annotations/). You can update them by downloading `defold_lua-x.zip` from the [releases](https://github.com/mikatuo/defold-lua-annotations/releases/) page and unarchive it to the `.defold_api` folder in your workspace.
-
-#### Provided by d954mas
-
-[![defold-annoptations](https://img.shields.io/github/v/release/d954mas/IntelliJ-Defold-Api.svg?include_prereleases=&sort=semver&color=blue)](https://github.com/d954mas/IntelliJ-Defold-Api/releases)
-
-Lua headers with Defold API are generated with [d954mas/IntelliJ-Defold-Api](https://github.com/d954mas/IntelliJ-Defold-Api). You can update it by downloading `defold_api.zip` from the [releases](https://github.com/d954mas/IntelliJ-Defold-Api/releases) page and unarchive it to the `.defold_api` folder in your workspace.
-
-### Libraries
-
-To help the language server to find external libraries and parse their headers you need to unarchive the `*.zip` files in the `.internal/lib/` folder. This folder appears after the external libraries are fetched. Don't delete the archives themselves of course.
-
-Unarchive only libraries without native extensions. If you want to unarchive a mixed library with a native extension and Lua modules, you will need to remove the native extension part after unarchiving, otherwise the build will fail.
-
-### Settings
-
-Use `.vscode/settings.json` as your VSCode settings. If you work with many Defold projects, then it would be reasonable to copy them to the user settings instead of workspace settings.
-
-Some of settings are required for IntelliSense to work properly, but most of them just make your development with Lua and Defold much more comfortable.
-
-### Git
-
-There are `.gitignore` and `.gitattributes` files that should help your git to work more correctly with your Defold project.
-
-### Formatting
-
-To configure formatting rules edit `.vscode/lua-format.config` according to [these style options](https://github.com/Koihik/LuaFormatter/blob/master/docs/Style-Config.md).
-
-## Tasks
-
-VSCode tasks are available with shortcut **[Ctrl/Cmd]-Shift-B** by default.
-
-![tasks](https://user-images.githubusercontent.com/4752473/113480040-fcacf580-949a-11eb-8b8b-da39591373cb.gif)
-
-- `Clean` the build folder. Runs bob with `distclean`.
-- `Resolve` the dependencies by fetching them. Runs bob with `resolve`.
-- `Build` for debugging. Runs bob with `--variant debug build`.
-- `Bundle` for the selected platform with selecting `debug` or `release` variant.
-- `Deploy` to the connected device with [ios-deploy](https://github.com/ios-control/ios-deploy) for iOS and [adb](https://developer.android.com/studio/command-line/adb) for Android. The tools must be installed and accessible via bash.
-
-You can configure additional arguments for dependencies resolution and bundling on the top of `.vscode/defold.sh`.
+The `.` character here is required to open the entire workspace, not an individual file.
 
 ## Debugger
 
-Debugging is provided with [local-lua-debugger-vscode](https://marketplace.visualstudio.com/items?itemName=tomblind.local-lua-debugger-vscode) by [tomblind](https://github.com/tomblind). The extension runs `dmengine` locally and interacts with it via `stdio`.
+![screenshot-debugger](https://github.com/astrochili/defold-vscode-guide/assets/4752473/e9f420ca-26ba-4159-8faf-f4092876bf8d)
 
-![debugger](https://user-images.githubusercontent.com/4752473/113479667-0897b800-9499-11eb-91c3-00eee42e83f2.gif)
+To launch a game with debugger ensure that all these steps are done during [setting up](#setup) Defold Kit:
 
-To debug you also need to start the debugger on the game side:
+- The [`local-lua-debugger-vscode`](#extensions) extension is installed.
+- [Debugger scripts](#debugger-scripts) are added to the workspace.
+- [Launch configiuration](#launch-configuration) are added to the workspace.
+
+Then add the `debugger.script` component to your initial collection *or* add this code to your initial script:
 
 ```lua
-local debugger = require('debugger.debugger')
-debugger.start()
+require('debugger.debugger').start()
 ```
 
-There are two launch configurations: `Build & Run` and `Just Run`. The only difference between them is launching of the building pre-task `bob: build`.
+Ensure that the `Defold` configuration selected on the **Run and Debug** pane and launch it using the `F5` keyboard shortcut (default).
 
-You can launch the selected configuration by shortcut **F5** by default.
+## Commands
+
+![screenshot-commands](https://github.com/astrochili/defold-vscode-guide/assets/4752473/f67efa58-3a2e-4255-a752-c7276d9d6fe0)
+
+Commands with the `Defold` prefix are available in the Command Palette using the `[Ctrl/Cmd]-Shift-P` keyboard shortcut (default).
+
+### Setup Defold Kit
+
+Starts the [setup dialogue](#path-to-defold). It's okay to run this command many times if you are not sure you are ready to turn on all the features at once.
+
+### Sync API Annotations
+
+Opens the [Annotations Syncing](#annotations-syncing) dialogue.
+
+### Clean API Annotations
+
+Deletes all the previously synced annotations from the global storage and workspace storage.
+
+### Clean Build
+
+Runs a [bob](https://defold.com/manuals/bob/) instance with the `distclean` argument to clean the build folder.
+
+### Resolve Dependencies
+
+Runs a [bob](https://defold.com/manuals/bob/) instance with the `resolve` argument to resolve the project's dependencies. Then synchronises Lua annotations if the Lua Language Server is installed.
+
+### Bundle
+
+Runs a [bob](https://defold.com/manuals/bob/) instance with the `resolve distclean build biundle` arguments, selected options and defined values form [settings](#settings).
+
+Executes for all selected target platforms one by one. When finished will prompt you to open the bundle folder.
+
+#### Platforms
+
+![screenshot-platforms](https://github.com/astrochili/defold-vscode-guide/assets/4752473/7ed5addc-98ee-4598-a620-c21964ef0e64)
+
+Select which target platforms you want to bundle your game.
+
+#### Options
+
+![screenshot-bundle](https://github.com/astrochili/defold-vscode-guide/assets/4752473/0640062a-6736-4c7f-b6a3-fc5456bc5244)
+
+- **Release** — Bundle a [Release](https://defold.com/manuals/bundling/#release-vs-debug) variant (otherwise bundle Debug variant).
+- **Texture Compression** — Enable texture compression as specified in [texture profiles](https://defold.com/manuals/texture-profiles/).
+- **Debug Symbols** — Generate the [symbol file](https://defold.com/manuals/debugging-native-code/#symbolicate-a-callstack) (if applicable).
+- **Build Report** — Generate the [build report](https://defold.com/manuals/profiling/#build-reports) file.
+- **Live Update** — Publish [Live update](https://defold.com/manuals/live-update/) content.
+
+### Deploy to Mobile
+
+![screenshot-deploy](https://github.com/astrochili/defold-vscode-guide/assets/4752473/3f0f1e87-127f-4d78-a702-102e8e29cdf9)
+
+Deploy to the connected mobile device with [ios-deploy](https://github.com/ios-control/ios-deploy) for iOS and [adb](https://developer.android.com/studio/command-line/adb) for Android. These tools must be installed and accessible via shell.
+
+```bash
+# Will execute for iOS
+ios-deploy -b ${ipa_file}
+
+# Will execute for Android
+adb install ${apk_file}
+```
+
+The `*.ipa` or `*.apk` file is required in the corresponding bundle folder, so run the [Bundle](#bundle) command before deploying.
+
+### Launch (without Debugger)
+
+Runs the [Build to Launch](#build-to-launch) task if required and then launch the game from the VSCode terminal instance.
+
+This is handy if you don't want to install the [`tomblind.local-lua-debugger-vscode`](#extensions) extension, but just want to build and run the game. For debugging with breakpoints look at the [Debugger](#debugger) section.
+
+## Tasks
+
+![screenshot-tasks](https://github.com/astrochili/defold-vscode-guide/assets/4752473/70eadc07-4350-4973-aa56-9cb2ee52cf17)
+
+Build tasks with the `Defold` prefix are available using the `[Ctrl/Cmd]-Shift-B` keyboard shortcut (default).
+
+Most tasks are aliases of the [commands](#commands) described above.
+
+- [Clean Build](#clean-build)
+- [Resolve Dependencies](#clean-build)
+- [Bundle](#bundle)
+- [Deploy to Mobile](#deploy-to-mobile)
+- [Launch (without Debugger)](#launch-without-debugger)
+
+### Build to Launch
+
+This single unique task doesn't have a public command because it's intended more for internal use.
+
+Runs the [bob](https://defold.com/manuals/bob/) instance with the `--variant debug build` arguments to build the project. Then prepares the `build/launcher` folder with the engine executable and required to launch files.
+
+## Settings
+
+### defold.general.editorPath
+
+The path to the Defold Editor folder.
+
+Running the [Setup Defold Kit](#setup-defold-kit) command is the preferred way to update this value, but you can edit it manually if you're sure of what you are doing.
+
+### defold.general.suggestSetup
+
+Suggest to setup Defold Kit if the `game.project` file is found in the current workspace.
+
+### defold.general.showBobOutput
+
+Open the Output panel during a [bob](https://defold.com/manuals/bob/) instance executing.
+
+### defold.annotations.repository
+
+Where to get Defold API annotations. Two options are currently available:
+
+- [astrochili/defold-annotations](https://github.com/astrochili/defold-annotations)
+- [mikatuo/defold-lua-annotations](https://github.com/mikatuo/defold-lua-annotations)
+
+### defold.dependencies.email
+
+User email to resolve dependencies.
+
+Adds the `--email ${email}` argument during [Resolve Dependencies](#resolve-dependencies) and [Bundle](#bundle) commands execution.
+
+### defold.dependencies.authToken
+
+Authentication token to resolve dependencies.
+
+Adds the `--auth ${authToken}` argument during [Resolve Dependencies](#resolve-dependencies) and [Bundle](#bundle) commands execution.
+
+### defold.bundle.ios.debug.provisioningProfile
+
+Path to the `*.mobileprovision profile` for **Debug** variant on **iOS**.
+
+Adds the `--mobileprovisioning ${provisioningProfile}` argument during [Bundle](#bundle) command execution.
+
+### defold.bundle.ios.debug.identity
+
+Code signing identity for the **Debug** variant on **iOS**.
+
+Adds the `--identity ${identity}` argument during [Bundle](#bundle) command execution.
+
+### defold.bundle.ios.release.provisioningProfile
+
+Path to the `*.mobileprovision profile` for **Release** variant on **iOS**.
+
+Adds the `--mobileprovisioning ${provisioningProfile}` argument during [Bundle](#bundle) command execution.
+
+### defold.bundle.ios.release.identity
+
+Code signing identity for the **Release** variant on **iOS**.
+
+Adds the `--identity ${identity}` argument during [Bundle](#bundle) command execution.
+
+### defold.bundle.android.keystore
+
+Path to the `*.keystore` file for **Android**.
+
+Adds the `--keystore ${keystore}` argument during [Bundle](#bundle) command execution.
+
+### defold.bundle.android.keystorePass
+
+Path to the `*.keystore.pass.txt` file for **Android**.
+
+Adds the `--keystore-pass ${keystorePass}` argument during [Bundle](#bundle) command execution.
+
+### defold.bundle.android.keystoreAlias
+
+Name of the alias from the [keystore](#defoldbundleandroidkeystore) for **Android**.
+
+Adds the `--keystore-alias ${keystoreAlias}` argument during [Bundle](#bundle) command execution.
+
+## Compatibility
+
+It's possible to uncheck all the options during [Defold Kit setup](#setup) and still be able to build and run the game using the [Launch (without Debugger)](#launch-without-debugger) command.
+
+To use your own annotations solution you can skip the [Annotations Syncing](#annotations-syncing) step or run the [Clean API Annotations](#clean-api-annotations) command.
+
+Due to the flexibility of Defold Kit, it can be used in combination with the [Defold Buddy](https://marketplace.visualstudio.com/items?itemName=mikatuo.vscode-defold-ide) extension, which adds additional sugars and features.
 
 ## Logs
 
-- Bob's tasks output logs to the Terminal tab.
-- The game outputs logs to the Debug Console tab.
+- The extension outputs logs to the `Default Kit` output channel.
+- A running game with a debugger outputs logs to the debug console.
+- A running game without debugger outputs logs to the `Defold Engine` terminal instance.
 
 ## Troubleshooting
 
-#### *fatal: cannot open file 'YOUR-DEFOLD-PATH-HERE/config* (Debug Console)
+> Defold Kit doesn't see installed extensions and prompts me to install them again.
 
-Setup the path to the Defold Editor. See at [Defold Path](#defold-path) part.
+Make sure that these extensions are activated. Defold Kit cannot distinguish a deactivated extension from a missing extension due to the lack of the corresponding Visual Studio Code API.
 
-#### *The system cannot find the path specified* (Debug Console)
+> The game launched, but the breakpoints don't work.
 
-This can happen when you try to start a debugger session and the bash path does not match the path in the `.vscode/launch.json` file. The default bash installation path is `C:/Program Files/Git/bin/bash`, so make sure it is there, or change the path in `.vscode/launch.json`.
-
-#### *Warning: Failed to clean up temp directory 'C:\Users\...'* (Terminal)
-
-It can be ignored, see at [post on the forum](https://forum.defold.com/t/bob-failed-to-clean-up-temp-directory-solved/68065/).
+Make sure that you [started the debugger](#debugger) on the game side.
 
 ## Limitations
 
-There is no way to change breakpoints at runtime, only on pauses. Bind some key to call `debugger.requestBreak()` can be a great trick if you want to edit breakpoints at runtime but you don't have any breakpoints in the code at the moment. Watch [tomblind/local-lua-debugger-vscode/#32](https://github.com/tomblind/local-lua-debugger-vscode/issues/32) for updates.
+### Change breakpoints at runtime
 
-Local Lua Debugger is a *local* debugger. So you can't debug the game on the device by this way.
+Breakpoints can be set before launch and changed **on pauses only**. But there is a workaround, you can bind some input key to call `debugger.requestBreak()` and execution will pause on this line.
 
-**Hot reloading** is also available from the Defold Editor. Just select a runned localhost target in the *Project / Target* menu when the game is running.
+Watch [tomblind/local-lua-debugger-vscode/#32](https://github.com/tomblind/local-lua-debugger-vscode/issues/32) and [local-lua-debugger-vscode/pull/67](https://github.com/tomblind/local-lua-debugger-vscode/pull/67) for updates.
+
+### Debug on mobile devices
+
+[Local Lua Debugger](https://github.com/tomblind/local-lua-debugger-vscode/) is a *local* debugger. So you can't debug the game on the device by this way.

@@ -1,0 +1,11 @@
+--[[
+  debugger.script
+  github.com/astrochili/vscode-defold
+  Copyright (c) 2023 Roman Silin
+  MIT license. See LICENSE for details.
+
+  Helpful script to debug the Defold project with Local Lua Debugger in VSCode.
+  Add it to your initial collection.
+--]]
+
+require('debugger.debugger').start()

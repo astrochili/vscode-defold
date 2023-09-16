@@ -1,0 +1,13 @@
+# Ignore everything
+*
+*/**
+
+# Whitelist
+!package.json
+!README.md
+!CHANGELOG.md
+!LICENSE
+!images
+!snippets
+!resources
+!out/extension.js
