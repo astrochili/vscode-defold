@@ -27,13 +27,13 @@ A toolkit for [Visual Studio Code](https://code.visualstudio.com/) to develop, b
 
 You can not to use the Defold Editor at all if you are only working with code at the moment.
 
-💬 [Discuss on the forum](https://forum.defold.com/t/guide-how-to-turn-vscode-into-defold-ide-with-debugger/68002)
+💬 [Discuss on the forum](https://forum.defold.com/t/defold-kit-visual-studio-code-extension/74119)
 
 ## Setup
 
 It's possible to install the extension from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=astronachos.defold) or manually by downloading the `.vsix` archive from the [realeses](https://github.com/astrochili/vscode-defold/releases) page.
 
-After installing the extension and opening a Defold project, you will be prompted to [setup Defold Kit](#setup-defold-kit) with a step-by-step dialogue.
+After installing the extension and opening a Defold project, you will be prompted to setup Defold Kit with a step-by-step dialogue.
 
 ### Path to Defold
 
