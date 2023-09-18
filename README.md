@@ -1,5 +1,7 @@
 ![logo](https://user-images.githubusercontent.com/4752473/133979748-853ff3d7-b9a5-4c66-ac3f-3a02416af7c2.png)
-[![astronachos](https://raw.githubusercontent.com/astronachos/astronachos.github.io/master/static/badges/astronachos.svg)](https://astronachos.com) [![twitter](https://raw.githubusercontent.com/astronachos/astronachos.github.io/master/static/badges/twitter.svg)](https://twitter.com/astronachos) [![telegram](https://raw.githubusercontent.com/astronachos/astronachos.github.io/master/static/badges/telegram.svg)](https://t.me/astronachos) [![buymeacoffee](https://raw.githubusercontent.com/astronachos/astronachos.github.io/master/static/badges/buymeacoffee.svg)](https://www.buymeacoffee.com/astrochili) [![tinkoff](https://raw.githubusercontent.com/astronachos/astronachos.github.io/master/static/badges/tinkoff.svg)](https://www.tinkoff.ru/cf/4B9FjHDHA5a)
+
+> [!WARNING]
+> This guide has been **deprecated** but reborn as the **[Defold Kit](https://github.com/astrochili/vscode-defold)** extension for Visual Studio Code.
 
 # How to turn Visual Studio Code into Defold IDE
 
@@ -61,7 +63,7 @@ These extentions are listed in workspace recommendations so it shouldn't be a pr
 
 #### Can I use [EmmyLua](https://github.com/EmmyLua/VSCode-EmmyLua) instead?
 
-This is also a great option, and of course you can use it. The key difference is that `sunmeko.lua` can generate autocomplete *without* annotations.
+This is also a great option, and of course you can use it. The key difference is that `sumneko.lua` can generate autocomplete *without* annotations.
 
 #### Why not the built-in [mobdebug](https://github.com/pkulchenko/MobDebug)?
 
