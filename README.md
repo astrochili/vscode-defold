@@ -131,7 +131,8 @@ To launch a game with debugger ensure that all these steps are done during [sett
 Then add the `debugger.script` component to your initial collection *or* add this code to your initial script:
 
 ```lua
-require('debugger.debugger').start()
+local debugger = require('debugger.debugger')
+debugger.start()
 ```
 
 Ensure that the `Defold` configuration selected on the **Run and Debug** pane and launch it using the `F5` keyboard shortcut (default).

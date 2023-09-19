@@ -8,4 +8,5 @@
   Add it to your initial collection.
 --]]
 
-require('debugger.debugger').start()
+local debugger = require('debugger.debugger')
+debugger.start()
