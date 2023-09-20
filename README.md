@@ -328,6 +328,19 @@ Make sure that these extensions are activated. Defold Kit cannot distinguish a d
 
 Make sure that you [started the debugger](#debugger) on the game side.
 
+> Build in VS Code is fine, but Defold Editor fails with the message `module 'debugger.debugger' not found`.
+
+This can happen if you call a method on the requested module in a single line. Watch [defold/defold/7963](https://github.com/defold/defold/issues/7963) for updates.
+
+```lua
+-- ✅ Correct way to require in Defold
+local debugger = require('debugger.debugger')
+debugger.start()
+
+-- 🚫 Wrong way, will fail in Defold Editor
+require('debugger.debugger').start()
+```
+
 ## Limitations
 
 ### Change breakpoints at runtime
