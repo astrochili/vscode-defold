@@ -86,7 +86,7 @@ export namespace launch {
         },
         [platforms.macos]: {
             buildPlatform: process.arch == 'arm64' ? 'arm64-osx' : 'x86_64-osx',
-            unpackBinPath: path.join('_unpack', 'arm64' ? 'arm64-macos' : 'x86_64-macos', 'bin'),
+            unpackBinPath: path.join('_unpack', process.arch == 'arm64' ? 'arm64-macos' : 'x86_64-macos', 'bin'),
             executable: 'dmengine',
         },
         [platforms.linux]: {
