@@ -13,7 +13,7 @@
 [![Telegram](https://img.shields.io/badge/telegram-gray?&logo=telegram)](https://t.me/astronachos)
 [![Buy me a coffee](https://img.shields.io/badge/buy_me_a_coffee-gray?&logo=buy%20me%20a%20coffee)](https://buymeacoffee.com/astrochili)
 
-A toolkit for [Visual Studio Code](https://code.visualstudio.com/) to develop, build, launch, debug, bundle and deploy your game made with [Defold](https://defold.com/).
+A toolkit for [Visual Studio Code](https://code.visualstudio.com/) to develop, build, launch, debug, bundle and deploy a game with [Defold](https://defold.com/).
 
 - [x] 💼 Installing recommended extensions
 - [x] 📝 Lua highlighting, autocompletion and linting
