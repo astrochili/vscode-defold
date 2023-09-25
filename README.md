@@ -1,4 +1,4 @@
-![logo](https://user-images.githubusercontent.com/4752473/133979748-853ff3d7-b9a5-4c66-ac3f-3a02416af7c2.png)
+![logo](https://github.com/astrochili/defold-trenchbroom/assets/4752473/ab6e5282-dd37-4586-bcab-c1ac83cf1a9f)
 
 > [!NOTE]
 > This is a spiritual successor to the original guide [How to turn Visual Studio Code into Defold IDE](https://github.com/astrochili/vscode-defold/tree/old-guide).
