@@ -35,6 +35,10 @@ It's possible to install the extension from [Visual Studio Marketplace](https://
 
 After installing the extension and opening a Defold project, you will be prompted to setup Defold Kit with a step-by-step dialogue.
 
+![screenshot-suggest](https://github.com/astrochili/vscode-defold/assets/4752473/102e4069-0b8b-4e42-9195-f4839d22b794)
+
+If for some reason this doesn't happen, you can run the [Setup Defold Kit](#setup-defold-kit) command manually.
+
 ### Path to Defold
 
 ![screenshot-defold](https://github.com/astrochili/defold-vscode-guide/assets/4752473/d0790cba-3c21-4f9b-bee3-2d2980e1ca3f)
