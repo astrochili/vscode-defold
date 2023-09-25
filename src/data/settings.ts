@@ -57,6 +57,7 @@ export const recommended = {
             'editor.defaultFormatter': ids.luaLanguageServer
         },
         'Lua.runtime.version': 'Lua 5.1',
+        'Lua.window.statusBar': false,
         'Lua.telemetry.enable': false,
         'Lua.completion.callSnippet': 'Replace',
         'Lua.completion.keywordSnippet': 'Replace',
