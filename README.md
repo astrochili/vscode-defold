@@ -249,10 +249,11 @@ Open the Output panel during a [bob](https://defold.com/manuals/bob/) instance e
 
 ### defold.annotations.repository
 
-Where to get Defold API annotations. Two options are currently available:
+Where to get Defold API annotations. Three options are currently available:
 
 - [astrochili/defold-annotations](https://github.com/astrochili/defold-annotations)
 - [mikatuo/defold-lua-annotations](https://github.com/mikatuo/defold-lua-annotations)
+- [d954mas/defold-api-emmylua](https://github.com/d954mas/defold-api-emmylua)
 
 ### defold.dependencies.email
 

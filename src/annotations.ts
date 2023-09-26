@@ -37,8 +37,8 @@ async function fetchLatestRelease(repositoryKey: string | undefined): Promise<La
     }
 }
 
-async function fetchSpecificAsset(version: string, repositoryKey: string | undefined): Promise<Uint8Array | undefined> {
-    const annotationsUrl = config.urls.annotationsAsset(version, repositoryKey)
+async function fetchSpecificAsset(tag: string, repositoryKey: string | undefined): Promise<Uint8Array | undefined> {
+    const annotationsUrl = config.urls.annotationsAsset(tag, repositoryKey)
 
     try {
         log(`Network request GET: '${annotationsUrl}'`)

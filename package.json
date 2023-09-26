@@ -1,7 +1,7 @@
 {
   "publisher": "astronachos",
   "name": "defold",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "license": "MIT",
   "displayName": "Defold Kit",
   "description": "Toolkit to build, launch, debug, bundle and deploy your game made with Defold",
@@ -137,7 +137,8 @@
             "default": "astrochili/defold-annotations",
             "enum": [
               "astrochili/defold-annotations",
-              "mikatuo/defold-lua-annotations"
+              "mikatuo/defold-lua-annotations",
+              "d954mas/defold-api-emmylua"
             ],
             "description": "Which Github repository to use to fetch Defold API annotations"
           },

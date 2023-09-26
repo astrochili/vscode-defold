@@ -135,8 +135,9 @@ export namespace urls {
     const defaultRepositoryKey = 'astrochili/defold-annotations'
 
     const assets = {
-        ['astrochili/defold-annotations']: 'defold_api_${defoldVersion}.zip',
-        ['mikatuo/defold-lua-annotations']: 'defold-lua-${defoldVersion}.zip'
+        ['astrochili/defold-annotations']: 'releases/download/${tag}/defold_api_${tag}.zip',
+        ['mikatuo/defold-lua-annotations']: 'releases/download/${tag}/defold-lua-${tag}.zip',
+        ['d954mas/defold-api-emmylua']: 'releases/download/${tag}/defold_api.zip'
     }
 
     export function fallbackReleaseUrl(repositoryKey: string | undefined): string {
@@ -144,11 +145,12 @@ export namespace urls {
         return `https://api.github.com/repos/${repository}/releases/latest`
     }
 
-    export function annotationsAsset(defoldVersion: string, repositoryKey: string | undefined): string {
+    export function annotationsAsset(tag: string, repositoryKey: string | undefined): string {
         const repository = repositoryKey ?? defaultRepositoryKey
         const assetTemplate = assets[repository as keyof typeof assets] ?? assets[defaultRepositoryKey]
-        const asset = assetTemplate.replaceAll('${defoldVersion}', defoldVersion)
-        return `https://github.com/${repository}/releases/download/${defoldVersion}/${asset}`
+        const asset = assetTemplate.replaceAll('${tag}', tag)
+
+        return `https://github.com/${repository}/${asset}`
     }
 
 }
