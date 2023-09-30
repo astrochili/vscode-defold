@@ -148,7 +148,7 @@ export async function launch(launchExecutablePath: string): Promise<boolean> {
     terminal = vscode.window.createTerminal('Defold Engine');
 
     terminal.show()
-    terminal.sendText(`${launchExecutablePath} ${config.launch.projectArg}`, true);
+    terminal.sendText(`"${launchExecutablePath}" "${config.launch.projectArg}"`, true);
 
     return true
 }
