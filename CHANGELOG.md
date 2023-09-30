@@ -4,6 +4,13 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.0.5] - 2023-09-30
+
+### Removed
+
+- Removed everything related the `Launch (without debugger)` and `Build to Launch` commands to avoid confusing.
+- Now the only way to launch the game is using the `Run ang Debug` panel.
+
 ## [2.0.4] - 2023-09-30
 
 ### Fixed

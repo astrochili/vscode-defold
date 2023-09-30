@@ -289,21 +289,3 @@ export async function build() {
         vscode.window.showErrorMessage('Failed to prepare the launcher. See Output for details.')
     }
 }
-
-export async function launch() {
-    const defold = config.defold
-
-    if (!defold) {
-        return wizard.suggestSetup(`Launching requires to setup ${config.extension.displayName} first`)
-    }
-
-    const launchConfig = config.launch.configs[process.platform]
-    const launchExecutablePath = path.join(config.paths.workspaceBuildLauncher, launchConfig.executable)
-    const argProjectPath = path.join(config.paths.workspace, config.launch.projectArg)
-
-    if (!await utils.isPathExists(launchExecutablePath) || !await utils.isPathExists(argProjectPath)) {
-        await build()
-    }
-
-    await launcher.launch(launchExecutablePath)
-}

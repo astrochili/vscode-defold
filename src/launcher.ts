@@ -75,7 +75,7 @@ export async function prepare(defold: DefoldConfiguration): Promise<boolean> {
     const isEngineHere = await utils.isPathExists(enginePlatformPath)
 
     if (isEngineHere) {
-        log(`Copying the engine from '${enginePlatformPath}' to '${engineLauncherPath}'`)
+        log(`Native engine found. Copying the engine from '${enginePlatformPath}' to '${engineLauncherPath}'`)
         const isCopied = await utils.copy(enginePlatformPath, engineLauncherPath)
 
         if (!isCopied) {
@@ -84,7 +84,7 @@ export async function prepare(defold: DefoldConfiguration): Promise<boolean> {
             return false
         }
     } else {
-        log(`No engine found at '${enginePlatformPath}', extracting from the Defold to '${engineLauncherPath}'`)
+        log(`Extracting the vanilla engine from Defold to '${engineLauncherPath}'`)
         const isExctracted = await extractFromDefold(
             defold,
             path.join(unpackBinPath, engineExecutable),
@@ -135,20 +135,6 @@ export async function prepare(defold: DefoldConfiguration): Promise<boolean> {
             return false
         }
     }
-
-    return true
-}
-
-export async function launch(launchExecutablePath: string): Promise<boolean> {
-    let terminal = vscode.window.terminals.find(terminal => {
-        return terminal.name == config.launch.terminalName
-    })
-
-    terminal?.dispose()
-    terminal = vscode.window.createTerminal('Defold Engine');
-
-    terminal.show()
-    terminal.sendText(`"${launchExecutablePath}" "${config.launch.projectArg}"`, true);
 
     return true
 }

@@ -23,7 +23,7 @@ export const recommended = {
     },
     [ids.localLuaDebugger]: {
         title: 'Local Lua Debugger',
-        detail: '[Recommended] Debugging with breakpoints directly in VSCode',
+        detail: '[Recommended] Launching the game and debugging with breakpoints',
     },
     [ids.textProtoId]: {
         title: 'Text Proto',

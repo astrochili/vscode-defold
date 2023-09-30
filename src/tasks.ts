@@ -11,7 +11,7 @@
 import * as vscode from 'vscode'
 import * as config from './config'
 
-function makeTask(name: string, command: string): vscode.Task {
+function makeTask(name: string, command: string, group: vscode.TaskGroup | undefined): vscode.Task {
 	const task = new vscode.Task(
 		{ type: 'shell' },
 		vscode.TaskScope.Workspace,
@@ -20,7 +20,7 @@ function makeTask(name: string, command: string): vscode.Task {
 		new vscode.ShellExecution('exit${command:' + config.extension.name + '.' + command + '}')
 	)
 
-	task.group = vscode.TaskGroup.Build
+	task.group = group
 	task.presentationOptions = {
 		echo: false,
 		focus: false,
@@ -37,11 +37,10 @@ export const buildTaskName = 'Build to Launch'
 
 export function makeTasks(): vscode.Task[] {
 	return [
-		makeTask(buildTaskName, 'build'),
-		makeTask('Bundle', 'bundle'),
-		makeTask('Clean Build', 'cleanBuild'),
-		makeTask('Resolve Dependencies', 'resolve'),
-		makeTask('Deploy to Mobile', 'deploy'),
-		makeTask('Launch (without Debugger)', 'launch'),
+		makeTask(buildTaskName, 'build', undefined),
+		makeTask('Bundle', 'bundle', vscode.TaskGroup.Build),
+		makeTask('Clean Build', 'cleanBuild', vscode.TaskGroup.Build),
+		makeTask('Resolve Dependencies', 'resolve', vscode.TaskGroup.Build),
+		makeTask('Deploy to Mobile', 'deploy', vscode.TaskGroup.Build)
 	]
 }

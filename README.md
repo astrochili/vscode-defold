@@ -56,7 +56,7 @@ Select the extensions you want to install.
 The first two are highly recommended, the next three are optional:
 
 - [sumneko.lua](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) - Autocompletion, annotations, diagnostics and etc.
-- [tomblind.local-lua-debugger-vscode](https://marketplace.visualstudio.com/items?itemName=tomblind.local-lua-debugger-vscode) - Launching to debug with breakpoints.
+- [tomblind.local-lua-debugger-vscode](https://marketplace.visualstudio.com/items?itemName=tomblind.local-lua-debugger-vscode) - Launching the game and debugging with breakpoints.
 - [thejustinwalsh.textproto-grammer](https://marketplace.visualstudio.com/items?itemName=thejustinwalsh.textproto-grammer) - Syntax highlighting for `.collection`, `.go` and other Protobuf files.
 - [slevesque.shader](https://marketplace.visualstudio.com/items?itemName=slevesque.shader) - GLSL support for `.vp` and `.fp` files.
 - [dtoplak.vscode-glsllint](https://marketplace.visualstudio.com/items?itemName=dtoplak.vscode-glsllint) - GLSL linting for `.vp` and `.fp` files.
@@ -71,7 +71,7 @@ Some additional settings to apply to the workspace.
 
 > Displayed if the [`tomblind.local-lua-debugger-vscode`](#extensions) extension is installed.
 
-To run the game for debugging with breakpoints, it's required to [start the debugger](#debugger) on the game side. These files allow you to do that.
+To debug the game with breakpoints, it's required to [start the debugger](#breakpoints) on the game side. These files allow you to do that.
 
 #### Launch Configuration
 
@@ -122,24 +122,27 @@ To open script files from the Defold Editor directly in Visual Studio Code, you 
 
 The `.` character here is required to open the entire workspace, not an individual file.
 
-## Debugger
+## Run and Debug
 
 ![screenshot-debugger](https://github.com/astrochili/defold-vscode-guide/assets/4752473/e9f420ca-26ba-4159-8faf-f4092876bf8d)
 
-To launch a game with debugger ensure that all these steps are done during [setting up](#setup) Defold Kit:
+### Launch
+
+To launch a game ensure that two these steps are done during [setting up](#setup) Defold Kit:
 
 - The [`local-lua-debugger-vscode`](#extensions) extension is installed.
-- [Debugger scripts](#debugger-scripts) are added to the workspace.
 - [Launch configiuration](#launch-configuration) are added to the workspace.
 
-Then add the `debugger.script` component to your initial collection *or* add this code to your initial script:
+Ensure that the `Defold` configuration selected on the **Run and Debug** panel and launch it using the `F5` keyboard shortcut (default).
+
+### Breakpoints
+
+To make the breakpoints work ensure that [Debugger scripts](#debugger-scripts) are added to the workspace. Then add the `debugger.script` component to your initial collection *or* add this code to your initial script:
 
 ```lua
 local debugger = require('debugger.debugger')
 debugger.start()
 ```
-
-Ensure that the `Defold` configuration selected on the **Run and Debug** pane and launch it using the `F5` keyboard shortcut (default).
 
 ## Commands
 
@@ -185,9 +188,9 @@ Select which target platforms you want to bundle your game.
 
 - **Release** — Bundle a [Release](https://defold.com/manuals/bundling/#release-vs-debug) variant (otherwise bundle Debug variant).
 - **Texture Compression** — Enable texture compression as specified in [texture profiles](https://defold.com/manuals/texture-profiles/).
-- **Debug Symbols** — Generate the [symbol file](https://defold.com/manuals/debugging-native-code/#symbolicate-a-callstack) (if applicable).
-- **Build Report** — Generate the [build report](https://defold.com/manuals/profiling/#build-reports) file.
-- **Live Update** — Publish [Live update](https://defold.com/manuals/live-update/) content.
+- **Generate Debug Symbols** — Generate the [symbol file](https://defold.com/manuals/debugging-native-code/#symbolicate-a-callstack) (if applicable).
+- **Generate Build Report** — Generate the [build report](https://defold.com/manuals/profiling/#build-reports) file.
+- **Publish Live Update Content** — Publish [Live update](https://defold.com/manuals/live-update/) content.
 
 ### Deploy to Mobile
 
@@ -205,49 +208,36 @@ adb install ${apk_file}
 
 The `*.ipa` or `*.apk` file is required in the corresponding bundle folder, so run the [Bundle](#bundle) command before deploying.
 
-### Launch (without Debugger)
-
-Runs the [Build to Launch](#build-to-launch) task if required and then launch the game from the VSCode terminal instance.
-
-This is handy if you don't want to install the [`tomblind.local-lua-debugger-vscode`](#extensions) extension, but just want to build and run the game. For debugging with breakpoints look at the [Debugger](#debugger) section.
-
 ## Tasks
 
 ![screenshot-tasks](https://github.com/astrochili/defold-vscode-guide/assets/4752473/70eadc07-4350-4973-aa56-9cb2ee52cf17)
 
 Build tasks with the `Defold` prefix are available using the `[Ctrl/Cmd]-Shift-B` keyboard shortcut (default).
 
-Most tasks are aliases of the [commands](#commands) described above.
+Tasks are aliases of some [commands](#commands) described above to have a quick access to them.
 
-- [Clean Build](#clean-build)
 - [Resolve Dependencies](#clean-build)
+- [Clean Build](#clean-build)
 - [Bundle](#bundle)
 - [Deploy to Mobile](#deploy-to-mobile)
-- [Launch (without Debugger)](#launch-without-debugger)
-
-### Build to Launch
-
-This single unique task doesn't have a public command because it's intended more for internal use.
-
-Runs the [bob](https://defold.com/manuals/bob/) instance with the `--variant debug build` arguments to build the project. Then prepares the `build/launcher` folder with the engine executable and required to launch files.
 
 ## Settings
 
-### defold.general.editorPath
+#### defold.general.editorPath
 
 The path to the Defold Editor folder.
 
 Running the [Setup Defold Kit](#setup-defold-kit) command is the preferred way to update this value, but you can edit it manually if you're sure of what you are doing.
 
-### defold.general.suggestSetup
+#### defold.general.suggestSetup
 
 Suggest to setup Defold Kit if the `game.project` file is found in the current workspace.
 
-### defold.general.showBobOutput
+#### defold.general.showBobOutput
 
 Open the Output panel during a [bob](https://defold.com/manuals/bob/) instance executing.
 
-### defold.annotations.repository
+#### defold.annotations.repository
 
 Where to get Defold API annotations. Three options are currently available:
 
@@ -255,55 +245,55 @@ Where to get Defold API annotations. Three options are currently available:
 - [mikatuo/defold-lua-annotations](https://github.com/mikatuo/defold-lua-annotations)
 - [d954mas/defold-api-emmylua](https://github.com/d954mas/defold-api-emmylua)
 
-### defold.dependencies.email
+#### defold.dependencies.email
 
 User email to resolve dependencies.
 
 Adds the `--email ${email}` argument during [Resolve Dependencies](#resolve-dependencies) and [Bundle](#bundle) commands execution.
 
-### defold.dependencies.authToken
+#### defold.dependencies.authToken
 
 Authentication token to resolve dependencies.
 
 Adds the `--auth ${authToken}` argument during [Resolve Dependencies](#resolve-dependencies) and [Bundle](#bundle) commands execution.
 
-### defold.bundle.ios.debug.provisioningProfile
+#### defold.bundle.ios.debug.provisioningProfile
 
 Path to the `*.mobileprovision profile` for **Debug** variant on **iOS**.
 
 Adds the `--mobileprovisioning ${provisioningProfile}` argument during [Bundle](#bundle) command execution.
 
-### defold.bundle.ios.debug.identity
+#### defold.bundle.ios.debug.identity
 
 Code signing identity for the **Debug** variant on **iOS**.
 
 Adds the `--identity ${identity}` argument during [Bundle](#bundle) command execution.
 
-### defold.bundle.ios.release.provisioningProfile
+#### defold.bundle.ios.release.provisioningProfile
 
 Path to the `*.mobileprovision profile` for **Release** variant on **iOS**.
 
 Adds the `--mobileprovisioning ${provisioningProfile}` argument during [Bundle](#bundle) command execution.
 
-### defold.bundle.ios.release.identity
+#### defold.bundle.ios.release.identity
 
 Code signing identity for the **Release** variant on **iOS**.
 
 Adds the `--identity ${identity}` argument during [Bundle](#bundle) command execution.
 
-### defold.bundle.android.keystore
+#### defold.bundle.android.keystore
 
 Path to the `*.keystore` file for **Android**.
 
 Adds the `--keystore ${keystore}` argument during [Bundle](#bundle) command execution.
 
-### defold.bundle.android.keystorePass
+#### defold.bundle.android.keystorePass
 
 Path to the `*.keystore.pass.txt` file for **Android**.
 
 Adds the `--keystore-pass ${keystorePass}` argument during [Bundle](#bundle) command execution.
 
-### defold.bundle.android.keystoreAlias
+#### defold.bundle.android.keystoreAlias
 
 Name of the alias from the [keystore](#defoldbundleandroidkeystore) for **Android**.
 
@@ -311,7 +301,7 @@ Adds the `--keystore-alias ${keystoreAlias}` argument during [Bundle](#bundle) c
 
 ## Compatibility
 
-It's possible to uncheck all the options during [Defold Kit setup](#setup) and still be able to build and run the game using the [Launch (without Debugger)](#launch-without-debugger) command.
+It's possible to uncheck all the options during [Defold Kit setup](#setup) and still be able to sync annotations, bundle and deploy the game.
 
 To use your own annotations solution you can skip the [Annotations Syncing](#annotations-syncing) step or run the [Clean API Annotations](#clean-api-annotations) command.
 
@@ -331,7 +321,7 @@ Make sure that these extensions are activated. Defold Kit cannot distinguish a d
 
 > The game launched, but the breakpoints don't work.
 
-Make sure that you [started the debugger](#debugger) on the game side.
+Make sure that you [started the debugger](#breakpoints) on the game side.
 
 > Build in VS Code is fine, but Defold Editor fails with the message `module 'debugger.debugger' not found`.
 
