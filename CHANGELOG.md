@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 
 - Renamed the category of tasks and commands from `Defold` to `Defold Kit` to avoid conflicts.
-- Renamed all the settings keys from `defold.` to `defoldKit` to avoid conflicts.
+- Renamed all the settings keys from `defold.` to `defoldKit.` to avoid conflicts.
 - Renamed launch configuration to `Defold Kit` to avoid conflicts.
 
 ### Added
