@@ -1,7 +1,8 @@
 {
   "publisher": "astronachos",
   "name": "defold",
-  "version": "2.0.5",
+  "contributesPrefix": "defoldKit",
+  "version": "2.0.6",
   "license": "MIT",
   "displayName": "Defold Kit",
   "description": "Toolkit to build, launch, debug, bundle and deploy your game made with Defold",
@@ -46,57 +47,57 @@
     ],
     "commands": [
       {
-        "command": "defold.setup",
-        "category": "Defold",
+        "command": "defoldKit.setup",
+        "category": "Defold Kit",
         "icon": "$(tools)",
-        "title": "Setup Defold Kit",
+        "title": "Setup",
         "enablement": "workspaceFolderCount > 0"
       },
       {
-        "command": "defold.syncAnnotations",
-        "category": "Defold",
+        "command": "defoldKit.syncAnnotations",
+        "category": "Defold Kit",
         "icon": "$(sync)",
         "title": "Sync API Annotations",
         "enablement": "workspaceFolderCount > 0"
       },
       {
-        "command": "defold.cleanAnnotations",
-        "category": "Defold",
+        "command": "defoldKit.cleanAnnotations",
+        "category": "Defold Kit",
         "icon": "$(trash)",
         "title": "Clean API Annotations",
         "enablement": "workspaceFolderCount > 0"
       },
       {
-        "command": "defold.cleanBuild",
-        "category": "Defold",
+        "command": "defoldKit.cleanBuild",
+        "category": "Defold Kit",
         "icon": "$(symbol-event)",
         "title": "Clean Build",
         "enablement": "workspaceFolderCount > 0"
       },
       {
-        "command": "defold.resolve",
-        "category": "Defold",
+        "command": "defoldKit.resolve",
+        "category": "Defold Kit",
         "icon": "$(library)",
         "title": "Resolve Dependencies",
         "enablement": "workspaceFolderCount > 0"
       },
       {
-        "command": "defold.bundle",
-        "category": "Defold",
+        "command": "defoldKit.bundle",
+        "category": "Defold Kit",
         "icon": "$(briefcase)",
         "title": "Bundle",
         "enablement": "workspaceFolderCount > 0"
       },
       {
-        "command": "defold.deploy",
-        "category": "Defold",
+        "command": "defoldKit.deploy",
+        "category": "Defold Kit",
         "icon": "$(device-mobile)",
         "title": "Deploy to Mobile",
         "enablement": "workspaceFolderCount > 0"
       },
       {
-        "command": "defold.build",
-        "category": "Defold",
+        "command": "defoldKit.build",
+        "category": "Defold Kit",
         "icon": "$(package)",
         "title": "Build",
         "enablement": "false"
@@ -104,27 +105,27 @@
     ],
     "configuration": [
       {
-        "title": "Defold",
+        "title": "Defold Kit",
         "properties": {
-          "defold.general.editorPath": {
+          "defoldKit.general.editorPath": {
             "order": 0,
             "type": "string",
             "default": "",
             "description": "Path to the Defold Editor"
           },
-          "defold.general.suggestSetup": {
+          "defoldKit.general.suggestSetup": {
             "order": 1,
             "type": "boolean",
             "default": true,
             "markdownDescription": "Suggest to setup Defold Kit if the `game.project` file is found"
           },
-          "defold.general.showBobOutput": {
+          "defoldKit.general.showBobOutput": {
             "order": 2,
             "type": "boolean",
             "default": true,
             "markdownDescription": "Open the Output panel when the `bob.jar` is executing"
           },
-          "defold.annotations.repository": {
+          "defoldKit.annotations.repository": {
             "order": 3,
             "type": "string",
             "default": "astrochili/defold-annotations",
@@ -135,59 +136,59 @@
             ],
             "description": "Which Github repository to use to fetch Defold API annotations"
           },
-          "defold.dependencies.email": {
+          "defoldKit.dependencies.email": {
             "order": 4,
             "type": "string",
             "default": "",
             "description": "User email to resolve dependencies"
           },
-          "defold.dependencies.authToken": {
+          "defoldKit.dependencies.authToken": {
             "order": 5,
             "type": "string",
             "default": "",
             "description": "Authentication token to resolve dependencies"
           },
-          "defold.bundle.ios.debug.provisioningProfile": {
+          "defoldKit.bundle.ios.debug.provisioningProfile": {
             "order": 6,
             "type": "string",
             "default": "",
             "markdownDescription": "Path to the `*.mobileprovision profile` for the Debug variant"
           },
-          "defold.bundle.ios.debug.identity": {
+          "defoldKit.bundle.ios.debug.identity": {
             "order": 7,
             "type": "string",
             "default": "",
-            "markdownDescription": "Code signing identity for `#defold.bundle.ios.debug.provisioningProfile#`"
+            "markdownDescription": "Code signing identity for `#defoldKit.bundle.ios.debug.provisioningProfile#`"
           },
-          "defold.bundle.ios.release.provisioningProfile": {
+          "defoldKit.bundle.ios.release.provisioningProfile": {
             "order": 8,
             "type": "string",
             "default": "",
             "markdownDescription": "Path to the `*.mobileprovision` profile for the Release variant"
           },
-          "defold.bundle.ios.release.identity": {
+          "defoldKit.bundle.ios.release.identity": {
             "order": 9,
             "type": "string",
             "default": "",
-            "markdownDescription": "Code signing identity for `#defold.bundle.ios.release.provisioningProfile#`"
+            "markdownDescription": "Code signing identity for `#defoldKit.bundle.ios.release.provisioningProfile#`"
           },
-          "defold.bundle.android.keystore": {
+          "defoldKit.bundle.android.keystore": {
             "order": 10,
             "type": "string",
             "default": "",
             "markdownDescription": "Path to the `*.keystore` file"
           },
-          "defold.bundle.android.keystorePass": {
+          "defoldKit.bundle.android.keystorePass": {
             "order": 11,
             "type": "string",
             "default": "",
             "markdownDescription": "Path to the `*.keystore.pass.txt` file"
           },
-          "defold.bundle.android.keystoreAlias": {
+          "defoldKit.bundle.android.keystoreAlias": {
             "order": 12,
             "type": "string",
             "default": "",
-            "markdownDescription": "Name of the alias from the `#defold.bundle.android.keystore#`"
+            "markdownDescription": "Name of the alias from the `#defoldKit.bundle.android.keystore#`"
           }
         }
       }

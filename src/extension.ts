@@ -10,9 +10,11 @@
 
 import * as vscode from 'vscode'
 import * as config from './config'
+import * as momento from './momento'
 import * as utils from './utils'
 import * as commands from './commands'
 import * as tasks from './tasks'
+import * as migration from './migration'
 import * as wizard from './wizard'
 import log from './logger'
 
@@ -41,7 +43,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	for (const command of Object.keys(commands)) {
 		const action = commands[command as keyof typeof commands]
-		const commandId = `${config.extension.name}.${command}`
+		const commandId = `${config.extension.commandPrefix}.${command}`
 
 		context.subscriptions.push(vscode.commands.registerCommand(commandId, async () => {
 			if (!await utils.isPathExists(config.paths.workspaceGameProject)) {
@@ -75,7 +77,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		}))
 	}
 
-	vscode.tasks.registerTaskProvider(config.extension.name, {
+	vscode.tasks.registerTaskProvider(config.extension.taskPrefix, {
 		provideTasks: () => {
 			return tasks.makeTasks()
 		},
@@ -83,6 +85,14 @@ export async function activate(context: vscode.ExtensionContext) {
 			return undefined
 		}
 	})
+
+	const lastMigrationVersion = momento.getLastMigrationVersion()
+	if (lastMigrationVersion != config.extension.version) {
+		log(`Starting migration from ${lastMigrationVersion} to ${config.extension.version}.`)
+		await migration.migrate(lastMigrationVersion)
+	} else {
+		log(`Last migration version is ${lastMigrationVersion}. No need to migrate.`)
+	}
 
 	log(`Extension '${config.extension.displayName}' is activated`)
 

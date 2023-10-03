@@ -11,6 +11,7 @@
 import * as vscode from 'vscode'
 import * as JSON5 from 'json5'
 import * as config from './config'
+import * as momento from './momento'
 import * as utils from './utils'
 import * as annotations from './annotations'
 import * as extensions from './data/extensions'
@@ -242,10 +243,10 @@ export async function suggestSetup(text: string, soft?: boolean) {
 
     switch (answer) {
         case setupButton:
-            vscode.commands.executeCommand(`${config.extension.name}.setup`)
+            vscode.commands.executeCommand(`${config.extension.commandPrefix}.setup`)
             break
         case dontAskButton:
-            await config.context.workspaceState.update(config.momentoKeys.dontSuggestSetup, true)
+            await config.context.workspaceState.update(momento.keys.dontSuggestSetup, true)
             break
 
         default:
@@ -259,15 +260,13 @@ export async function suggestSetupIfApplicable() {
         return
     }
 
-    if (await config.context.workspaceState.get(config.momentoKeys.dontSuggestSetup)) {
+    if (await config.context.workspaceState.get(momento.keys.dontSuggestSetup)) {
         log(`The user has already asked not to suggest setup`)
         return
     }
 
-    config.context.workspaceState.get('onceSetup')
-
     const isDefoldProject = await utils.isPathExists(config.paths.workspaceGameProject)
-    const onceSetup = config.wasOnceSetup()
+    const onceSetup = momento.getOnceSetup()
 
 	if (onceSetup) {
 		log(`No need to suggest ${config.extension.displayName} because it's already once setup`)
@@ -384,7 +383,7 @@ export async function offerInstallExtensions(): Promise<string[] | undefined> {
         return []
     }
 
-    utils.loadPickerSelection(extensionsItems, config.context.globalState, config.momentoKeys.extensionInstallation)
+    momento.loadPickerSelection(extensionsItems, config.context.globalState, momento.keys.extensionInstallation)
 
     const selectedItems = await vscode.window.showQuickPick(extensionsItems, {
         canPickMany: true,
@@ -397,7 +396,7 @@ export async function offerInstallExtensions(): Promise<string[] | undefined> {
         return
     }
 
-    await utils.savePickerSelection(extensionsItems, selectedItems, config.context.globalState, config.momentoKeys.extensionInstallation)
+    await momento.savePickerSelection(extensionsItems, selectedItems, config.context.globalState, momento.keys.extensionInstallation)
 
     let extensionIds: string[] = []
 
@@ -451,7 +450,7 @@ export async function offerSyncAnnotations(defoldVersion: string, title?: string
         dependenciesItem
     ]
 
-    utils.loadPickerSelection(syncItems, config.context.globalState, config.momentoKeys.settingsApplying)
+    momento.loadPickerSelection(syncItems, config.context.globalState, momento.keys.settingsApplying)
 
     const selectedItems = await vscode.window.showQuickPick(syncItems, {
         canPickMany: true,
@@ -464,7 +463,7 @@ export async function offerSyncAnnotations(defoldVersion: string, title?: string
         return false
     }
 
-    await utils.savePickerSelection(syncItems, selectedItems, config.context.globalState, config.momentoKeys.settingsApplying)
+    await momento.savePickerSelection(syncItems, selectedItems, config.context.globalState, momento.keys.settingsApplying)
 
     await vscode.window.withProgress({
         location: vscode.ProgressLocation.Notification,
@@ -493,7 +492,7 @@ export async function offerApplySettings(extensionIds: string[]): Promise<boolea
     }
 
     let launchItem: vscode.QuickPickItem = {
-        label: '$(rocket) Add Debugger Launch Configuration',
+        label: '$(rocket) Add Launch Configuration',
         detail: `Creates or edits the '.vscode/launch.json' file in this workspace`,
         alwaysShow: true,
         picked: true
@@ -522,7 +521,7 @@ export async function offerApplySettings(extensionIds: string[]): Promise<boolea
         settingsItems.unshift(debuggerItem, launchItem)
     }
 
-    utils.loadPickerSelection(settingsItems, config.context.globalState, config.momentoKeys.settingsApplying)
+    momento.loadPickerSelection(settingsItems, config.context.globalState, momento.keys.settingsApplying)
 
     const selectedItems = await vscode.window.showQuickPick(settingsItems, {
         canPickMany: true,
@@ -535,7 +534,7 @@ export async function offerApplySettings(extensionIds: string[]): Promise<boolea
         return false
     }
 
-    await utils.savePickerSelection(settingsItems, selectedItems, config.context.globalState, config.momentoKeys.settingsApplying)
+    await momento.savePickerSelection(settingsItems, selectedItems, config.context.globalState, momento.keys.settingsApplying)
 
     await vscode.window.withProgress({
         location: vscode.ProgressLocation.Notification,
@@ -583,7 +582,7 @@ export async function offerSelectBundleTargets(): Promise<string[]> {
         targetsAdapter[targetInfo.label] = target
     }
 
-    utils.loadPickerSelection(targetItems, config.context.workspaceState, config.momentoKeys.bundleTarget)
+    momento.loadPickerSelection(targetItems, config.context.workspaceState, momento.keys.bundleTarget)
 
     const selectedItems = await vscode.window.showQuickPick(targetItems, {
         canPickMany: true,
@@ -596,7 +595,7 @@ export async function offerSelectBundleTargets(): Promise<string[]> {
         return []
     }
 
-    await utils.savePickerSelection(targetItems, selectedItems, config.context.workspaceState, config.momentoKeys.bundleTarget)
+    await momento.savePickerSelection(targetItems, selectedItems, config.context.workspaceState, momento.keys.bundleTarget)
 
     const targets = selectedItems.map(targetItem => {
         return targetsAdapter[targetItem.label]
@@ -652,7 +651,7 @@ export async function offerSelectBundleOptions(): Promise<SelectedBundleOptions 
         liveUpdateItem
     ]
 
-    utils.loadPickerSelection(optionsItems, config.context.workspaceState, config.momentoKeys.bundleOption)
+    momento.loadPickerSelection(optionsItems, config.context.workspaceState, momento.keys.bundleOption)
 
     const selectedItems = await vscode.window.showQuickPick(optionsItems, {
         canPickMany: true,
@@ -665,7 +664,7 @@ export async function offerSelectBundleOptions(): Promise<SelectedBundleOptions 
         return
     }
 
-    await utils.savePickerSelection(optionsItems, selectedItems, config.context.workspaceState, config.momentoKeys.bundleOption)
+    await momento.savePickerSelection(optionsItems, selectedItems, config.context.workspaceState, momento.keys.bundleOption)
 
     const options = {
         isRelease: selectedItems.includes(releaseItem),

@@ -16,8 +16,8 @@ function makeTask(name: string, command: string, group: vscode.TaskGroup | undef
 		{ type: 'shell' },
 		vscode.TaskScope.Workspace,
 		name,
-		'Defold',
-		new vscode.ShellExecution('exit${command:' + config.extension.name + '.' + command + '}')
+		'Defold Kit',
+		new vscode.ShellExecution('exit${command:' + config.extension.commandPrefix + '.' + command + '}')
 	)
 
 	task.group = group

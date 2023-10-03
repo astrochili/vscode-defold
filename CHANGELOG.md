@@ -4,6 +4,19 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.0.6] - 2023-10-03
+
+### Changed
+
+- Renamed the category of tasks and commands from `Defold` to `Defold Kit` to avoid conflicts.
+- Renamed all the settings keys from `defold.` to `defoldKit` to avoid conflicts.
+- Renamed launch configuration to `Defold Kit` to avoid conflicts.
+
+### Added
+
+- Soft migration of user settings from `defold.` to `defoldKit.` keys.
+- Soft migration of the workspace launch configuration from `Defold` to `Defold Kit` name.
+
 ## [2.0.5] - 2023-09-30
 
 ### Removed

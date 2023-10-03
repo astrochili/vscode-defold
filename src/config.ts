@@ -23,8 +23,10 @@ export let defold: DefoldConfiguration | undefined
 export namespace extension {
 
     export let id: string
-    export let name: string
+    export let version: string
     export let displayName: string
+    export let commandPrefix: string
+    export let taskPrefix: string
 
 }
 
@@ -48,28 +50,20 @@ export const constants = {
     androidBundleFormats: 'aab,apk'
 }
 
-export const momentoKeys = {
-    dontSuggestSetup: 'dontSuggestSetup',
-    bundleTarget: 'bundleTarget',
-    bundleOption: 'bundleOption',
-    extensionInstallation: 'extensionInstallation',
-    settingsApplying: 'settingsApplying',
-}
-
 export const settingsKeys = {
-    editorPath: 'defold.general.editorPath',
-    suggestSetup: 'defold.general.suggestSetup',
-    showBobOutput: 'defold.general.showBobOutput',
-    annotationsRepository: 'defold.annotations.repository',
-    dependenciesEmail: 'defold.dependencies.email',
-    dependenciesAuthToken: 'defold.dependencies.authToken',
-    iosDebugProvisioningProfile: 'defold.bundle.ios.debug.provisioningProfile',
-    iosDebugIdentity: 'defold.bundle.ios.debug.identity',
-    iosReleaseProvisioningProfile: 'defold.bundle.ios.release.provisioningProfile',
-    iosReleaseIdentity: 'defold.bundle.ios.release.identity',
-    androidKeystore: 'defold.bundle.android.keystore',
-    androidKeystorePass: 'defold.bundle.android.keystorePass',
-    androidKeystoreAlias: 'defold.bundle.android.keystoreAlias'
+    editorPath: 'defoldKit.general.editorPath',
+    suggestSetup: 'defoldKit.general.suggestSetup',
+    showBobOutput: 'defoldKit.general.showBobOutput',
+    annotationsRepository: 'defoldKit.annotations.repository',
+    dependenciesEmail: 'defoldKit.dependencies.email',
+    dependenciesAuthToken: 'defoldKit.dependencies.authToken',
+    iosDebugProvisioningProfile: 'defoldKit.bundle.ios.debug.provisioningProfile',
+    iosDebugIdentity: 'defoldKit.bundle.ios.debug.identity',
+    iosReleaseProvisioningProfile: 'defoldKit.bundle.ios.release.provisioningProfile',
+    iosReleaseIdentity: 'defoldKit.bundle.ios.release.identity',
+    androidKeystore: 'defoldKit.bundle.android.keystore',
+    androidKeystorePass: 'defoldKit.bundle.android.keystorePass',
+    androidKeystoreAlias: 'defoldKit.bundle.android.keystoreAlias'
 }
 
 export namespace launch {
@@ -259,8 +253,10 @@ export async function init(
     context = extensionContext
 
     extension.id  = context.extension.id
-    extension.name = context.extension.packageJSON.name
+    extension.version  = context.extension.packageJSON.version
     extension.displayName = context.extension.packageJSON.displayName
+    extension.commandPrefix = context.extension.packageJSON.contributesPrefix
+    extension.taskPrefix = context.extension.packageJSON.contributesPrefix
 
     workspaceFolder = folder
     paths = makePathsConfig(globalStoragePath, workspaceStoragePath)
@@ -296,12 +292,4 @@ export async function updateDefoldPath(path: string): Promise<DefoldConfiguratio
     log(`The Defold Editor path is updated to '${path}'`)
 
     return defold
-}
-
-export function wasOnceSetup(): boolean {
-    return context.workspaceState.get('onceSetup') as boolean ?? false
-}
-
-export function didOnceSetup() {
-    context.workspaceState.update('onceSetup', true)
 }

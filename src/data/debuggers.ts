@@ -13,7 +13,7 @@ import * as tasks from '../tasks'
 
 export const recommended = {
     [extensions.ids.localLuaDebugger]: {
-        'name': 'Defold',
+        'name': 'Defold Kit',
         'type': 'lua-local',
         'request': 'launch',
         'stopOnEntry': false,
@@ -25,6 +25,6 @@ export const recommended = {
             'program': { 'command': 'build\\launcher\\dmengine.exe' },
             'args': ['build\\default\\game.projectc']
         },
-        'preLaunchTask': `Defold: ${tasks.buildTaskName}`
+        'preLaunchTask': `Defold Kit: ${tasks.buildTaskName}`
     }
 }

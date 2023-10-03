@@ -10,6 +10,7 @@
 
 import * as vscode from 'vscode'
 import * as config from './config'
+import * as momento from './momento'
 import * as wizard from './wizard'
 import * as annotations from './annotations'
 import * as extensions from './data/extensions'
@@ -50,7 +51,7 @@ export async function setup() {
         log(`There is no '${extensions.ids.luaLanguageServer}' extensions installed so the annotations syncyng is skipped`)
     }
 
-    config.didOnceSetup()
+    momento.setOnceSetup(true)
     vscode.window.showInformationMessage(`${config.extension.displayName} setup has been finished`)
 }
 

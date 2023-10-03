@@ -15,24 +15,6 @@ export const isMac = process.platform == 'darwin'
 export const isWindows = process.platform == 'win32'
 export const isLinux = process.platform == 'linux'
 
-export async function savePickerSelection(
-        items: vscode.QuickPickItem[],
-        picked: vscode.QuickPickItem[],
-        memento: vscode.Memento,
-        momentoKey: string,
-    ) {
-    for (const item of items) {
-        await memento.update(`${momentoKey}:${item.label}`, picked.includes(item))
-    }
-}
-
-export function loadPickerSelection(items: vscode.QuickPickItem[], memento: vscode.Memento, momentoKey: string) {
-    for (const item of items) {
-        const picked = memento.get(`${momentoKey}:${item.label}`) as boolean
-        item.picked = picked == undefined ? item.picked : picked
-    }
-}
-
 export function settingsString(key: string): string | undefined {
     return vscode.workspace.getConfiguration().get<string>(key)
 }

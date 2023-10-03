@@ -37,11 +37,11 @@ After installing the extension and opening a Defold project, you will be prompte
 
 ![screenshot-suggest](https://github.com/astrochili/vscode-defold/assets/4752473/102e4069-0b8b-4e42-9195-f4839d22b794)
 
-If for some reason this doesn't happen, you can run the [Setup Defold Kit](#setup-defold-kit) command manually.
+If for some reason this doesn't happen, you can run the [Setup](#setup-1) command manually.
 
 ### Path to Defold
 
-![screenshot-defold](https://github.com/astrochili/defold-vscode-guide/assets/4752473/d0790cba-3c21-4f9b-bee3-2d2980e1ca3f)
+![screenshot-defold](https://github.com/astrochili/vscode-defold/assets/4752473/d0790cba-3c21-4f9b-bee3-2d2980e1ca3f)
 
 Defold Kit requires [Defold](https://defold.com) installed (surprise).
 
@@ -49,7 +49,7 @@ Select the automatically suggested path if it exists, or select the Defold folde
 
 ### Extensions
 
-![screenshot-extensions](https://github.com/astrochili/defold-vscode-guide/assets/4752473/d3d93fce-b029-4bf5-823f-79131ac2e3bf)
+![screenshot-extensions](https://github.com/astrochili/vscode-defold/assets/4752473/4e049d1c-320d-4406-ac84-b1b2dda644a6)
 
 Select the extensions you want to install.
 
@@ -63,7 +63,7 @@ The first two are highly recommended, the next three are optional:
 
 ### Workspace
 
-![screenshot-settings](https://github.com/astrochili/defold-vscode-guide/assets/4752473/763332dc-371a-4b7e-9efd-dd1f341118e7)
+![screenshot-settings](https://github.com/astrochili/vscode-defold/assets/4752473/521af9f5-ee6f-4c51-b024-dac825560e15)
 
 Some additional settings to apply to the workspace.
 
@@ -91,7 +91,7 @@ Adds Defold Kit to the `.vscode/extensions.json` file to appear in the recommend
 
 ### Annotations Syncing
 
-![screenshot-annotations](https://github.com/astrochili/defold-vscode-guide/assets/4752473/88878bce-abb8-4dd2-bf76-46f7668e9129)
+![screenshot-annotations](https://github.com/astrochili/vscode-defold/assets/4752473/88878bce-abb8-4dd2-bf76-46f7668e9129)
 
 > This step is skipping if the [`sumneko.lua`](#extensions) extension is not installed.
 
@@ -107,7 +107,7 @@ Unpacks archives from the `.internal/libs` folder and copies `*.lua` files from 
 
 ## Opening Files from Defold
 
-![screenshot-preferences](https://github.com/astrochili/defold-vscode-guide/assets/4752473/d5107629-5f4c-4010-9851-002266fd5ff8)
+![screenshot-preferences](https://github.com/astrochili/vscode-defold/assets/4752473/d5107629-5f4c-4010-9851-002266fd5ff8)
 
 To open script files from the Defold Editor directly in Visual Studio Code, you must set the following settings by specifying the path to the executable file:
 
@@ -124,7 +124,7 @@ The `.` character here is required to open the entire workspace, not an individu
 
 ## Run and Debug
 
-![screenshot-debugger](https://github.com/astrochili/defold-vscode-guide/assets/4752473/e9f420ca-26ba-4159-8faf-f4092876bf8d)
+![screenshot-debugger](https://github.com/astrochili/vscode-defold/assets/4752473/9a3c2184-645a-49e9-ba72-1de02290d7a5)
 
 ### Launch
 
@@ -146,11 +146,11 @@ debugger.start()
 
 ## Commands
 
-![screenshot-commands](https://github.com/astrochili/defold-vscode-guide/assets/4752473/f67efa58-3a2e-4255-a752-c7276d9d6fe0)
+![screenshot-commands](https://github.com/astrochili/vscode-defold/assets/4752473/6fff2c8d-1b49-4843-b187-be8a22cf248c)
 
-Commands with the `Defold` prefix are available in the Command Palette using the `[Ctrl/Cmd]-Shift-P` keyboard shortcut (default).
+Commands with the `Defold Kit` prefix are available in the Command Palette using the `[Ctrl/Cmd]-Shift-P` keyboard shortcut (default).
 
-### Setup Defold Kit
+### Setup
 
 Starts the [setup dialogue](#path-to-defold). It's okay to run this command many times if you are not sure you are ready to turn on all the features at once.
 
@@ -178,13 +178,13 @@ Executes for all selected target platforms one by one. When finished will prompt
 
 #### Platforms
 
-![screenshot-platforms](https://github.com/astrochili/defold-vscode-guide/assets/4752473/7ed5addc-98ee-4598-a620-c21964ef0e64)
+![screenshot-platforms](https://github.com/astrochili/vscode-defold/assets/4752473/7ed5addc-98ee-4598-a620-c21964ef0e64)
 
 Select which target platforms you want to bundle your game.
 
 #### Options
 
-![screenshot-bundle](https://github.com/astrochili/defold-vscode-guide/assets/4752473/0640062a-6736-4c7f-b6a3-fc5456bc5244)
+![screenshot-bundle](https://github.com/astrochili/vscode-defold/assets/4752473/0640062a-6736-4c7f-b6a3-fc5456bc5244)
 
 - **Release** — Bundle a [Release](https://defold.com/manuals/bundling/#release-vs-debug) variant (otherwise bundle Debug variant).
 - **Texture Compression** — Enable texture compression as specified in [texture profiles](https://defold.com/manuals/texture-profiles/).
@@ -194,7 +194,7 @@ Select which target platforms you want to bundle your game.
 
 ### Deploy to Mobile
 
-![screenshot-deploy](https://github.com/astrochili/defold-vscode-guide/assets/4752473/3f0f1e87-127f-4d78-a702-102e8e29cdf9)
+![screenshot-deploy](https://github.com/astrochili/vscode-defold/assets/4752473/3f0f1e87-127f-4d78-a702-102e8e29cdf9)
 
 Deploy to the connected mobile device with [ios-deploy](https://github.com/ios-control/ios-deploy) for iOS and [adb](https://developer.android.com/studio/command-line/adb) for Android. These tools must be installed and accessible via shell.
 
@@ -210,9 +210,9 @@ The `*.ipa` or `*.apk` file is required in the corresponding bundle folder, so r
 
 ## Tasks
 
-![screenshot-tasks](https://github.com/astrochili/defold-vscode-guide/assets/4752473/70eadc07-4350-4973-aa56-9cb2ee52cf17)
+![screenshot-tasks](https://github.com/astrochili/vscode-defold/assets/4752473/d49eabfb-18f8-4643-a74a-c2741c4b1afa)
 
-Build tasks with the `Defold` prefix are available using the `[Ctrl/Cmd]-Shift-B` keyboard shortcut (default).
+Build tasks with the `Defold Kit` prefix are available using the `[Ctrl/Cmd]-Shift-B` keyboard shortcut (default).
 
 Tasks are aliases of some [commands](#commands) described above to have a quick access to them.
 
@@ -223,21 +223,21 @@ Tasks are aliases of some [commands](#commands) described above to have a quick 
 
 ## Settings
 
-#### defold.general.editorPath
+#### defoldKit.general.editorPath
 
 The path to the Defold Editor folder.
 
-Running the [Setup Defold Kit](#setup-defold-kit) command is the preferred way to update this value, but you can edit it manually if you're sure of what you are doing.
+Running the [Setup](#setup-1) command is the preferred way to update this value, but you can edit it manually if you're sure of what you are doing.
 
-#### defold.general.suggestSetup
+#### defoldKit.general.suggestSetup
 
 Suggest to setup Defold Kit if the `game.project` file is found in the current workspace.
 
-#### defold.general.showBobOutput
+#### defoldKit.general.showBobOutput
 
 Open the Output panel during a [bob](https://defold.com/manuals/bob/) instance executing.
 
-#### defold.annotations.repository
+#### defoldKit.annotations.repository
 
 Where to get Defold API annotations. Three options are currently available:
 
@@ -245,57 +245,57 @@ Where to get Defold API annotations. Three options are currently available:
 - [mikatuo/defold-lua-annotations](https://github.com/mikatuo/defold-lua-annotations)
 - [d954mas/defold-api-emmylua](https://github.com/d954mas/defold-api-emmylua)
 
-#### defold.dependencies.email
+#### defoldKit.dependencies.email
 
 User email to resolve dependencies.
 
 Adds the `--email ${email}` argument during [Resolve Dependencies](#resolve-dependencies) and [Bundle](#bundle) commands execution.
 
-#### defold.dependencies.authToken
+#### defoldKit.dependencies.authToken
 
 Authentication token to resolve dependencies.
 
 Adds the `--auth ${authToken}` argument during [Resolve Dependencies](#resolve-dependencies) and [Bundle](#bundle) commands execution.
 
-#### defold.bundle.ios.debug.provisioningProfile
+#### defoldKit.bundle.ios.debug.provisioningProfile
 
 Path to the `*.mobileprovision profile` for **Debug** variant on **iOS**.
 
 Adds the `--mobileprovisioning ${provisioningProfile}` argument during [Bundle](#bundle) command execution.
 
-#### defold.bundle.ios.debug.identity
+#### defoldKit.bundle.ios.debug.identity
 
 Code signing identity for the **Debug** variant on **iOS**.
 
 Adds the `--identity ${identity}` argument during [Bundle](#bundle) command execution.
 
-#### defold.bundle.ios.release.provisioningProfile
+#### defoldKit.bundle.ios.release.provisioningProfile
 
 Path to the `*.mobileprovision profile` for **Release** variant on **iOS**.
 
 Adds the `--mobileprovisioning ${provisioningProfile}` argument during [Bundle](#bundle) command execution.
 
-#### defold.bundle.ios.release.identity
+#### defoldKit.bundle.ios.release.identity
 
 Code signing identity for the **Release** variant on **iOS**.
 
 Adds the `--identity ${identity}` argument during [Bundle](#bundle) command execution.
 
-#### defold.bundle.android.keystore
+#### defoldKit.bundle.android.keystore
 
 Path to the `*.keystore` file for **Android**.
 
 Adds the `--keystore ${keystore}` argument during [Bundle](#bundle) command execution.
 
-#### defold.bundle.android.keystorePass
+#### defoldKit.bundle.android.keystorePass
 
 Path to the `*.keystore.pass.txt` file for **Android**.
 
 Adds the `--keystore-pass ${keystorePass}` argument during [Bundle](#bundle) command execution.
 
-#### defold.bundle.android.keystoreAlias
+#### defoldKit.bundle.android.keystoreAlias
 
-Name of the alias from the [keystore](#defoldbundleandroidkeystore) for **Android**.
+Name of the alias from the [keystore](#defoldkitbundleandroidkeystore) for **Android**.
 
 Adds the `--keystore-alias ${keystoreAlias}` argument during [Bundle](#bundle) command execution.
 
