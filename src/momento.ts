@@ -29,13 +29,20 @@ export function loadPickerSelection(items: vscode.QuickPickItem[], memento: vsco
     }
 }
 
-export function getLastMigrationVersion(): string {
-    const lastVersionWithoutTracking = "2.0.5"
-    return config.context.globalState.get(keys.lastMigrationVersion) as string ?? lastVersionWithoutTracking
+export function getLastGlobalMigrationVersion(): string {
+    return config.context.globalState.get(keys.lastMigrationVersion) as string ?? config.lastVersionWithoutMigrationTracking
 }
 
-export async function setLastMigrationVersion(version: string) {
+export async function setLastGlobalMigrationVersion(version: string) {
     await config.context.globalState.update(keys.lastMigrationVersion, version)
+}
+
+export function getLastWorkspaceMigrationVersion(): string {
+    return config.context.workspaceState.get(keys.lastMigrationVersion) as string ?? config.lastVersionWithoutMigrationTracking
+}
+
+export async function setLastWorkspaceMigrationVersion(version: string) {
+    await config.context.workspaceState.update(keys.lastMigrationVersion, version)
 }
 
 export function getOnceSetup(): boolean {

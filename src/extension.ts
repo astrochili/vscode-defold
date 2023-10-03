@@ -86,12 +86,20 @@ export async function activate(context: vscode.ExtensionContext) {
 		}
 	})
 
-	const lastMigrationVersion = momento.getLastMigrationVersion()
-	if (lastMigrationVersion != config.extension.version) {
-		log(`Starting migration from ${lastMigrationVersion} to ${config.extension.version}.`)
-		await migration.migrate(lastMigrationVersion)
+	const lastGlobalMigrationVersion = momento.getLastGlobalMigrationVersion()
+	if (lastGlobalMigrationVersion != config.extension.version) {
+		log(`Starting global migration from ${lastGlobalMigrationVersion} to ${config.extension.version}.`)
+		await migration.migrateGlobal(lastGlobalMigrationVersion)
 	} else {
-		log(`Last migration version is ${lastMigrationVersion}. No need to migrate.`)
+		log(`Last global migration version is ${lastGlobalMigrationVersion}. No need to migrate.`)
+	}
+
+	const lastWorkspaceMigrationVersion = momento.getLastWorkspaceMigrationVersion()
+	if (lastWorkspaceMigrationVersion != config.extension.version) {
+		log(`Starting workspace migration from ${lastWorkspaceMigrationVersion} to ${config.extension.version}.`)
+		await migration.migrateWorkspace(lastWorkspaceMigrationVersion)
+	} else {
+		log(`Last workspace migration version is ${lastWorkspaceMigrationVersion}. No need to migrate.`)
 	}
 
 	log(`Extension '${config.extension.displayName}' is activated`)

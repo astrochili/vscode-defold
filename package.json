@@ -2,7 +2,7 @@
   "publisher": "astronachos",
   "name": "defold",
   "contributesPrefix": "defoldKit",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "license": "MIT",
   "displayName": "Defold Kit",
   "description": "Toolkit to build, launch, debug, bundle and deploy your game made with Defold",

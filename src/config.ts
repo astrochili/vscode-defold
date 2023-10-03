@@ -20,6 +20,8 @@ export let workspaceFolder: vscode.WorkspaceFolder
 export let paths: PathsConfig
 export let defold: DefoldConfiguration | undefined
 
+export const lastVersionWithoutMigrationTracking = "2.0.5"
+
 export namespace extension {
 
     export let id: string

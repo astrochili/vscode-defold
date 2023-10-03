@@ -4,6 +4,12 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.0.7] - 2023-10-03
+
+### Fixed
+
+- Fixed the soft migration of the workspace launch configuration.
+
 ## [2.0.6] - 2023-10-03
 
 ### Changed
