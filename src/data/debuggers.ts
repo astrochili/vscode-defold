@@ -19,11 +19,11 @@ export const recommended = {
         'stopOnEntry': false,
         'verbose': false,
         'internalConsoleOptions': 'openOnSessionStart',
-        'program': { 'command': 'build/launcher/dmengine' },
-        'args': ['build/default/game.projectc'],
+        'program': { 'command': 'build/defoldkit/dmengine' },
+        'args': ['build/defoldkit/game.projectc'],
         'windows': {
-            'program': { 'command': 'build\\launcher\\dmengine.exe' },
-            'args': ['build\\default\\game.projectc']
+            'program': { 'command': 'build\\defoldkit\\dmengine.exe' },
+            'args': ['build\\defoldkit\\game.projectc']
         },
         'preLaunchTask': `Defold Kit: ${tasks.buildTaskName}`
     }

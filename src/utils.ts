@@ -15,6 +15,13 @@ export const isMac = process.platform == 'darwin'
 export const isWindows = process.platform == 'win32'
 export const isLinux = process.platform == 'linux'
 
+export function compareVersions(a: string, b: string): number {
+    return a.localeCompare(b, undefined, {
+        numeric: true,
+        sensitivity: 'base'
+    })
+}
+
 export function settingsString(key: string): string | undefined {
     return vscode.workspace.getConfiguration().get<string>(key)
 }

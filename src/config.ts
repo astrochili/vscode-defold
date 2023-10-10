@@ -155,6 +155,7 @@ export interface PathsConfig {
     resources: string,
     relativeDebuggerLua: string,
     relativeDebuggerScript: string,
+    relativeBuildLauncher: string,
     workspaceStorage: string,
     globalStorage: string,
     defoldApi: string
@@ -171,11 +172,13 @@ export interface PathsConfig {
 function makePathsConfig(globalStoragePath: string, workspaceStoragePath: string): PathsConfig {
     const workspace = workspaceFolder.uri.fsPath
     const resources = context.asAbsolutePath('resources')
+    const relativeBuildLauncher = path.join('build', 'defoldkit')
 
     const config: PathsConfig = {
         resources: resources,
         relativeDebuggerLua: path.join('debugger', 'debugger.lua'),
         relativeDebuggerScript: path.join('debugger', 'debugger.script'),
+        relativeBuildLauncher: relativeBuildLauncher,
 
         workspaceStorage: workspaceStoragePath,
         globalStorage: globalStoragePath,
@@ -187,7 +190,7 @@ function makePathsConfig(globalStoragePath: string, workspaceStoragePath: string
         workspaceLaunch: path.join(workspace, '.vscode', 'launch.json'),
         workspaceRecommendations: path.join(workspace, '.vscode', 'extensions.json'),
         workspaceBuild: path.join(workspace, 'build'),
-        workspaceBuildLauncher: path.join(workspace, 'build', 'launcher'),
+        workspaceBuildLauncher: path.join(workspace, relativeBuildLauncher),
         workspaceLibs: path.join(workspace, '.internal', 'lib'),
         workspaceGameProject: path.join(workspace, constants.gameProject),
     }

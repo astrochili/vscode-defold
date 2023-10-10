@@ -31,7 +31,12 @@ async function runBob(defold: DefoldConfiguration, args: string[]): Promise<bool
 }
 
 export async function cleanBuild(defold: DefoldConfiguration): Promise<boolean> {
-    return await runBob(defold, [`distclean`])
+    let args = new Array<string>
+
+    args.push(`--output`, config.paths.relativeBuildLauncher)
+    args.push(`distclean`)
+
+    return await runBob(defold, args)
 }
 
 export async function resolve(
@@ -48,13 +53,20 @@ export async function resolve(
         args.push(`--auth`, options.auth)
     }
 
+    args.push(`--output`, config.paths.relativeBuildLauncher)
     args.push(`resolve`)
 
     return await runBob(defold, args)
 }
 
 export async function build(defold: DefoldConfiguration): Promise<boolean> {
-    return await runBob(defold, [`--variant`, `debug`, `build`])
+    let args = new Array<string>
+
+    args.push(`--variant`, `debug`)
+    args.push(`--output`, config.paths.relativeBuildLauncher)
+    args.push(`build`)
+
+    return await runBob(defold, args)
 }
 
 interface BundleOptions {
@@ -89,6 +101,7 @@ export async function bundle(defold: DefoldConfiguration, options: BundleOptions
         return
     }
 
+    args.push(`--output`, config.paths.relativeBuildLauncher)
     args.push(`--archive`)
     args.push(`--platform`, targetInfo.platform)
     args.push(`--architectures`, targetInfo.architectures)

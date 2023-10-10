@@ -4,6 +4,12 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.0.8] - 2023-10-10
+
+### Changed
+
+- Changed the build path to avoid conflicts with the Defold Editor build.
+
 ## [2.0.7] - 2023-10-03
 
 ### Fixed
