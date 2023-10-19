@@ -111,9 +111,9 @@ Unpacks archives from the `.internal/libs` folder and copies `*.lua` files from 
 
 To open script files from the Defold Editor directly in Visual Studio Code, you must set the following settings by specifying the path to the executable file:
 
-- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Electron`
-- Linux: `/usr/bin/code`
 - Windows: `C:\Program Files\Microsoft VS Code\Code.exe`
+- macOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Electron`
+- Linux: `/usr/bin/code`
 
  Set these parameters to open specific files and lines:
 
@@ -161,6 +161,12 @@ Opens the [Annotations Syncing](#annotations-syncing) dialogue.
 ### Clean API Annotations
 
 Deletes all the previously synced annotations from the global storage and workspace storage.
+
+### Open Defold
+
+Opens the current project in the Defold Editor.
+
+On macOS, the window will be switched if Defold is already running.
 
 ### Clean Build
 

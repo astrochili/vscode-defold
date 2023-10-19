@@ -44,6 +44,13 @@ export const defoldPathSuggestion = {
     [platforms.linux]: '/usr/bin/Defold'
 }[process.platform]
 
+
+export const defoldProcess = {
+    [platforms.windows]: 'Defold.exe',
+    [platforms.macos]: 'Defold',
+    [platforms.linux]: 'Defold'
+}[process.platform]
+
 export const constants = {
     homedirShortcut: '~',
     gameProject: 'game.project',

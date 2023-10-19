@@ -9,6 +9,7 @@
  */
 
 import * as vscode from 'vscode'
+import * as shell from './shell'
 import log from './logger'
 
 export const isMac = process.platform == 'darwin'
@@ -28,6 +29,20 @@ export function settingsString(key: string): string | undefined {
 
 export function settingsBoolean(key: string): boolean | undefined {
     return vscode.workspace.getConfiguration().get<boolean>(key)
+}
+
+export async function isProcessRunning(process: string): Promise<boolean> {
+    const command = isWindows ? `tasklist` : `pgrep`
+    const args = isWindows ? [] : ['-l', process, `|`, `awk`, `'{ print $2 }'`]
+
+    const result = await shell.execute('Process', command, args)
+
+    if (!result) {
+        return false
+    }
+
+    const isRunning = result.output.toLowerCase().indexOf(process.toLowerCase()) > -1
+    return isRunning
 }
 
 export async function isPathExists(path: string): Promise<boolean> {

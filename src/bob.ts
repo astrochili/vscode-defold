@@ -27,7 +27,8 @@ async function runBob(defold: DefoldConfiguration, args: string[]): Promise<bool
         log(`->`)
     }
 
-    return shell.execute('Bob', executable, bobArgs)
+    const result = await shell.execute('Bob', executable, bobArgs)
+    return result.success
 }
 
 export async function cleanBuild(defold: DefoldConfiguration): Promise<boolean> {

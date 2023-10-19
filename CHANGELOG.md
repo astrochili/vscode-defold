@@ -4,6 +4,12 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.1.0] - 2023-10-19
+
+### Added
+
+- Added the `Open Defold` command to open the current project in the Defold Editor.
+
 ## [2.0.8] - 2023-10-10
 
 ### Changed

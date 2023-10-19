@@ -10,7 +10,7 @@
 
 import * as vscode from 'vscode'
 import * as os from 'os'
-import * as config from "./config"
+import * as config from './config'
 import * as utils from './utils'
 import * as extensions from './data/extensions'
 import log from './logger'

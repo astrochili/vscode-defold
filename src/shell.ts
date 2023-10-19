@@ -12,25 +12,33 @@ import * as childProcess from 'child_process'
 import * as config from './config'
 import log from './logger'
 
+interface ShellResult {
+    success: boolean,
+    output: string
+}
+
 export async function execute(
     label: string,
     executable: string,
-    args: string[],
+    args: string[] = [],
     cwd?: string
-): Promise<boolean> {
+): Promise<ShellResult> {
     const command = `${executable} ${args.join(' ')}`
     log(`${label} $: ${command}`)
 
-    return new Promise<boolean>((resolve) => {
+    return new Promise<ShellResult>((resolve) => {
+        let output = ''
+
         log(`${label}: [starting]`)
         const child = childProcess.exec(command, {
             cwd: cwd ?? config.paths.workspace
         })
 
         child.stdout?.on('data', data => {
-            const message = data.trim()
+            const message = data.trim() as string
 
             if (message) {
+                output += `${message}\n`
                 log(`${label}: [stdout] ${message}`)
             }
         })
@@ -41,12 +49,21 @@ export async function execute(
 
         child.on('error', error => {
             log(`${label}: [error] ${error.message}`, { openOutput: true })
-            return resolve(false)
+
+            return resolve({
+                success: false,
+                output: output
+            })
         })
 
         child.on('close', code => {
-            log(`${label}: [exit ${code}]`, { openOutput: code != 0 })
-            return resolve(code == 0)
+            const success = code == 0
+            log(`${label}: [exit ${code}]`, { openOutput: !success })
+
+            return resolve({
+                success: success,
+                output: output
+            })
         })
     })
 }

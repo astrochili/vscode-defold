@@ -56,5 +56,6 @@ export async function deploy(target: string): Promise<boolean> {
 
     const bundleFile = files[0].fsPath
 
-    return shell.execute('Deploy', deployExecutable, [`"${bundleFile}"`])
+    const result = await shell.execute('Deploy', deployExecutable, [`"${bundleFile}"`])
+    return result.success
 }

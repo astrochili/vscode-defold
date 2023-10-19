@@ -18,7 +18,6 @@ import * as bob from './bob'
 import * as launcher from './launcher'
 import * as deployer from './deployer'
 import * as utils from './utils'
-import path = require('path')
 import log from './logger'
 
 export async function setup() {
@@ -289,4 +288,14 @@ export async function build() {
     if (!isPrepared) {
         vscode.window.showErrorMessage('Failed to prepare the launcher. See Output for details.')
     }
+}
+
+export async function openDefold() {
+    const defold = config.defold
+
+    if (!defold) {
+        return wizard.suggestSetup(`Opening Defold requires to setup ${config.extension.displayName} first`)
+    }
+
+    await launcher.openDefold(defold)
 }

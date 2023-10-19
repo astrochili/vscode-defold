@@ -25,14 +25,14 @@ async function extractFromDefold(defold: DefoldConfiguration, internalPath: stri
         return false
     }
 
-    const isExctracted = await shell.execute(
+    const result = await shell.execute(
         `Jar Extracting`,
         `"${defold.jarBin}"`,
         [`-xf`, `"${defold.editorJar}"`, `"${internalPath}"`],
         tempPath
     )
 
-    if (!isExctracted) {
+    if (!result.success) {
         vscode.window.showErrorMessage(`Failed preparing to launch. See Output for details.`)
         return false
     }
@@ -123,13 +123,13 @@ export async function prepare(defold: DefoldConfiguration): Promise<boolean> {
 
     if (utils.isMac || utils.isLinux) {
         log(`Unix: Make the engine executable`)
-        const isExecutable = await shell.execute(
+        const result = await shell.execute(
             'Chmod',
             'chmod',
             [`+x`, `"${engineLauncherPath}"`]
         )
 
-        if (!isExecutable) {
+        if (!result.success) {
             vscode.window.showErrorMessage(`Failed preparing to launch. See Output for details.`)
             log(`Failed to make the engine executable`)
             return false
@@ -137,4 +137,26 @@ export async function prepare(defold: DefoldConfiguration): Promise<boolean> {
     }
 
     return true
+}
+
+export async function openDefold(defold: DefoldConfiguration) {
+    let result
+
+    if (utils.isWindows) {
+        result = await shell.execute('Defold', `"${config.paths.workspaceGameProject}"`)
+    } else if (utils.isMac) {
+        if (await utils.isProcessRunning(config.defoldProcess)) {
+            result = await shell.execute('Defold', 'osascript', ['-e', `'activate application "Defold"'`])
+        } else {
+            result = await shell.execute('Defold', 'open', [`'${defold.editorPath}'`, `'${config.paths.workspaceGameProject}'`])
+        }
+    } else if (utils.isLinux) {
+        result = await shell.execute('Defold', 'xdg-open', [`"${config.paths.workspaceGameProject}"`])
+    } else {
+        log(`Unable to open Defold Editor due to unknown platform: ${process.platform}`)
+    }
+
+    if (!result || !result.success) {
+        vscode.window.showErrorMessage(`Failed to open Defold Editor. See Output for details.`)
+    }
 }
