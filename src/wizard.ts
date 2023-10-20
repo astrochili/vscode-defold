@@ -373,7 +373,7 @@ export async function offerInstallExtensions(): Promise<string[] | undefined> {
             label: `$(package) ${extension.title}`,
             detail: extension.detail,
             description: extensionId,
-            picked: true,
+            picked: extension.picked,
             alwaysShow: true
         })
     }
