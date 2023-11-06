@@ -111,7 +111,8 @@ Unpacks archives from the `.internal/libs` folder and copies `*.lua` files from 
 
 To open script files from the Defold Editor directly in Visual Studio Code, you must set the following settings by specifying the path to the executable file:
 
-- Windows: `C:\Program Files\Microsoft VS Code\Code.exe`
+- Windows (user installer): `C:\Users\%USERNAME%\AppData\Local\Programs\Microsoft VS Code\Code.exe`
+- Windows (system installer): `C:\Program Files\Microsoft VS Code\Code.exe`
 - macOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Electron`
 - Linux: `/usr/bin/code`
 
