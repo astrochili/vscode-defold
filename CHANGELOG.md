@@ -4,6 +4,16 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.1.1] - 2023-11-11
+
+### Changed
+
+- Optional extensions are now unselected during setup by default. Most people obviously don't need them.
+
+### Fixed
+
+- Fixed confusing false start of an old build, in case of new build error. Now the old build is deleted in this case to avoid accidental launch.
+
 ## [2.1.0] - 2023-10-19
 
 ### Added

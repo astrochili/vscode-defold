@@ -275,6 +275,7 @@ export async function build() {
 
     if (!isBuilded) {
         vscode.window.showErrorMessage('Failed to build for running. See Output for details.')
+        await utils.deleteFile(config.paths.workspaceBuildLauncher)
         return
     }
 
