@@ -226,7 +226,7 @@ async function unpackDependenciesAnnotations(): Promise<string | undefined> {
         log(`Unpacking from '${file[0]}' to '${path.join(apiPath, projectPath)}`)
 
         for (const zipEntry of zipEntries) {
-            const internalPath = zipEntry.entryName
+            const internalPath = zipEntry.entryName.replaceAll('/', path.sep)
 
             for (const libraryDir of libraryDirs) {
                 if (internalPath.startsWith(libraryDir) && internalPath.endsWith('.lua')) {
