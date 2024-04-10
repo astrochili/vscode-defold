@@ -48,7 +48,10 @@ export const recommended = {
             '*.texture_profiles': 'textproto',
             '*.tilemap': 'textproto',
             '*.tilesource': 'textproto',
-            '*.manifest': 'textproto'
+            '*.manifest': 'textproto',
+            '*.appmanifest': 'yaml',
+            '*.script_api': 'yaml',
+            'ext.manifest': 'yaml'
         }
     },
 
