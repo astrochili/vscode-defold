@@ -99,7 +99,7 @@ Synchronise Lua annotations with the Defold Editor version and project dependenc
 
 #### Defold API Annotations
 
-Fethes Defold API annotations from the repository according the [settings](#defoldannotationsrepository) and unpacks them to the Defold Kit shared storage.
+Fethes Defold API annotations from the repository according the [settings](#defoldkitannotationsrepository) and unpacks them to the Defold Kit shared storage.
 
 #### Dependencies Annotations
 
