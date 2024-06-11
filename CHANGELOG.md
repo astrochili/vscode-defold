@@ -4,6 +4,16 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.1.5] - 2024-06-12
+
+### Updated
+
+- Improved the snippets a bit.
+
+### Note
+
+- The definition of the `on_input.action` class exists in the updated [defold-annotations](https://github.com/astrochili/defold-annotations/releases) release. So to make `on_input.action` available, please sync [Defold API annotations](https://github.com/astrochili/vscode-defold?tab=readme-ov-file#annotations-syncing) via command pallete.
+
 ## [2.1.4] - 2024-06-11
 
 ### Added
