@@ -4,6 +4,13 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.1.4] - 2024-06-11
+
+### Added
+
+- Added a `script` snippet with a `self` class definition and annotated lifecycle functions. Useful to create a script file with ready to use `self` annotations. By default, the class is named by filename.
+- Added annotations and the `---@package` marker for script lifecycle snippets. The `---@package` allows to hide lifecycle functions from the global context so that you don't get confused when choosing between a snippet and a real declared function with the same name.
+
 ## [2.1.3] - 2024-04-10
 
 ### Added
