@@ -62,7 +62,6 @@ export const recommended = {
         'Lua.runtime.version': 'Lua 5.1',
         'Lua.runtime.pathStrict': true,
         'Lua.window.statusBar': false,
-        'Lua.telemetry.enable': false,
         'Lua.completion.callSnippet': 'Replace',
         'Lua.completion.keywordSnippet': 'Replace',
         'Lua.completion.showWord': 'Fallback',
