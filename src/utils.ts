@@ -12,6 +12,8 @@ import * as vscode from 'vscode'
 import * as shell from './shell'
 import log from './logger'
 
+const encoder = new TextEncoder()
+
 export const isMac = process.platform == 'darwin'
 export const isWindows = process.platform == 'win32'
 export const isLinux = process.platform == 'linux'
@@ -76,17 +78,35 @@ export async function createDirectory(path: string): Promise<boolean> {
     }
 }
 
-export async function readFile(path: string): Promise<Uint8Array | undefined> {
+export async function readTextFile(path: string): Promise<string | undefined> {
+    const data = await readDataFile(path)
+
+    if (data) {
+        return data.toString()
+    }
+}
+
+export async function readDataFile(path: string): Promise<Uint8Array | undefined> {
     try {
-        const content = await vscode.workspace.fs.readFile(vscode.Uri.file(path))
-        return content
+        const data = await vscode.workspace.fs.readFile(vscode.Uri.file(path))
+        return data
     } catch (error) {
         log(`Exception occured during reading file: ${error}`)
         return undefined
     }
 }
 
-export async function writeFile(path: string, data: Uint8Array): Promise<boolean> {
+export async function writeTextFile(path: string, text: string): Promise<boolean> {
+    try {
+        const data = encoder.encode(text)
+        return writeDataFile(path, data)
+    } catch (error) {
+        log(`Exception occured during encoding text: ${error}`)
+        return false
+    }
+}
+
+export async function writeDataFile(path: string, data: Uint8Array): Promise<boolean> {
     try {
         await vscode.workspace.fs.writeFile(vscode.Uri.file(path), data)
         return true

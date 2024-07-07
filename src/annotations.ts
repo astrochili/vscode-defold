@@ -10,6 +10,7 @@
 
 import * as vscode from 'vscode'
 import * as os from 'os'
+import * as crypto from 'crypto'
 import * as config from './config'
 import * as utils from './utils'
 import * as extensions from './data/extensions'
@@ -103,7 +104,7 @@ async function fetchDefoldAnnotations(defoldVersion: string): Promise<string | u
     const outputPath = path.join(apiPath, 'annotations.zip')
 
     log(`Writing response data to '${outputPath}'`)
-    const isWriten = await utils.writeFile(outputPath, data)
+    const isWriten = await utils.writeDataFile(outputPath, data)
 
     if (!isWriten) {
         vscode.window.showErrorMessage(`Can't fetch Defold annotations. See Output for details.`);
@@ -156,6 +157,47 @@ async function unpackDependenciesAnnotations(): Promise<string | undefined> {
         return
     }
 
+    let projectText
+    log(`Reading list of dependencies in game project.`)
+
+    if (await utils.isPathExists(config.paths.workspaceGameProject)) {
+        projectText = await utils.readTextFile(config.paths.workspaceGameProject)
+    } else {
+        log(`The '${config.paths.workspaceGameProject}' file is not found.`)
+    }
+
+    if (!projectText) {
+        vscode.window.showErrorMessage(`Failed to read the '${config.paths.workspaceGameProject}' file. See Output for details.`)
+        return
+    }
+
+    log(`Parsing game project dependencies...`)
+    let dependencyHashes: string[] = []
+    const projectLines = projectText.split('\n')
+    const dependencyLines = projectLines.filter(line => line.startsWith('dependencies#'))
+
+    for (const dependencyLine of dependencyLines) {
+        const regex = /\s*[^=]+\s*=\s*(.*)/
+        const match = dependencyLine.match(regex)
+
+        if (!match) {
+            log(`Failed to parse dependency line '${dependencyLine}'`)
+            continue
+        }
+
+        const sha = crypto.createHash(`sha1`)
+        const dependencyUrl = match[1]
+
+        try {
+            sha.update(dependencyUrl)
+            const dependencyHash = sha.digest(`hex`)
+            dependencyHashes.push(dependencyHash)
+        } catch(error) {
+            log(`Failed to generate sha1 hash for dependency url ${dependencyUrl}`)
+            continue
+        }
+    }
+
     log(`Reading extensions folder: ${libPath}`)
     let files = await utils.readDirectory(libPath)
 
@@ -164,8 +206,22 @@ async function unpackDependenciesAnnotations(): Promise<string | undefined> {
         return
     }
 
+    log(`Filtering *.zip files according project dependencies...`)
     files = files.filter(file => {
-        return file[0].endsWith('.zip')
+        const filename = file[0]
+
+        if (!filename.endsWith('.zip')) {
+            return false
+        }
+
+        for (const dependenciesHash of dependencyHashes) {
+            if (filename.startsWith(dependenciesHash)) {
+                return true
+            }
+        }
+
+        log(`File '${filename}' skipped.`)
+        return false
     })
 
     for (const file of files) {

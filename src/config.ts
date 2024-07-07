@@ -222,7 +222,14 @@ async function makeDefoldConfig(defoldPath: string): Promise<DefoldConfiguration
         return
     }
 
-    const config = ini.parse(fs.readFileSync(defoldConfigPath, 'utf-8'))
+    const rawConfig = await utils.readTextFile(defoldConfigPath)
+
+    if (!rawConfig) {
+        vscode.window.showErrorMessage(`Failed to read Defold Editor config file. See Output for details.`)
+        return
+    }
+
+    const config = ini.parse(rawConfig)
 
     const jdkPath = path.join(defoldResourcesPath, config.launcher.jdk.replace(
         '\$\{bootstrap.resourcespath\}',

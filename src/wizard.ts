@@ -19,7 +19,6 @@ import * as debuggers from './data/debuggers'
 import log from './logger'
 import path = require('path')
 
-const decoder = new TextDecoder()
 const encoder = new TextEncoder()
 
 async function copyDebuggerResources() {
@@ -173,21 +172,18 @@ async function applyExtensionsSettings(extensionIds: string[]) {
 }
 
 async function applyWorkspaceRecommendations() {
-    let json, data
+    let json, rawText
 
     if (await utils.isPathExists(config.paths.workspaceRecommendations)) {
-        data = await utils.readFile(config.paths.workspaceRecommendations)
+        rawText = await utils.readTextFile(config.paths.workspaceRecommendations)
     } else {
         log(`The '.vscode/extensions.json' file is not found, it will be created.`)
     }
 
-    if (data) {
+    if (rawText) {
         try {
-            log(`Decoding text from the '.vscode/extensions.json' file data`)
-            const text = decoder.decode(data)
-
             log(`Parsing JSON from text`)
-            json = JSON5.parse(text)
+            json = JSON5.parse(rawText)
         } catch (error) {
             vscode.window.showErrorMessage(`Failed to parse the '.vscode/extensions.json' file. Does it have valid JSON?`)
             log(`Failed to convert the '.vscode/extensions.json' file data to JSON`)
@@ -210,10 +206,7 @@ async function applyWorkspaceRecommendations() {
 
     try {
         log(`Stringifying JSON to text `)
-        const text = JSON.stringify(json, null, 4)
-
-        log(`Encoding text to file data`)
-        data = encoder.encode(text)
+        rawText = JSON.stringify(json, null, 4)
     } catch (error) {
         vscode.window.showErrorMessage(`Failed to update workspace recommendations. See Output for details.`)
         log(`Failed to convert JSON to the file data`)
@@ -222,7 +215,7 @@ async function applyWorkspaceRecommendations() {
     }
 
     log(`Writing the '${config.extension.id}' recommendation to the '.vscode/extensions.json' file`)
-    const isWritten = await utils.writeFile(config.paths.workspaceRecommendations, data)
+    const isWritten = await utils.writeTextFile(config.paths.workspaceRecommendations, rawText)
 
     if (!isWritten) {
         vscode.window.showErrorMessage(`Failed to update workspace recommendations. See Output for details.`)
