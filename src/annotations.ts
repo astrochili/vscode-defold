@@ -345,8 +345,8 @@ export async function cleanAnnotations(): Promise<boolean> {
         return false
     }
 
-    log(`Cleaning directory: ${config.paths.defoldApi}`)
-    if (!await utils.deleteFile(config.paths.defoldApi)) {
+    log(`Cleaning directory: ${config.paths.libsApi}`)
+    if (!await utils.deleteFile(config.paths.libsApi)) {
         vscode.window.showErrorMessage(`Failed to clean the dependencies annotations folder. See Output for details.`)
         return false
     }
