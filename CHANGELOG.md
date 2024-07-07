@@ -4,6 +4,21 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.1.6] - 2024-07-07
+
+### Added
+
+- Added `Lua.runtime.pathStrict': true` to  the `settings.json` template.
+
+### Fixed
+
+- Fixed cleaning outdated and doubled library annotations after deletion or updating the version.
+- Fixed cleaning library annotations folder with the `Clean Annotations` command.
+
+### Removed
+
+- Removed `Lua.telemetry.enable` from the `settings.json` template.
+
 ## [2.1.5] - 2024-06-12
 
 ### Updated
