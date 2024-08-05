@@ -4,6 +4,12 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.1.7] - 2024-08-05
+
+### Fixed
+
+- Removed `Lua.runtime.pathStrict': true` from  the `settings.json` template because of the bad side effect on external libraries autocompletion. Will review it later.
+
 ## [2.1.6] - 2024-07-07
 
 ### Added
