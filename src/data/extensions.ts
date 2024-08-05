@@ -19,12 +19,12 @@ export const ids = {
 export const recommended = {
     [ids.luaLanguageServer]: {
         title: 'Lua Language Server',
-        detail: '[Recommended] Autocompletion, annotations, diagnostics and etc.',
+        detail: '[Required] Autocompletion, annotations, diagnostics and etc.',
         picked: true
     },
     [ids.localLuaDebugger]: {
         title: 'Local Lua Debugger',
-        detail: '[Recommended] Launching the game and debugging with breakpoints',
+        detail: '[Recommended] Launching the game to debug with breakpoints',
         picked: true
     },
     [ids.textProtoId]: {
