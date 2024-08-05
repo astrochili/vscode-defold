@@ -66,27 +66,6 @@ export const recommended = {
         'Lua.completion.showWord': 'Fallback',
         'Lua.completion.autoRequire': false,
         'Lua.diagnostics.libraryFiles': 'Disable',
-        'Lua.diagnostics.globals': [
-            'msg',
-            'sound',
-            'hash',
-            'vmath',
-            'gui',
-            'socket',
-            'sys',
-            'render',
-            'go',
-            'factory',
-            'resource',
-            'pprint',
-            'timer',
-            'particlefx',
-            'spine',
-            'sprite',
-            'json',
-            'window',
-            'physics'
-        ],
         'Lua.diagnostics.disable': [
             'lowercase-global',
             'redefined-local'
