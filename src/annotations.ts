@@ -292,7 +292,13 @@ async function unpackDependenciesAnnotations(): Promise<string | undefined> {
             for (const libraryDir of libraryDirs) {
                 if (internalPath.startsWith(libraryDir) && internalPath.endsWith('.lua')) {
                     try {
-                        zip.extractEntryTo(zipEntry, apiPath, true, true)
+                        let internalPathParts = internalPath.split(path.sep)
+                        internalPathParts = internalPathParts.splice(1, internalPathParts.length - 2)
+
+                        let targetExtractPath = path.join(...internalPathParts)
+                        targetExtractPath = path.join(apiPath, targetExtractPath)
+
+                        zip.extractEntryTo(zipEntry, targetExtractPath, false, true)
                     } catch (error) {
                         log(`Failed to unzip '${internalPath}' from '${file[0]}' to '${apiPath}'`)
                         log(`${error}`)

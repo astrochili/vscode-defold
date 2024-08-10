@@ -192,7 +192,8 @@ function makePathsConfig(globalStoragePath: string, workspaceStoragePath: string
 
         // Uses `defold_api` folder to avoid direct autocompletion in the require function
         defoldApi: path.join(globalStoragePath, 'defold_api'),
-        libsApi: path.join(workspaceStoragePath, 'libs_api'),
+        // Doesn't use `libs_api` folder to have the same path in the settings
+        libsApi: workspaceStoragePath,
 
         workspace: workspaceFolder.uri.fsPath,
         workspaceLaunch: path.join(workspace, '.vscode', 'launch.json'),
