@@ -248,6 +248,14 @@ Where to get Defold API annotations. Three options are currently available:
 - [astrochili/defold-annotations](https://github.com/astrochili/defold-annotations)
 - [mikatuo/defold-lua-annotations](https://github.com/mikatuo/defold-lua-annotations)
 
+#### defoldKit.annotations.autosync.defold
+
+Automatically synchronize annotations for Defold API with the Defold editor version when needed at extension startup.
+
+#### defoldKit.annotations.autosync.libs
+
+Automatically synchronize annotations for dependencies when changes are detected in the `.internal/libs` folder.
+
 #### defoldKit.dependencies.email
 
 User email to resolve dependencies.
