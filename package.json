@@ -142,56 +142,62 @@
             ],
             "description": "Which Github repository to use to fetch Defold API annotations"
           },
-          "defoldKit.dependencies.email": {
+          "defoldKit.annotations.autosync": {
             "order": 4,
+            "type": "boolean",
+            "default": true,
+            "description": "Sync Defold API annotations automatically during the launch"
+          },
+          "defoldKit.dependencies.email": {
+            "order": 5,
             "type": "string",
             "default": "",
             "description": "User email to resolve dependencies"
           },
           "defoldKit.dependencies.authToken": {
-            "order": 5,
+            "order": 6,
             "type": "string",
             "default": "",
             "description": "Authentication token to resolve dependencies"
           },
           "defoldKit.bundle.ios.debug.provisioningProfile": {
-            "order": 6,
+            "order": 7,
             "type": "string",
             "default": "",
             "markdownDescription": "Path to the `*.mobileprovision profile` for the Debug variant"
           },
           "defoldKit.bundle.ios.debug.identity": {
-            "order": 7,
+            "order": 8,
             "type": "string",
             "default": "",
             "markdownDescription": "Code signing identity for `#defoldKit.bundle.ios.debug.provisioningProfile#`"
           },
           "defoldKit.bundle.ios.release.provisioningProfile": {
-            "order": 8,
+            "order": 9,
             "type": "string",
             "default": "",
             "markdownDescription": "Path to the `*.mobileprovision` profile for the Release variant"
           },
           "defoldKit.bundle.ios.release.identity": {
-            "order": 9,
+            "order": 10,
             "type": "string",
             "default": "",
             "markdownDescription": "Code signing identity for `#defoldKit.bundle.ios.release.provisioningProfile#`"
           },
           "defoldKit.bundle.android.keystore": {
-            "order": 10,
+            "order": 11,
             "type": "string",
             "default": "",
             "markdownDescription": "Path to the `*.keystore` file"
           },
           "defoldKit.bundle.android.keystorePass": {
-            "order": 11,
+            "order": 12,
             "type": "string",
             "default": "",
             "markdownDescription": "Path to the `*.keystore.pass.txt` file"
           },
           "defoldKit.bundle.android.keystoreAlias": {
-            "order": 12,
+            "order": 13,
             "type": "string",
             "default": "",
             "markdownDescription": "Name of the alias from the `#defoldKit.bundle.android.keystore#`"

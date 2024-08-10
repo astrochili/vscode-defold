@@ -16,6 +16,7 @@ import * as commands from './commands'
 import * as tasks from './tasks'
 import * as migration from './migration'
 import * as wizard from './wizard'
+import * as annotations from './annotations'
 import log from './logger'
 
 let runningCommand: string | undefined
@@ -104,7 +105,36 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	log(`Extension '${config.extension.displayName}' is activated`)
 
-	wizard.suggestSetupIfApplicable()
+	if (await wizard.suggestSetupIfApplicable()) {
+		// No need to continue because there is a setup suggestion on the screen
+		return
+	}
+
+	if (await utils.isPathExists(config.paths.workspaceGameProject)) {
+		const annotationsVersion = momento.getAnnotationsVersion()
+		const defoldVersion = config.defold?.version
+
+		log(`Defold Editor version is ${defoldVersion}`)
+		log(`Defold API annotations version is ${annotationsVersion ?? 'unknown'}`)
+
+		if (utils.settingsBoolean(config.settingsKeys.annotationsAutoSync)) {
+			if (defoldVersion && defoldVersion != annotationsVersion) {
+				log(`Let's try to sync Defold API annotations to ${defoldVersion}`)
+
+				await vscode.window.withProgress({
+					location: vscode.ProgressLocation.Notification,
+					title: 'Syncing annotations'
+				}, async progress => {
+					progress.report({ message: 'Defold API...' })
+					await annotations.syncDefoldAnnotations(defoldVersion)
+				})
+			} else {
+				log(`No need to sync Defold API annotations`)
+			}
+		} else {
+			log(`Auto syncing for Defold API annotations is turned off`)
+		}
+	}
 }
 
 export function deactivate() {

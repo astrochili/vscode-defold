@@ -247,15 +247,15 @@ export async function suggestSetup(text: string, soft?: boolean) {
     }
 }
 
-export async function suggestSetupIfApplicable() {
+export async function suggestSetupIfApplicable(): Promise<boolean> {
     if (!utils.settingsBoolean(config.settingsKeys.suggestSetup)) {
         log(`Setup suggestion is turned off in settings`)
-        return
+        return false
     }
 
     if (await config.context.workspaceState.get(momento.keys.dontSuggestSetup)) {
         log(`The user has already asked not to suggest setup`)
-        return
+        return false
     }
 
     const isDefoldProject = await utils.isPathExists(config.paths.workspaceGameProject)
@@ -263,10 +263,14 @@ export async function suggestSetupIfApplicable() {
 
 	if (onceSetup) {
 		log(`No need to suggest ${config.extension.displayName} because it's already once setup`)
+        return false
 	} else if (isDefoldProject) {
 		log(`No setup has ever been done in this workspace yet, so let's suggest setup ${config.extension.displayName}`)
         suggestSetup(`Defold project found. Do you want to setup ${config.extension.displayName}?`, false)
+        return true
 	}
+
+    return false
 }
 
 export async function offerSelectDefoldPath(): Promise<config.DefoldConfiguration | undefined> {

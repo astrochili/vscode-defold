@@ -64,6 +64,7 @@ export const settingsKeys = {
     suggestSetup: 'defoldKit.general.suggestSetup',
     showBobOutput: 'defoldKit.general.showBobOutput',
     annotationsRepository: 'defoldKit.annotations.repository',
+    annotationsAutoSync: 'defoldKit.annotations.autosync',
     dependenciesEmail: 'defoldKit.dependencies.email',
     dependenciesAuthToken: 'defoldKit.dependencies.authToken',
     iosDebugProvisioningProfile: 'defoldKit.bundle.ios.debug.provisioningProfile',

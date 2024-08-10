@@ -8,6 +8,7 @@ export const keys = {
     extensionInstallation: 'extensionInstallation',
     settingsApplying: 'settingsApplying',
     lastMigrationVersion: 'lastMigrationVersion',
+    annotationsVersion: 'annotationsVersion',
     onceSetup: 'onceSetup'
 }
 
@@ -43,6 +44,14 @@ export function getLastWorkspaceMigrationVersion(): string {
 
 export async function setLastWorkspaceMigrationVersion(version: string) {
     await config.context.workspaceState.update(keys.lastMigrationVersion, version)
+}
+
+export function getAnnotationsVersion(): string|undefined {
+    return config.context.globalState.get(keys.annotationsVersion) as string
+}
+
+export async function setAnnotationsVersion(version: string) {
+    await config.context.globalState.update(keys.annotationsVersion, version)
 }
 
 export function getOnceSetup(): boolean {

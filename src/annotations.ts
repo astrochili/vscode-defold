@@ -13,6 +13,7 @@ import * as os from 'os'
 import * as crypto from 'crypto'
 import * as config from './config'
 import * as utils from './utils'
+import * as momento from './momento'
 import * as extensions from './data/extensions'
 import log from './logger'
 import axios from 'axios'
@@ -73,7 +74,8 @@ async function fetchDefoldAnnotations(defoldVersion: string): Promise<string | u
     const annotationsUrl = config.urls.annotationsAsset(defoldVersion, repositoryKey)
     log(`Direct annotations url: ${annotationsUrl}`)
 
-    let data = await fetchSpecificAsset(defoldVersion, repositoryKey)
+    let annotationsVersion = defoldVersion
+    let data = await fetchSpecificAsset(annotationsVersion, repositoryKey)
 
     if (!data) {
         log(`Failed to fetch the specific release`)
@@ -81,7 +83,7 @@ async function fetchDefoldAnnotations(defoldVersion: string): Promise<string | u
         const latestRelease = await fetchLatestRelease(repositoryKey)
 
         if (latestRelease) {
-            const annotationsVersion = latestRelease.tag_name
+            annotationsVersion = latestRelease.tag_name
             data = await fetchSpecificAsset(annotationsVersion, repositoryKey)
         }
     }
@@ -130,6 +132,8 @@ async function fetchDefoldAnnotations(defoldVersion: string): Promise<string | u
 
     log(`Deleting '${outputPath}'`)
     await utils.deleteFile(outputPath)
+
+    await momento.setAnnotationsVersion(annotationsVersion)
 
     return config.paths.globalStorage
 }
