@@ -139,8 +139,7 @@ export namespace urls {
 
     const assets = {
         ['astrochili/defold-annotations']: 'releases/download/${tag}/defold_api_${tag}.zip',
-        ['mikatuo/defold-lua-annotations']: 'releases/download/${tag}/defold-lua-${tag}.zip',
-        ['d954mas/defold-api-emmylua']: 'releases/download/${tag}/defold_api.zip'
+        ['mikatuo/defold-lua-annotations']: 'releases/download/${tag}/defold-lua-${tag}.zip'
     }
 
     export function fallbackReleaseUrl(repositoryKey: string | undefined): string {

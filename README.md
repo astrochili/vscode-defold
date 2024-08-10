@@ -247,7 +247,6 @@ Where to get Defold API annotations. Three options are currently available:
 
 - [astrochili/defold-annotations](https://github.com/astrochili/defold-annotations)
 - [mikatuo/defold-lua-annotations](https://github.com/mikatuo/defold-lua-annotations)
-- [d954mas/defold-api-emmylua](https://github.com/d954mas/defold-api-emmylua)
 
 #### defoldKit.dependencies.email
 

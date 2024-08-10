@@ -138,8 +138,7 @@
             "default": "astrochili/defold-annotations",
             "enum": [
               "astrochili/defold-annotations",
-              "mikatuo/defold-lua-annotations",
-              "d954mas/defold-api-emmylua"
+              "mikatuo/defold-lua-annotations"
             ],
             "description": "Which Github repository to use to fetch Defold API annotations"
           },

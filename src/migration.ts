@@ -9,6 +9,10 @@ import log from './logger'
 export async function migrateGlobal(fromVersion: string) {
     if (fromVersion == "2.0.5") {
         await migrateGlobalFrom205()
+    }
+
+    if (utils.compareVersions(fromVersion, '2.1.7') <= 0) {
+        await migrateGlobalFrom217()
     } else {
         log(`Nothing to migrate globally, skipped.`)
     }
@@ -100,5 +104,21 @@ async function migrateWorkspaceFrom207() {
         configuration.windows.args = debuggers.recommended[extensions.ids.localLuaDebugger].windows.args
 
         await launchSettings.update('configurations', configurations)
+    }
+}
+
+async function migrateGlobalFrom217() {
+    const annotationsRepositoryKey = `defoldKit.annotations.repository`
+    const outdatedValue = `d954mas/defold-api-emmylua`
+    const currentValue = vscode.workspace.getConfiguration().get(annotationsRepositoryKey)
+
+    if (currentValue == outdatedValue) {
+        log(`Fallback the settings '${annotationsRepositoryKey}' to the default value because it is too outdated.`)
+
+        try {
+            await vscode.workspace.getConfiguration().update(annotationsRepositoryKey, undefined, true)
+        } catch (error) {
+            log(`${error}`, { openOutput: true })
+        }
     }
 }
