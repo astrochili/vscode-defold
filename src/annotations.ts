@@ -114,10 +114,15 @@ async function fetchDefoldAnnotations(defoldVersion: string): Promise<string | u
     try {
         log(`Initializing Zip instance for '${outputPath}'`)
         const zip = new Zip(outputPath)
+        const entries = zip.getEntries()
 
-        log(`Extracting '${outputPath}' to '${apiPath}'`)
-        zip.extractAllTo(apiPath, true)
-    } catch (error) {
+        log(`Extracting lua files from '${outputPath}' to '${apiPath}'`)
+        for (const entry of entries) {
+            if (entry.name.endsWith('.lua')) {
+                zip.extractEntryTo(entry, apiPath, false, true)
+            }
+        }
+   } catch (error) {
         vscode.window.showErrorMessage(`Can't fetch Defold annotations. See Output for details.`);
         log(`Failed to unzip '${outputPath}' to '${apiPath}'`)
         log(`${error}`)

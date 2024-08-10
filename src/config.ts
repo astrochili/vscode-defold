@@ -190,6 +190,7 @@ function makePathsConfig(globalStoragePath: string, workspaceStoragePath: string
         workspaceStorage: workspaceStoragePath,
         globalStorage: globalStoragePath,
 
+        // Uses `defold_api` folder to avoid direct autocompletion in the require function
         defoldApi: path.join(globalStoragePath, 'defold_api'),
         libsApi: path.join(workspaceStoragePath, 'libs_api'),
 
