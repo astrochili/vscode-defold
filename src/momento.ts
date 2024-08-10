@@ -9,7 +9,8 @@ export const keys = {
     settingsApplying: 'settingsApplying',
     lastMigrationVersion: 'lastMigrationVersion',
     annotationsVersion: 'annotationsVersion',
-    onceSetup: 'onceSetup'
+    onceSetup: 'onceSetup',
+    libsFolderHash: 'libsFolderHash'
 }
 
 export async function savePickerSelection(
@@ -60,4 +61,12 @@ export function getOnceSetup(): boolean {
 
 export async function setOnceSetup(value: boolean) {
     await config.context.workspaceState.update(keys.onceSetup, value)
+}
+
+export function getLibsFolderHash(): number|undefined {
+    return config.context.globalState.get(keys.libsFolderHash) as number
+}
+
+export async function setLibsFolderHash(hash: number) {
+    await config.context.globalState.update(keys.libsFolderHash, hash)
 }

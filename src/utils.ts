@@ -25,6 +25,23 @@ export function compareVersions(a: string, b: string): number {
     })
 }
 
+export function hash(text: string): number {
+    let hash = 0
+
+    if (text.length === 0) {
+        return hash
+    }
+
+    for (let index = 0; index < text.length; index++) {
+        const char = text.charCodeAt(index);
+        hash = ((hash << 5) - hash) + char;
+        hash |= 0
+    }
+
+    return hash
+}
+
+
 export function settingsString(key: string): string | undefined {
     return vscode.workspace.getConfiguration().get<string>(key)
 }

@@ -238,6 +238,8 @@ async function unpackDependenciesAnnotations(): Promise<string | undefined> {
         return
     }
 
+    let libsFolderFilenames = new Array<String>
+
     log(`Filtering *.zip files according project dependencies...`)
     files = files.filter(file => {
         const filename = file[0]
@@ -245,6 +247,8 @@ async function unpackDependenciesAnnotations(): Promise<string | undefined> {
         if (!filename.endsWith('.zip')) {
             return false
         }
+
+        libsFolderFilenames.push(filename)
 
         for (const dependenciesHash of dependencyHashes) {
             if (filename.startsWith(dependenciesHash)) {
@@ -335,6 +339,9 @@ async function unpackDependenciesAnnotations(): Promise<string | undefined> {
         }
     }
 
+    const libsFolderHash = utils.hash(libsFolderFilenames.sort().join())
+    await momento.setLibsFolderHash(libsFolderHash)
+
     return config.paths.workspaceStorage
 }
 
@@ -404,18 +411,54 @@ async function removeFromWorkspaceSettings(annotationsPath: string): Promise<boo
     }
 }
 
-export function startWatchingLibsToSyncAnnotations() {
+export async function startWatchingLibsToSyncAnnotations() {
     libsFileSystemWatcher = vscode.workspace.createFileSystemWatcher(path.join(config.paths.workspaceLibs, '*.zip'))
 
-	libsFileSystemWatcher.onDidChange( uri => {
+    libsFileSystemWatcher.onDidCreate(uri => {
+		log(`Watched new dependency: ${uri.path}`)
+		startLibsAnnotationsSyncTimer()
+	})
+
+	libsFileSystemWatcher.onDidChange(uri => {
 		log(`Watched dependency update: ${uri.path}`)
 		startLibsAnnotationsSyncTimer()
 	})
 
-	libsFileSystemWatcher.onDidDelete( uri => {
+	libsFileSystemWatcher.onDidDelete(uri => {
 		log(`Watched dependency deletion: ${uri.path}`)
 		startLibsAnnotationsSyncTimer()
 	})
+
+    // TODO: Don't repeat yourself. It requires refactoring.
+    const libPath = config.paths.workspaceLibs
+
+    if (!await utils.isPathExists(libPath)) {
+        log(`Dependencies folder '${libPath}' not found, skip comparing the folder hash`)
+        return
+    }
+
+    log(`Reading extensions folder: ${libPath}`)
+    let files = await utils.readDirectory(libPath)
+
+    if (files == undefined) {
+        vscode.window.showErrorMessage(`Failed to read the '.internal' folder. See Output for details.`)
+        return
+    }
+
+    let libsFolderFilenames = new Array<String>
+
+    files.forEach(file => {
+        const filename = file[0]
+
+        if (filename.endsWith('.zip')) {
+            libsFolderFilenames.push(filename)
+        }
+    })
+
+    const libsFolderHash = utils.hash(libsFolderFilenames.sort().join())
+    if (libsFolderHash != momento.getLibsFolderHash()) {
+        startLibsAnnotationsSyncTimer()
+    }
 }
 
 export async function syncDefoldAnnotations(defoldVersion: string): Promise<boolean> {
