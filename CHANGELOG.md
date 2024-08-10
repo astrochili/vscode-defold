@@ -4,11 +4,27 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [2.1.7] - 2024-08-05
+## [2.1.8] - 2024-08-11
+
+### Added
+
+- Added `Lua.runtime.pathStrict: true` with additional fixes for annotation paths so that autocompletion of libraries works.
+- Added comparing Defold and annotations versions to sync Defold API automatically. Turned on by default.
+- Added watching on the `.internal/libs` folder changes to sync libraries annotations automatically [#45](https://github.com/astrochili/vscode-defold/issues/45). Turned on by default.
 
 ### Fixed
 
-- Removed `Lua.runtime.pathStrict': true` from  the `settings.json` template because of the bad side effect on external libraries autocompletion. Will review it later.
+- Fixed excessive nesting of annotation folders (`defold_api/defold_api` and `libs_api/extension_v1/extension/...`).
+
+### Removed
+
+- Removed `d954mas/defold-api-emmylua` from the annotation sources because it's almost a year out of date.
+
+## [2.1.7] - 2024-08-05
+
+### Removed
+
+- Removed `Lua.runtime.pathStrict: true` from  the `settings.json` template because of the bad side effect on external libraries autocompletion. Will review it later.
 
 ## [2.1.6] - 2024-07-07
 
