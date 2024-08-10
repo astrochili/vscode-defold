@@ -117,7 +117,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		log(`Defold Editor version is ${defoldVersion}`)
 		log(`Defold API annotations version is ${annotationsVersion ?? 'unknown'}`)
 
-		if (utils.settingsBoolean(config.settingsKeys.annotationsAutoSync)) {
+		if (utils.settingsBoolean(config.settingsKeys.annotationsAutoSyncDefold)) {
 			if (defoldVersion && defoldVersion != annotationsVersion) {
 				log(`Let's try to sync Defold API annotations to ${defoldVersion}`)
 
@@ -133,6 +133,10 @@ export async function activate(context: vscode.ExtensionContext) {
 			}
 		} else {
 			log(`Auto syncing for Defold API annotations is turned off`)
+		}
+
+		if (utils.settingsBoolean(config.settingsKeys.annotationsAutoSyncLibs)) {
+			annotations.startWatchingLibsToSyncAnnotations()
 		}
 	}
 }

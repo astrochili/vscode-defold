@@ -130,13 +130,6 @@ export async function resolve() {
         })
     })
 
-    await vscode.window.withProgress({
-        location: vscode.ProgressLocation.Notification,
-        title: 'Extracting dependencies annotations...'
-    }, async progress => {
-        return annotations.syncDependenciesAnnotations()
-    })
-
     if (isResolved) {
         vscode.window.showInformationMessage(`Dependencies resolved`)
     }

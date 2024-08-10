@@ -56,7 +56,8 @@ export const constants = {
     gameProject: 'game.project',
     bobClass: 'com.dynamo.bob.Bob',
     sumnekoSettingsLibraryKey: 'Lua.workspace.library',
-    androidBundleFormats: 'aab,apk'
+    androidBundleFormats: 'aab,apk',
+    libsAutosyncTimeout: 5000
 }
 
 export const settingsKeys = {
@@ -64,7 +65,8 @@ export const settingsKeys = {
     suggestSetup: 'defoldKit.general.suggestSetup',
     showBobOutput: 'defoldKit.general.showBobOutput',
     annotationsRepository: 'defoldKit.annotations.repository',
-    annotationsAutoSync: 'defoldKit.annotations.autosync',
+    annotationsAutoSyncDefold: 'defoldKit.annotations.autosync.defold',
+    annotationsAutoSyncLibs: 'defoldKit.annotations.autosync.libs',
     dependenciesEmail: 'defoldKit.dependencies.email',
     dependenciesAuthToken: 'defoldKit.dependencies.authToken',
     iosDebugProvisioningProfile: 'defoldKit.bundle.ios.debug.provisioningProfile',

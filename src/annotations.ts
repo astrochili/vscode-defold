@@ -21,8 +21,31 @@ import path = require('path')
 import Zip = require('adm-zip')
 const ini = require('ini')
 
+let libsFileSystemWatcher: vscode.FileSystemWatcher
+let libsAnnotationsSyncTimeout: NodeJS.Timeout | undefined
+
 interface LatestReleaseResponse {
     tag_name: string
+}
+
+async function startLibsAnnotationsSyncTimer() {
+	clearTimeout(libsAnnotationsSyncTimeout)
+
+    if (!utils.settingsBoolean(config.settingsKeys.annotationsAutoSyncLibs)) {
+        return
+    }
+
+	libsAnnotationsSyncTimeout = setTimeout(async () => {
+        log("Enougth time has passed since the last dependency update. Time to sync annotations.")
+
+        await vscode.window.withProgress({
+            location: vscode.ProgressLocation.Notification,
+            title: 'Syncing annotations'
+        }, async progress => {
+            progress.report({ message: 'Dependencies...' })
+            await syncDependenciesAnnotations()
+        })
+	}, config.constants.libsAutosyncTimeout);
 }
 
 async function fetchLatestRelease(repositoryKey: string | undefined): Promise<LatestReleaseResponse | undefined> {
@@ -379,6 +402,20 @@ async function removeFromWorkspaceSettings(annotationsPath: string): Promise<boo
             return false
         }
     }
+}
+
+export function startWatchingLibsToSyncAnnotations() {
+    libsFileSystemWatcher = vscode.workspace.createFileSystemWatcher(path.join(config.paths.workspaceLibs, '*.zip'))
+
+	libsFileSystemWatcher.onDidChange( uri => {
+		log(`Watched dependency update: ${uri.path}`)
+		startLibsAnnotationsSyncTimer()
+	})
+
+	libsFileSystemWatcher.onDidDelete( uri => {
+		log(`Watched dependency deletion: ${uri.path}`)
+		startLibsAnnotationsSyncTimer()
+	})
 }
 
 export async function syncDefoldAnnotations(defoldVersion: string): Promise<boolean> {
