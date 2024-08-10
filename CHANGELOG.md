@@ -4,6 +4,12 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.1.9] - 2024-08-11
+
+### Added
+
+- Added missing check for library folder changes at startup [#47](https://github.com/astrochili/vscode-defold/issues/47).
+
 ## [2.1.8] - 2024-08-11
 
 ### Added
