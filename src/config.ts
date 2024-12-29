@@ -86,19 +86,21 @@ export namespace launch {
     export const configs = {
         [platforms.windows]: {
             buildPlatform: 'x86_64-win32',
-            unpackBinPath: path.join('_unpack', 'x86_64-win32', 'bin'),
+            libexecBinPath: path.join('libexec', 'x86_64-win32'),
             executable: 'dmengine.exe',
-            requiredFiles: ['wrap_oal.dll', 'OpenAL32.dll']
+            requiredFiles: []
         },
         [platforms.macos]: {
             buildPlatform: process.arch == 'arm64' ? 'arm64-osx' : 'x86_64-osx',
-            unpackBinPath: path.join('_unpack', process.arch == 'arm64' ? 'arm64-macos' : 'x86_64-macos', 'bin'),
+            libexecBinPath: path.join('libexec', process.arch == 'arm64' ? 'arm64-macos' : 'x86_64-macos'),
             executable: 'dmengine',
+            requiredFiles: []
         },
         [platforms.linux]: {
             buildPlatform: 'x86_64-linux',
-            unpackBinPath: path.join('_unpack', 'x86_64-linux', 'bin'),
+            libexecBinPath: path.join('libexec', 'x86_64-linux'),
             executable: 'dmengine',
+            requiredFiles: []
         }
     }
 }

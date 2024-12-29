@@ -62,7 +62,7 @@ export async function prepare(defold: DefoldConfiguration): Promise<boolean> {
 
     const buildPlatform = launchConfig.buildPlatform
     const engineExecutable = launchConfig.executable
-    const unpackBinPath = launchConfig.unpackBinPath
+    const libexecBinPath = launchConfig.libexecBinPath
 
     log(`Process platform: '${process.platform}'`)
     log(`Build platform: '${buildPlatform}'`)
@@ -87,7 +87,7 @@ export async function prepare(defold: DefoldConfiguration): Promise<boolean> {
         log(`Extracting the vanilla engine from Defold to '${engineLauncherPath}'`)
         const isExctracted = await extractFromDefold(
             defold,
-            path.join(unpackBinPath, engineExecutable),
+            path.join(libexecBinPath, engineExecutable),
             engineLauncherPath
         )
 
@@ -108,7 +108,7 @@ export async function prepare(defold: DefoldConfiguration): Promise<boolean> {
                 log(`Extracting required '${requiredFile}' from Defold`)
                 const isExctracted = await extractFromDefold(
                     defold,
-                    path.join(unpackBinPath, requiredFile),
+                    path.join(libexecBinPath, requiredFile),
                     destinationPath,
                 )
 
