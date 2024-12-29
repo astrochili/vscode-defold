@@ -4,6 +4,12 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.1.10] - 2024-12-30
+
+### Fixed
+
+- Fixed extracting the `dmengine.exe` for Defold 1.9.6 on Windows [#50](https://github.com/astrochili/vscode-defold/issues/50).
+
 ## [2.1.9] - 2024-08-11
 
 ### Added
