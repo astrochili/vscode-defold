@@ -121,8 +121,9 @@ export async function bundle(defold: DefoldConfiguration, options: BundleOptions
         args.push(`--auth`, options.auth)
     }
 
-    args.push(`--texture-compression`, options.textureCompression ? 'true' : 'false')
-    args.push(`--variant`, options.release ? 'release' : 'debug')
+    if (options.textureCompression) {
+        args.push(`--texture-compression`)
+    }
 
     if (options.liveUpdate) {
         args.push(`--liveupdate`, `yes`)
