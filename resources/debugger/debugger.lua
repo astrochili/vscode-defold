@@ -17,6 +17,10 @@ dummy.start = function()
   print('VSCode debugger hasn\'t started. ' .. dummy.error)
 end
 
+dummy.requestBreak = function()
+  print('VSCode debugger hasn\'t started. ' .. dummy.error)
+end
+
 if os.getenv('LOCAL_LUA_DEBUGGER_VSCODE') ~= '1' then
   dummy.error = 'Not the VSCode environment or the Local Lua Debugger extension is not installed.'
   return dummy
