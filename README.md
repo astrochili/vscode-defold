@@ -30,7 +30,7 @@ You can not to use the Defold Editor at all if you are only working with code at
 
 It's possible to install the extension from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=astronachos.defold) or manually by downloading the `.vsix` archive from the [releases](https://github.com/astrochili/vscode-defold/releases) page.
 
-After installing the extension and opening a Defold project, you will be prompted to setup Defold Kit with a step-by-step dialogue.
+After installing the extension and opening a Defold project folder, you will be prompted to setup Defold Kit with a step-by-step dialogue.
 
 ![screenshot-suggest](https://github.com/astrochili/vscode-defold/assets/4752473/102e4069-0b8b-4e42-9195-f4839d22b794)
 
