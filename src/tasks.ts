@@ -37,7 +37,7 @@ export const buildTaskName = 'Build to Launch'
 
 export function makeTasks(): vscode.Task[] {
 	return [
-		makeTask(buildTaskName, 'build', undefined),
+		makeTask(buildTaskName, 'build', vscode.TaskGroup.Build),
 		makeTask('Bundle', 'bundle', vscode.TaskGroup.Build),
 		makeTask('Clean Build', 'cleanBuild', vscode.TaskGroup.Build),
 		makeTask('Resolve Dependencies', 'resolve', vscode.TaskGroup.Build),
