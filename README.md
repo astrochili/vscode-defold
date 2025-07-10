@@ -334,6 +334,21 @@ Make sure that these extensions are activated. Defold Kit cannot distinguish a d
 
 Make sure that you [started the debugger](#breakpoints) on the game side.
 
+> Undefined global `spine`, `imgui`, `iap` and similar warnings for native extensions.
+
+Many native extensions lack Lua annotations and have only `*.script_api` files ([#36](https://github.com/astrochili/vscode-defold/issues/36)). Lua Language Server works only with Lua annotations so you have two options:
+
+1) Make PR to the native extension's repository to add the Lua annotations.
+
+2) Or just add `spine` or other native extension's namespace to the ignore list in the file  `.vscode/settings.json`:
+
+```
+"Lua.diagnostics.globals": [
+  ...,
+  "spine"
+],
+```
+
 > Build in VS Code is fine, but Defold Editor fails with the message `module 'debugger.debugger' not found`.
 
 This can happen if you call a method on the requested module in a single line. Watch [defold/defold/7963](https://github.com/defold/defold/issues/7963) for updates.
