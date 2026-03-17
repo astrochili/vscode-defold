@@ -159,6 +159,8 @@ export async function bundle() {
     let bundlePath: string | undefined
 
     for (const target of targets) {
+        const buildServer = utils.settingsString(config.settingsKeys.buildServer)
+
         const iosProvisioningProfileSettingsKey = options.isRelease ? config.settingsKeys.iosReleaseProvisioningProfile : config.settingsKeys.iosDebugProvisioningProfile
         const iosProvisioningProfile = utils.settingsString(iosProvisioningProfileSettingsKey)
 
@@ -177,6 +179,7 @@ export async function bundle() {
         }, async progress => {
             return await bob.bundle(defold, {
                 target: target,
+                buildServer: buildServer,
                 release: options.isRelease,
                 textureCompression: options.textureCompression,
                 buildReport: options.buildReport,

@@ -256,6 +256,12 @@ Automatically synchronize annotations for Defold API with the Defold editor vers
 
 Automatically synchronize annotations for dependencies when changes are detected in the `.internal/libs` folder.
 
+#### defoldKit.extender.buildServer
+
+Custom build server URL for [bob](https://defold.com/manuals/bob/).
+
+Adds the `--build-server ${buildServer}` argument during bob command execution when the setting is not empty.
+
 #### defoldKit.dependencies.email
 
 User email to resolve dependencies.

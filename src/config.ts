@@ -67,6 +67,7 @@ export const settingsKeys = {
     annotationsRepository: 'defoldKit.annotations.repository',
     annotationsAutoSyncDefold: 'defoldKit.annotations.autosync.defold',
     annotationsAutoSyncLibs: 'defoldKit.annotations.autosync.libs',
+    buildServer: 'defoldKit.extender.buildServer',
     dependenciesEmail: 'defoldKit.dependencies.email',
     dependenciesAuthToken: 'defoldKit.dependencies.authToken',
     iosDebugProvisioningProfile: 'defoldKit.bundle.ios.debug.provisioningProfile',

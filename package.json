@@ -154,6 +154,12 @@
             "default": true,
             "markdownDescription": "Sync annotations for dependencies automatically by watching `.internal/libs` folder"
           },
+          "defoldKit.extender.buildServer": {
+            "order": 0,
+            "type": "string",
+            "default": "",
+            "markdownDescription": "Custom build server URL for `bob`. Adds the `--build-server` argument when set"
+          },
           "defoldKit.dependencies.email": {
             "order": 6,
             "type": "string",

@@ -63,6 +63,11 @@ export async function resolve(
 export async function build(defold: DefoldConfiguration): Promise<boolean> {
     let args = new Array<string>
 
+    const buildServer = utils.settingsString(config.settingsKeys.buildServer)
+    if (buildServer) {
+        args.push(`--build-server`, buildServer)
+    }
+
     args.push(`--variant`, `debug`)
     args.push(`--output`, config.paths.relativeBuildLauncher)
     args.push(`build`)
@@ -72,6 +77,7 @@ export async function build(defold: DefoldConfiguration): Promise<boolean> {
 
 interface BundleOptions {
     target: string,
+    buildServer?: string,
     email?: string,
     auth?: string,
     release: boolean,
@@ -89,7 +95,6 @@ interface BundleOptions {
 
 export async function bundle(defold: DefoldConfiguration, options: BundleOptions): Promise<string | undefined> {
     let args = new Array<string>
-
     const bundlePath = path.join(config.paths.workspace, `bundle`, options.target)
 
     await utils.deleteFile(bundlePath)
@@ -111,6 +116,10 @@ export async function bundle(defold: DefoldConfiguration, options: BundleOptions
     if (options.buildReport) {
         const reportPath = path.join(bundlePath, `build-report.html`)
         args.push(`--build-report-html`, reportPath)
+    }
+
+    if (options.buildServer) {
+        args.push(`--build-server`, options.buildServer)
     }
 
     if (options.email) {
