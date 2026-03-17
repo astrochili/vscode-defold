@@ -4,6 +4,12 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.1.11] - 2026-03-17
+
+### Added
+
+- Added `defoldKit.extender.buildServer` to settings [#12050](https://github.com/defold/defold/issues/12050).
+
 ## [2.1.10] - 2024-12-30
 
 ### Fixed
