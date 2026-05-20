@@ -23,6 +23,7 @@ const ini = require('ini')
 
 let libsFileSystemWatcher: vscode.FileSystemWatcher
 let libsAnnotationsSyncTimeout: NodeJS.Timeout | undefined
+const networkRequestTimeout = 60 * 1000
 
 interface LatestReleaseResponse {
     tag_name: string
@@ -53,7 +54,9 @@ async function fetchLatestRelease(repositoryKey: string | undefined): Promise<La
 
     try {
         log(`Network request GET: '${fallbackReleaseUrl}'`)
-        const response = await axios.get<LatestReleaseResponse>(fallbackReleaseUrl)
+        const response = await axios.get<LatestReleaseResponse>(fallbackReleaseUrl, {
+            timeout: networkRequestTimeout
+        })
         log(`Network response OK'`)
         return response.data
     } catch (error) {
@@ -67,7 +70,10 @@ async function fetchSpecificAsset(tag: string, repositoryKey: string | undefined
 
     try {
         log(`Network request GET: '${annotationsUrl}'`)
-        const response = await axios.get<Uint8Array>(annotationsUrl, { responseType: 'arraybuffer' })
+        const response = await axios.get<Uint8Array>(annotationsUrl, {
+            responseType: 'arraybuffer',
+            timeout: networkRequestTimeout
+        })
         log(`Network response OK'`)
         return response.data
     } catch (error) {

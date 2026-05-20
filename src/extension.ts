@@ -17,7 +17,19 @@ import * as tasks from './tasks'
 import * as migration from './migration'
 import * as wizard from './wizard'
 import * as annotations from './annotations'
+import * as editorConsole from './editorConsole'
 import log from './logger'
+
+const lockedCommands = new Set<keyof typeof commands>([
+	'setup',
+	'syncAnnotations',
+	'cleanAnnotations',
+	'cleanBuild',
+	'resolve',
+	'bundle',
+	'deploy',
+	'build'
+])
 
 let runningCommand: string | undefined
 
@@ -41,9 +53,11 @@ export async function activate(context: vscode.ExtensionContext) {
 	}
 
 	await config.init(context, workspaceFolder, workspaceStoragePath, globalStoragePath)
+	editorConsole.register(context)
 
 	for (const command of Object.keys(commands)) {
 		const action = commands[command as keyof typeof commands]
+		const isLocked = lockedCommands.has(command as keyof typeof commands)
 		const commandId = `${config.extension.commandPrefix}.${command}`
 
 		context.subscriptions.push(vscode.commands.registerCommand(commandId, async () => {
@@ -53,14 +67,16 @@ export async function activate(context: vscode.ExtensionContext) {
 				return
 			}
 
-			if (runningCommand) {
+			if (isLocked && runningCommand) {
 				vscode.window.showWarningMessage(`Cannot run the command '${commandId}' until another command '${runningCommand}' is finished`)
 				log(`A user tried to run command '${commandId}' during another command '${runningCommand}'.`)
 				return
 			}
 
 			log(`Command '${commandId}' is called`)
-			runningCommand = commandId
+			if (isLocked) {
+				runningCommand = commandId
+			}
 
 			try {
 				await config.init(context, workspaceFolder, workspaceStoragePath, globalStoragePath)
@@ -68,10 +84,13 @@ export async function activate(context: vscode.ExtensionContext) {
 			} catch (error) {
 				vscode.window.showWarningMessage(`Unexpected error occured during running the command '${commandId}'. See Output for details.`)
 				log(`Unhandled exception during running the command '${commandId}': ${error}}`)
-			}
+			} finally {
+				if (isLocked) {
+					runningCommand = undefined
+				}
 
-			runningCommand = undefined
-			log(`Command '${commandId}' is finished`)
+				log(`Command '${commandId}' is finished`)
+			}
 
 			// Need to return a string to use it as a preLaunchTask
 			return ''

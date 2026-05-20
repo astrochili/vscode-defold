@@ -18,6 +18,7 @@ import * as bob from './bob'
 import * as launcher from './launcher'
 import * as deployer from './deployer'
 import * as utils from './utils'
+import * as editor from './editor'
 import log from './logger'
 
 export async function setup() {
@@ -295,4 +296,80 @@ export async function openDefold() {
     }
 
     await launcher.openDefold(defold)
+}
+
+export async function editorBuild() {
+    const defold = config.defold
+
+    if (!defold) {
+        return wizard.suggestSetup(`Defold HTTP commands require to setup ${config.extension.displayName} first`)
+    }
+
+    await editor.runCommand('build', {
+        title: 'Defold Editor Build...',
+        openConsoleBeforeRun: true,
+        connectConsoleAfterRun: true
+    })
+}
+
+export async function editorBuildHtml5() {
+    const defold = config.defold
+
+    if (!defold) {
+        return wizard.suggestSetup(`Defold HTTP commands require to setup ${config.extension.displayName} first`)
+    }
+
+    await editor.runCommand('build-html5', {
+        title: 'Defold Editor Build HTML5...',
+        openConsoleBeforeRun: true,
+        connectConsoleAfterRun: true
+    })
+}
+
+export async function editorCleanBuild() {
+    const defold = config.defold
+
+    if (!defold) {
+        return wizard.suggestSetup(`Defold HTTP commands require to setup ${config.extension.displayName} first`)
+    }
+
+    await editor.runCommand('clean-build', {
+        title: 'Defold Editor Clean Build...',
+        openConsoleBeforeRun: true,
+        connectConsoleAfterRun: true
+    })
+}
+
+export async function editorHotReload() {
+    const defold = config.defold
+
+    if (!defold) {
+        return wizard.suggestSetup(`Defold HTTP commands require to setup ${config.extension.displayName} first`)
+    }
+
+    await editor.runCommand('hot-reload', {
+        title: 'Defold Editor Hot Reload...'
+    })
+}
+
+export async function editorFetchLibraries() {
+    const defold = config.defold
+
+    if (!defold) {
+        return wizard.suggestSetup(`Defold HTTP commands require to setup ${config.extension.displayName} first`)
+    }
+
+    await editor.runCommand('fetch-libraries', {
+        title: 'Defold Editor Fetch Libraries...'
+    })
+}
+
+export async function showEditorConsole() {
+    const defold = config.defold
+
+    if (!defold) {
+        return wizard.suggestSetup(`Defold HTTP commands require to setup ${config.extension.displayName} first`)
+    }
+
+    await editor.showConsole(defold)
 }

@@ -50,6 +50,10 @@ export function settingsBoolean(key: string): boolean | undefined {
     return vscode.workspace.getConfiguration().get<boolean>(key)
 }
 
+export function settingsNumber(key: string): number | undefined {
+    return vscode.workspace.getConfiguration().get<number>(key)
+}
+
 export async function isProcessRunning(process: string): Promise<boolean> {
     const command = isWindows ? `tasklist` : `pgrep`
     const args = isWindows ? [] : ['-l', process, `|`, `awk`, `'{ print $2 }'`]

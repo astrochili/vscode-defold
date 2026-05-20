@@ -120,13 +120,15 @@ To open script files from the Defold Editor directly in Visual Studio Code, you 
 
 The `.` character here is required to open the entire workspace, not an individual file.
 
-## Run and Debug
+## Debugger
 
 ![screenshot-debugger](https://github.com/astrochili/vscode-defold/assets/4752473/9a3c2184-645a-49e9-ba72-1de02290d7a5)
 
-### Launch
+### Local Launch
 
-To launch a game ensure that two these steps are done during [setting up](#setup) Defold Kit:
+This workflow builds and launches the game locally from VS Code without using the Defold Editor. It is intended for debugging with breakpoints through [`local-lua-debugger-vscode`](#extensions).
+
+To launch a game this way, ensure that two these steps are done during [setting up](#setup) Defold Kit:
 
 - The [`local-lua-debugger-vscode`](#extensions) extension is installed.
 - [Launch configiuration](#launch-configuration) are added to the workspace.
@@ -142,39 +144,52 @@ local debugger = require('debugger.debugger')
 debugger.start()
 ```
 
+## Defold Editor HTTP API
+
+Defold Kit can also talk to a running Defold Editor through the local Defold Editor HTTP API.
+
+These commands are available from the Command Palette with the `Defold Editor` prefix:
+
+- [Defold Editor: Build](#defold-editor-build) builds and runs the project from Defold Editor.
+- [Defold Editor: Build HTML5](#defold-editor-build-html5) builds the project for HTML5 from Defold Editor.
+- [Defold Editor: Clean Build](#defold-editor-clean-build) clears caches and rebuilds from Defold Editor.
+- [Defold Editor: Hot Reload](#defold-editor-hot-reload) reloads modified files into a game already running from Defold Editor.
+- [Defold Editor: Fetch Libraries](#defold-editor-fetch-libraries) downloads project library dependencies through Defold Editor.
+- [Defold Editor: Console](#defold-editor-console) streams the Defold Editor console to a VS Code terminal.
+
 ## Commands
 
 ![screenshot-commands](https://github.com/astrochili/vscode-defold/assets/4752473/6fff2c8d-1b49-4843-b187-be8a22cf248c)
 
-Commands with the `Defold Kit` prefix are available in the Command Palette using the `[Ctrl/Cmd]-Shift-P` keyboard shortcut (default).
+Commands with the `Defold Kit` and `Defold Editor` prefixes are available in the Command Palette using the `[Ctrl/Cmd]-Shift-P` keyboard shortcut (default).
 
-### Setup
+### Defold Kit: Setup
 
 Starts the [setup dialogue](#path-to-defold). It's okay to run this command many times if you are not sure you are ready to turn on all the features at once.
 
-### Sync API Annotations
+### Defold Kit: Sync API Annotations
 
 Opens the [Annotations Syncing](#annotations-syncing) dialogue.
 
-### Clean API Annotations
+### Defold Kit: Clean API Annotations
 
 Deletes all the previously synced annotations from the global storage and workspace storage.
 
-### Open Defold
+### Defold Kit: Open Defold
 
 Opens the current project in the Defold Editor.
 
 On macOS, the window will be switched if Defold is already running.
 
-### Clean Build
+### Defold Kit: Clean Build
 
 Runs a [bob](https://defold.com/manuals/bob/) instance with the `distclean` argument to clean the build folder.
 
-### Resolve Dependencies
+### Defold Kit: Resolve Dependencies
 
 Runs a [bob](https://defold.com/manuals/bob/) instance with the `resolve` argument to resolve the project's dependencies. Then synchronises Lua annotations if the Lua Language Server is installed.
 
-### Bundle
+### Defold Kit: Bundle
 
 Runs a [bob](https://defold.com/manuals/bob/) instance with the `resolve distclean build biundle` arguments, selected options and defined values form [settings](#settings).
 
@@ -196,7 +211,7 @@ Select which target platforms you want to bundle your game.
 - **Generate Build Report** — Generate the [build report](https://defold.com/manuals/profiling/#build-reports) file.
 - **Publish Live Update Content** — Publish [Live update](https://defold.com/manuals/live-update/) content.
 
-### Deploy to Mobile
+### Defold Kit: Deploy to Mobile
 
 ![screenshot-deploy](https://github.com/astrochili/vscode-defold/assets/4752473/3f0f1e87-127f-4d78-a702-102e8e29cdf9)
 
@@ -211,6 +226,32 @@ adb install ${apk_file}
 ```
 
 The `*.ipa` or `*.apk` file is required in the corresponding bundle folder, so run the [Bundle](#bundle) command before deploying.
+
+### Defold Editor: Build
+
+Sends the `build` command to the running Defold Editor over the local Editor HTTP API. This builds and runs the project from the editor.
+
+### Defold Editor: Build HTML5
+
+Sends the `build-html5` command to the running Defold Editor over the local Editor HTTP API. This builds the project for HTML5 and opens it in a web browser. 
+
+### Defold Editor: Clean Build
+
+Sends the `clean-build` command to the running Defold Editor over the local Editor HTTP API. This clears the build caches and rebuilds the project from the editor.
+
+### Defold Editor: Hot Reload
+
+Sends the `hot-reload` command to the running Defold Editor over the local Editor HTTP API. This hot-reloads modified files into the running game. 
+
+### Defold Editor Fetch Libraries
+
+Sends the `fetch-libraries` command to the running Defold Editor over the local Editor HTTP API. This downloads the latest version of project library dependencies.
+
+### Defold Editor: Console
+
+Opens the `Defold Editor: Console` terminal and streams console output from the running Defold Editor. The console uses the Editor HTTP API `/console/stream`, keeps the terminal open while the stream is active, highlights common log levels, and makes recognized file paths clickable.
+
+Requires Defold Editor 1.13.0 or newer.
 
 ## Tasks
 
@@ -316,6 +357,10 @@ Name of the alias from the [keystore](#defoldkitbundleandroidkeystore) for **And
 
 Adds the `--keystore-alias ${keystoreAlias}` argument during [Bundle](#bundle) command execution.
 
+#### defoldKit.defoldEditor.commandTimeout
+
+Timeout in seconds for Defold Editor HTTP commands.
+
 ## Compatibility
 
 It's possible to uncheck all the options during [Defold Kit setup](#setup) and still be able to sync annotations, bundle and deploy the game.
@@ -327,8 +372,9 @@ Due to the flexibility of Defold Kit, it can be used in combination with the [De
 ## Logs
 
 - The extension outputs logs to the `Default Kit` output channel.
-- A running game with a debugger outputs logs to the debug console.
-- A running game without debugger outputs logs to the `Defold Engine` terminal instance.
+- A locally running game with a debugger outputs logs to the debug console.
+- A locally running game without debugger outputs logs to the `Defold Engine` terminal instance.
+- Defold Editor streams to the `Defold Editor: Console` terminal.
 
 ## Troubleshooting
 

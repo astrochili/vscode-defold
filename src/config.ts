@@ -76,7 +76,8 @@ export const settingsKeys = {
     iosReleaseIdentity: 'defoldKit.bundle.ios.release.identity',
     androidKeystore: 'defoldKit.bundle.android.keystore',
     androidKeystorePass: 'defoldKit.bundle.android.keystorePass',
-    androidKeystoreAlias: 'defoldKit.bundle.android.keystoreAlias'
+    androidKeystoreAlias: 'defoldKit.bundle.android.keystoreAlias',
+    defoldEditorCommandTimeout: 'defoldKit.defoldEditor.commandTimeout'
 }
 
 export namespace launch {

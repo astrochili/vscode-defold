@@ -108,6 +108,48 @@
         "icon": "$(package)",
         "title": "Build",
         "enablement": "false"
+      },
+      {
+        "command": "defoldKit.editorBuild",
+        "category": "Defold Editor",
+        "icon": "$(run)",
+        "title": "Build",
+        "enablement": "workspaceFolderCount > 0"
+      },
+      {
+        "command": "defoldKit.editorBuildHtml5",
+        "category": "Defold Editor",
+        "icon": "$(globe)",
+        "title": "Build HTML5",
+        "enablement": "workspaceFolderCount > 0"
+      },
+      {
+        "command": "defoldKit.editorCleanBuild",
+        "category": "Defold Editor",
+        "icon": "$(clear-all)",
+        "title": "Clean Build",
+        "enablement": "workspaceFolderCount > 0"
+      },
+      {
+        "command": "defoldKit.editorHotReload",
+        "category": "Defold Editor",
+        "icon": "$(sync)",
+        "title": "Hot Reload",
+        "enablement": "workspaceFolderCount > 0"
+      },
+      {
+        "command": "defoldKit.editorFetchLibraries",
+        "category": "Defold Editor",
+        "icon": "$(cloud-download)",
+        "title": "Fetch Libraries",
+        "enablement": "workspaceFolderCount > 0"
+      },
+      {
+        "command": "defoldKit.showEditorConsole",
+        "category": "Defold Editor",
+        "icon": "$(terminal)",
+        "title": "Console",
+        "enablement": "workspaceFolderCount > 0"
       }
     ],
     "configuration": [
@@ -213,6 +255,13 @@
             "type": "string",
             "default": "",
             "markdownDescription": "Name of the alias from the `#defoldKit.bundle.android.keystore#`"
+          },
+          "defoldKit.defoldEditor.commandTimeout": {
+            "order": 15,
+            "type": "number",
+            "default": 60,
+            "minimum": 1,
+            "markdownDescription": "Timeout in seconds for Defold Editor HTTP commands such as `build`, `hot-reload`, and `fetch-libraries`."
           }
         }
       }
