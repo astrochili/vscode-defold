@@ -4,6 +4,23 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.2.0] - 2026-06-06
+
+### Added
+
+- Added support for sending commands to a running Defold Editor over the local HTTP API.
+- Added the `Defold Editor: Build` command.
+- Added the `Defold Editor: Build HTML5` command.
+- Added the `Defold Editor: Clean Build` command.
+- Added the `Defold Editor: Fetch Libraries` command.
+- Added the `Defold Editor: Hot Reload` command.
+- Added the `defoldKit.defoldEditor.commandTimeout` setting for Defold Editor HTTP command timeouts.
+
+**Requires Defold `1.13.0+`**:
+- Added the `Defold Editor: Console` command.
+- Added streaming the Defold Editor console into a separate VS Code terminal with clickable paths and log highlighting. 
+
+
 ## [2.1.11] - 2026-03-17
 
 ### Added
