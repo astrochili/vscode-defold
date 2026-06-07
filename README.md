@@ -243,6 +243,8 @@ Sends the `clean-build` command to the running Defold Editor over the local Edit
 
 Sends the `hot-reload` command to the running Defold Editor over the local Editor HTTP API. This hot-reloads modified files into the running game. 
 
+Enable the experimental [defoldKit.defoldEditor.hotReloadOnChange](#defoldkitdefoldeditorhotreloadonchange) setting to run this command automatically when resource files change in the workspace.
+
 ### Defold Editor Fetch Libraries
 
 Sends the `fetch-libraries` command to the running Defold Editor over the local Editor HTTP API. This downloads the latest version of project library dependencies.
@@ -360,6 +362,14 @@ Adds the `--keystore-alias ${keystoreAlias}` argument during [Bundle](#bundle) c
 #### defoldKit.defoldEditor.commandTimeout
 
 Timeout in seconds for Defold Editor HTTP commands.
+
+#### defoldKit.defoldEditor.hotReloadOnChange
+
+_(Experimental)_ 
+
+Automatically sends the `hot-reload` command to the running Defold Editor when resource files change in the workspace.
+
+This requires the project to be open in Defold Editor and a hot reload target to be available. If Defold Editor or the target is not available, the extension skips the automatic hot reload quietly.
 
 ## Compatibility
 

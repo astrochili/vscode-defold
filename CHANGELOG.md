@@ -16,10 +16,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Added the `Defold Editor: Hot Reload` command.
 - Added the `defoldKit.defoldEditor.commandTimeout` setting for Defold Editor HTTP command timeouts.
 
+**Experimental**:
+
+- Added the  `defoldKit.defoldEditor.hotReloadOnChange` setting to automatically hot reload changed resource files through Defold Editor.
+
 **Requires Defold `1.13.0+`**:
+
 - Added the `Defold Editor: Console` command.
 - Added streaming the Defold Editor console into a separate VS Code terminal with clickable paths and log highlighting. 
-
 
 ## [2.1.11] - 2026-03-17
 

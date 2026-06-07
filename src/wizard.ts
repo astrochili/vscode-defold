@@ -258,7 +258,7 @@ export async function suggestSetupIfApplicable(): Promise<boolean> {
         return false
     }
 
-    const isDefoldProject = await utils.isPathExists(config.paths.workspaceGameProject)
+    const isDefoldProject = await config.isDefoldProject()
     const onceSetup = momento.getOnceSetup()
 
 	if (onceSetup) {

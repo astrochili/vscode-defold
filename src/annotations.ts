@@ -198,7 +198,7 @@ async function unpackDependenciesAnnotations(): Promise<string | undefined> {
     let projectText
     log(`Reading list of dependencies in game project.`)
 
-    if (await utils.isPathExists(config.paths.workspaceGameProject)) {
+    if (await config.isDefoldProject()) {
         projectText = await utils.readTextFile(config.paths.workspaceGameProject)
     } else {
         log(`The '${config.paths.workspaceGameProject}' file is not found.`)

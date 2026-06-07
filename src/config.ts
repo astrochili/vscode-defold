@@ -77,7 +77,8 @@ export const settingsKeys = {
     androidKeystore: 'defoldKit.bundle.android.keystore',
     androidKeystorePass: 'defoldKit.bundle.android.keystorePass',
     androidKeystoreAlias: 'defoldKit.bundle.android.keystoreAlias',
-    defoldEditorCommandTimeout: 'defoldKit.defoldEditor.commandTimeout'
+    defoldEditorCommandTimeout: 'defoldKit.defoldEditor.commandTimeout',
+    defoldEditorHotReloadOnChange: 'defoldKit.defoldEditor.hotReloadOnChange'
 }
 
 export namespace launch {
@@ -304,6 +305,10 @@ export async function init(
         + `\n- config.globalStorage: '${paths.globalStorage}'`
         + `\n- config.defold: '${defold?.editorPath}'`
     )
+}
+
+export async function isDefoldProject(): Promise<boolean> {
+    return utils.isPathExists(paths.workspaceGameProject)
 }
 
 export async function updateDefoldPath(path: string): Promise<DefoldConfiguration | undefined> {

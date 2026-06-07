@@ -262,6 +262,12 @@
             "default": 60,
             "minimum": 1,
             "markdownDescription": "Timeout in seconds for Defold Editor HTTP commands such as `build`, `hot-reload`, and `fetch-libraries`."
+          },
+          "defoldKit.defoldEditor.hotReloadOnChange": {
+            "order": 16,
+            "type": "boolean",
+            "default": false,
+            "markdownDescription": "_(Experimental)_ Automatically send the Hot Reload command to Defold Editor when resource files change."
           }
         }
       }

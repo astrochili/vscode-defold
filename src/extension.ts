@@ -18,6 +18,7 @@ import * as migration from './migration'
 import * as wizard from './wizard'
 import * as annotations from './annotations'
 import * as editorConsole from './editorConsole'
+import * as hotReloadOnChange from './hotReloadOnChange'
 import log from './logger'
 
 const lockedCommands = new Set<keyof typeof commands>([
@@ -61,7 +62,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		const commandId = `${config.extension.commandPrefix}.${command}`
 
 		context.subscriptions.push(vscode.commands.registerCommand(commandId, async () => {
-			if (!await utils.isPathExists(config.paths.workspaceGameProject)) {
+			if (!await config.isDefoldProject()) {
 				vscode.window.showWarningMessage(`Doesn't look like a Defold project`)
 				log(`A user tried to run command '${commandId}' without Defold project`)
 				return
@@ -106,6 +107,11 @@ export async function activate(context: vscode.ExtensionContext) {
 		}
 	})
 
+	const isDefoldProject = await config.isDefoldProject()
+	if (isDefoldProject) {
+		hotReloadOnChange.register(context)
+	}
+
 	const lastGlobalMigrationVersion = momento.getLastGlobalMigrationVersion()
 	if (lastGlobalMigrationVersion != config.extension.version) {
 		log(`Starting global migration from ${lastGlobalMigrationVersion} to ${config.extension.version}.`)
@@ -129,7 +135,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		return
 	}
 
-	if (await utils.isPathExists(config.paths.workspaceGameProject)) {
+	if (isDefoldProject) {
 		const annotationsVersion = momento.getAnnotationsVersion()
 		const defoldVersion = config.defold?.version
 
