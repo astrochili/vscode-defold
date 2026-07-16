@@ -84,7 +84,7 @@ export async function readDirectory(path: string): Promise<[string, vscode.FileT
         const files = await vscode.workspace.fs.readDirectory(vscode.Uri.file(path))
         return files
     } catch (error) {
-        log(`Exception occured during reading directory: ${error}`)
+        log(`Exception occurred during reading directory: ${error}`)
         return undefined
     }
 }
@@ -94,7 +94,7 @@ export async function createDirectory(path: string): Promise<boolean> {
         await vscode.workspace.fs.createDirectory(vscode.Uri.file(path))
         return true
     } catch (error) {
-        log(`Exception occured during creating directory: ${error}`)
+        log(`Exception occurred during creating directory: ${error}`)
         return false
     }
 }
@@ -112,7 +112,7 @@ export async function readDataFile(path: string): Promise<Uint8Array | undefined
         const data = await vscode.workspace.fs.readFile(vscode.Uri.file(path))
         return data
     } catch (error) {
-        log(`Exception occured during reading file: ${error}`)
+        log(`Exception occurred during reading file: ${error}`)
         return undefined
     }
 }
@@ -122,7 +122,7 @@ export async function writeTextFile(path: string, text: string): Promise<boolean
         const data = encoder.encode(text)
         return writeDataFile(path, data)
     } catch (error) {
-        log(`Exception occured during encoding text: ${error}`)
+        log(`Exception occurred during encoding text: ${error}`)
         return false
     }
 }
@@ -132,7 +132,7 @@ export async function writeDataFile(path: string, data: Uint8Array): Promise<boo
         await vscode.workspace.fs.writeFile(vscode.Uri.file(path), data)
         return true
     } catch (error) {
-        log(`Exception occured during writing file: ${error}`)
+        log(`Exception occurred during writing file: ${error}`)
         return false
     }
 }
@@ -142,7 +142,7 @@ export async function deleteFile(path: string): Promise<boolean> {
         await vscode.workspace.fs.delete(vscode.Uri.file(path), { recursive: true, useTrash: false })
         return true
     } catch (error) {
-        log(`Exception occured during deleting file: ${error}`)
+        log(`Exception occurred during deleting file: ${error}`)
         return false
     }
 }
@@ -152,7 +152,7 @@ export async function copy(path: string, target: string): Promise<boolean> {
         await vscode.workspace.fs.copy(vscode.Uri.file(path), vscode.Uri.file(target), { overwrite: true })
         return true
     } catch (error) {
-        log(`Exception occured during copying file: ${error}`)
+        log(`Exception occurred during copying file: ${error}`)
         return false
     }
 }

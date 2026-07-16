@@ -83,7 +83,7 @@ export async function activate(context: vscode.ExtensionContext) {
 				await config.init(context, workspaceFolder, workspaceStoragePath, globalStoragePath)
 				await action()
 			} catch (error) {
-				vscode.window.showWarningMessage(`Unexpected error occured during running the command '${commandId}'. See Output for details.`)
+				vscode.window.showWarningMessage(`Unexpected error occurred during running the command '${commandId}'. See Output for details.`)
 				log(`Unhandled exception during running the command '${commandId}': ${error}}`)
 			} finally {
 				if (isLocked) {
