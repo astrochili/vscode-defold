@@ -16,6 +16,48 @@ import * as shell from './shell'
 import log from './logger'
 import path = require('path')
 
+// Mirrors the desktop Platform.libSuffix values in Defold's
+// com.dynamo.bob.Platform: .dll, .so, and .dylib.
+const runtimeLibraryExtensions = ['.dll', '.so', '.dylib']
+
+function isRuntimeLibrary(fileName: string): boolean {
+    return runtimeLibraryExtensions.includes(path.extname(fileName).toLowerCase())
+}
+
+async function copyRuntimeLibraries(sourcePath: string, destinationPath: string): Promise<boolean> {
+    const entries = await utils.readDirectory(sourcePath)
+
+    if (!entries) {
+        log(`Failed to read runtime libraries from '${sourcePath}'`)
+        return false
+    }
+
+    for (const [name, type] of entries) {
+        const source = path.join(sourcePath, name)
+
+        if (type & vscode.FileType.Directory) {
+            if (!await copyRuntimeLibraries(source, destinationPath)) {
+                return false
+            }
+            continue
+        }
+
+        if (!(type & vscode.FileType.File) || !isRuntimeLibrary(name)) {
+            continue
+        }
+
+        const destination = path.join(destinationPath, name)
+        log(`Copying runtime library from '${source}' to '${destination}'`)
+
+        if (!await utils.copy(source, destination)) {
+            log(`Failed to copy runtime library '${source}'`)
+            return false
+        }
+    }
+
+    return true
+}
+
 async function extractFromDefold(defold: DefoldConfiguration, internalPath: string, destinationPath: string): Promise<boolean> {
     const tempPath = path.join(config.paths.workspaceStorage, 'tmp')
 
@@ -94,6 +136,15 @@ export async function prepare(defold: DefoldConfiguration): Promise<boolean> {
         if (!isExctracted) {
             vscode.window.showErrorMessage(`Failed preparing to launch. See Output for details.`)
             log(`Failed to extract the engine executable from Defold'`)
+            return false
+        }
+    }
+
+    if (await utils.isPathExists(buildPlatformPath)) {
+        const isRuntimeLibrariesCopied = await copyRuntimeLibraries(buildPlatformPath, config.paths.workspaceBuildLauncher)
+
+        if (!isRuntimeLibrariesCopied) {
+            vscode.window.showErrorMessage(`Failed preparing to launch. See Output for details.`)
             return false
         }
     }
