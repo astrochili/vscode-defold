@@ -33,6 +33,7 @@ const lockedCommands = new Set<keyof typeof commands>([
 ])
 
 let runningCommand: string | undefined
+let buildFailed = false
 
 export async function activate(context: vscode.ExtensionContext) {
 	const workspaceFolder = vscode.workspace.workspaceFolders?.at(0)
@@ -55,6 +56,13 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	await config.init(context, workspaceFolder, workspaceStoragePath, globalStoragePath)
 	editorConsole.register(context)
+
+	context.subscriptions.push(vscode.debug.onDidTerminateDebugSession(session => {
+		if (session.type == 'lua-local' && buildFailed) {
+			buildFailed = false
+			log('Build failed. Returning to Defold Kit Output.', { openOutput: true })
+		}
+	}))
 
 	for (const command of Object.keys(commands)) {
 		const action = commands[command as keyof typeof commands]
@@ -81,10 +89,16 @@ export async function activate(context: vscode.ExtensionContext) {
 
 			try {
 				await config.init(context, workspaceFolder, workspaceStoragePath, globalStoragePath)
-				await action()
+				const result = await action()
+				if (command == 'build') {
+					buildFailed = result === false
+				}
 			} catch (error) {
 				vscode.window.showWarningMessage(`Unexpected error occured during running the command '${commandId}'. See Output for details.`)
 				log(`Unhandled exception during running the command '${commandId}': ${error}}`)
+				if (command == 'build') {
+					buildFailed = true
+				}
 			} finally {
 				if (isLocked) {
 					runningCommand = undefined

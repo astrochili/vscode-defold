@@ -111,11 +111,12 @@ export async function cleanBuild() {
     }
 }
 
-export async function resolve() {
+export async function resolve(): Promise<boolean> {
     const defold = config.defold
 
     if (!defold) {
-        return wizard.suggestSetup(`Resolving dependencies requires to setup ${config.extension.displayName} first`)
+        await wizard.suggestSetup(`Resolving dependencies requires to setup ${config.extension.displayName} first`)
+        return false
     }
 
     const email = utils.settingsString(config.settingsKeys.dependenciesEmail)
@@ -134,6 +135,8 @@ export async function resolve() {
     if (isResolved) {
         vscode.window.showInformationMessage(`Dependencies resolved`)
     }
+
+    return isResolved
 }
 
 export async function bundle() {
@@ -252,15 +255,21 @@ export async function deploy() {
     })
 }
 
-export async function build() {
+export async function build(): Promise<boolean> {
     const defold = config.defold
 
     if (!defold) {
-        return wizard.suggestSetup(`Building requires to setup ${config.extension.displayName} first`)
+        await wizard.suggestSetup(`Building requires to setup ${config.extension.displayName} first`)
+        return false
     }
 
     if (!await utils.isPathExists(config.paths.workspaceLibs)) {
-        await resolve()
+        if (!await resolve()) {
+            vscode.window.showErrorMessage('Failed to resolve dependencies for running. See Output for details.')
+            log('Failed to resolve dependencies for running. See above for details.', { openOutput: true })
+            await utils.deleteFile(config.paths.workspaceBuildLauncher)
+            return false
+        }
     }
 
     const isBuilded = await vscode.window.withProgress({
@@ -272,8 +281,9 @@ export async function build() {
 
     if (!isBuilded) {
         vscode.window.showErrorMessage('Failed to build for running. See Output for details.')
+        log('Failed to build for running. See above for details.', { openOutput: true })
         await utils.deleteFile(config.paths.workspaceBuildLauncher)
-        return
+        return false
     }
 
     const isPrepared = await vscode.window.withProgress({
@@ -285,7 +295,12 @@ export async function build() {
 
     if (!isPrepared) {
         vscode.window.showErrorMessage('Failed to prepare the launcher. See Output for details.')
+        log('Failed to prepare the launcher. See above for details.', { openOutput: true })
+        await utils.deleteFile(config.paths.workspaceBuildLauncher)
+        return false
     }
+
+    return true
 }
 
 export async function openDefold() {

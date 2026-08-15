@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Fixed
 
 - Fixed launching projects with native extensions that require runtime shared libraries [#61](https://github.com/astrochili/vscode-defold/issues/61).
+- Fixed returning focus to Defold Kit Output after a failed build.
 
 ## [2.2.0] - 2026-06-06
 
