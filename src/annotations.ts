@@ -11,9 +11,11 @@
 import * as vscode from 'vscode'
 import * as os from 'os'
 import * as crypto from 'crypto'
+import { mkdtemp } from 'fs/promises'
 import * as config from './config'
 import * as utils from './utils'
 import * as momento from './momento'
+import * as shell from './shell'
 import * as extensions from './data/extensions'
 import log from './logger'
 import axios from 'axios'
@@ -165,6 +167,64 @@ async function fetchDefoldAnnotations(defoldVersion: string): Promise<string | u
     await momento.setAnnotationsVersion(annotationsVersion)
 
     return config.paths.globalStorage
+}
+
+async function unpackDefoldAnnotations(defoldVersion: string): Promise<string | undefined> {
+    let tempPath: string | undefined
+
+    try {
+        const defold = config.defold
+        if (!defold) {
+            throw new Error('Defold Editor configuration not found')
+        }
+
+        const internalPath = '_unpack/shared/lua-annotations/'
+        tempPath = await mkdtemp(path.join(os.tmpdir(), 'defold-kit-annotations-'))
+
+        log(`Extracting Defold annotations from '${defold.editorJar}'`)
+        const result = await shell.execute(
+            'Jar Extracting',
+            `"${defold.jarBin}"`,
+            ['-xf', `"${defold.editorJar}"`, `"${internalPath}"`],
+            tempPath
+        )
+
+        if (!result.success) {
+            throw new Error('Failed to extract Defold annotations')
+        }
+
+        const annotationsPath = path.join(tempPath, internalPath)
+        const files = await utils.readDirectory(annotationsPath)
+        if (!files?.some(([name, type]) => type == vscode.FileType.File && name.endsWith('.lua'))) {
+            throw new Error('Defold annotations not found in the editor archive')
+        }
+
+        if (!await utils.createDirectory(config.paths.globalStorage)) {
+            throw new Error('Failed to create global storage folder')
+        }
+
+        const apiPath = config.paths.defoldApi
+        log(`Cleaning directory: ${apiPath}`)
+        if (await utils.isPathExists(apiPath) && !await utils.deleteFile(apiPath)) {
+            throw new Error('Failed to clean the Defold annotations folder')
+        }
+
+        log(`Copying '${annotationsPath}' to '${apiPath}'`)
+        if (!await utils.copy(annotationsPath, apiPath)) {
+            throw new Error('Failed to copy Defold annotations')
+        }
+
+        await momento.setAnnotationsVersion(defoldVersion)
+        return config.paths.globalStorage
+    } catch (error) {
+        vscode.window.showErrorMessage(`Can't unpack Defold annotations. See Output for details.`)
+        log(`Failed to unpack Defold annotations: ${error}`)
+    } finally {
+        if (tempPath) {
+            log(`Deleting temporary directory: ${tempPath}`)
+            await utils.deleteFile(tempPath)
+        }
+    }
 }
 
 async function unpackDependenciesAnnotations(): Promise<string | undefined> {
@@ -469,7 +529,9 @@ export async function startWatchingLibsToSyncAnnotations() {
 
 export async function syncDefoldAnnotations(defoldVersion: string): Promise<boolean> {
     log('Syncing Defold API annotations')
-    const defoldAnnotationsPath = await fetchDefoldAnnotations(defoldVersion)
+    const defoldAnnotationsPath = utils.compareVersions(defoldVersion, '1.13.2') >= 0
+        ? await unpackDefoldAnnotations(defoldVersion)
+        : await fetchDefoldAnnotations(defoldVersion)
 
     if (defoldAnnotationsPath) {
         return await addToWorkspaceSettings(defoldAnnotationsPath)

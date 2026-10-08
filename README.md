@@ -96,7 +96,9 @@ Synchronise Lua annotations with the Defold Editor version and project dependenc
 
 #### Defold API Annotations
 
-Fethes Defold API annotations from the repository according the [settings](#defoldkitannotationsrepository) and unpacks them to the Defold Kit shared storage.
+For Defold 1.13.2 and newer, copies game and editor script annotations from the installed editor archive to the Defold Kit shared storage. Both sets are loaded together; game and editor contexts are not separated.
+
+For older Defold versions, fetches annotations from the repository selected in the [settings](#defoldkitannotationsrepository) and unpacks them to the same storage.
 
 #### Dependencies Annotations
 
@@ -286,7 +288,9 @@ Open the Output panel during a [bob](https://defold.com/manuals/bob/) instance e
 
 #### defoldKit.annotations.repository
 
-Where to get Defold API annotations. Three options are currently available:
+**Deprecated starting from Defold 1.13.2**, which use annotations from the installed Defold Editor.
+
+Selects the repository to fetch Defold API annotations from. Two options are available:
 
 - [astrochili/defold-annotations](https://github.com/astrochili/defold-annotations)
 - [mikatuo/defold-lua-annotations](https://github.com/mikatuo/defold-lua-annotations)

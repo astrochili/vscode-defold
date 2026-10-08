@@ -430,7 +430,7 @@ export async function offerInstallExtensions(): Promise<string[] | undefined> {
 export async function offerSyncAnnotations(defoldVersion: string, title?: string): Promise<boolean> {
     let defoldItem: vscode.QuickPickItem = {
         label: '$(sync) Sync Defold API Annotations',
-        detail: `Fetches Defold annotations and unpacks to the ${config.extension.displayName} storage`,
+        detail: `Synchronizes Defold annotations with the editor version in the ${config.extension.displayName} storage`,
         alwaysShow: true,
         picked: true
     }
@@ -462,22 +462,24 @@ export async function offerSyncAnnotations(defoldVersion: string, title?: string
 
     await momento.savePickerSelection(syncItems, selectedItems, config.context.globalState, momento.keys.settingsApplying)
 
-    await vscode.window.withProgress({
+    return await vscode.window.withProgress({
         location: vscode.ProgressLocation.Notification,
         title: 'Syncing annotations'
     }, async progress => {
         if (selectedItems.includes(defoldItem)) {
             progress.report({ message: 'Defold API...' })
-            await annotations.syncDefoldAnnotations(defoldVersion)
+            if (!await annotations.syncDefoldAnnotations(defoldVersion)) {
+                return false
+            }
         }
 
         if (selectedItems.includes(dependenciesItem)) {
             progress.report({ message: 'Dependencies...' })
             await annotations.syncDependenciesAnnotations()
         }
-    })
 
-    return true
+        return true
+    })
 }
 
 export async function offerApplySettings(extensionIds: string[]): Promise<boolean> {

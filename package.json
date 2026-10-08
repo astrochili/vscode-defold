@@ -182,7 +182,8 @@
               "astrochili/defold-annotations",
               "mikatuo/defold-lua-annotations"
             ],
-            "description": "Which Github repository to use to fetch Defold API annotations"
+            "description": "Which GitHub repository to use to fetch Defold API annotations for Defold versions below 1.13.2",
+            "deprecationMessage": "Deprecated starting from Defold 1.13.2: annotations are copied from the installed Defold Editor."
           },
           "defoldKit.annotations.autosync.defold": {
             "order": 4,
