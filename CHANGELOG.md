@@ -4,6 +4,20 @@ All notable changes to the Defold Kit extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.2.2] - 2026-10-08
+
+### Changed
+
+- Defold 1.13.2 and newer use Lua annotations from the installed editor archive. Older versions continue to use the selected repository.
+
+### Deprecated
+
+- Deprecated the `defoldKit.annotations.repository` setting starting from Defold 1.13.2.
+
+### Fixed
+
+- Fixed reporting successful synchronization after Defold API annotations fail to sync.
+
 ## [2.2.1] - 2026-08-14
 
 ### Fixed
